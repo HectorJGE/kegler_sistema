@@ -1,0 +1,99 @@
+[
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:22:41.594Z",
+      "name": "Ecógrafo 1",
+      "tag_color": "#5B88FF",
+      "sector": 3
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:22:35.700Z",
+      "name": "Ecógrafo 2",
+      "tag_color": "#FFF00E",
+      "sector": 3
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:22:28.810Z",
+      "name": "Resonador magnético 1",
+      "tag_color": "#A407FF",
+      "sector": 4
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:22:19.426Z",
+      "name": "Resonador magnético 2",
+      "tag_color": "#FF7BFE",
+      "sector": 4
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:22:09.850Z",
+      "name": "Tomógrafo 1",
+      "tag_color": "#FF0000",
+      "sector": 1
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:21:46.025Z",
+      "name": "Tomógrafo 2",
+      "tag_color": "#41FF67",
+      "sector": 1
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:21:25.869Z",
+      "name": "Radiografo 1",
+      "tag_color": "#FFD1E0",
+      "sector": 2
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:18:12.971Z",
+      "updated_at": "2021-04-14T19:18:12.971Z",
+      "name": "Mamógrafo 1",
+      "tag_color": "#4AFFD3",
+      "sector": 5
+    }
+  }
+]
+

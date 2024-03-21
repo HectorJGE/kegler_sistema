@@ -1,0 +1,201 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 17:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: reports/forms.py:14 reports/forms.py:53 reports/forms.py:103
+#: reports/forms.py:141 reports/forms.py:190 reports/forms.py:238
+msgid "Web"
+msgstr "Web"
+
+#: reports/forms.py:15 reports/forms.py:54 reports/forms.py:104
+#: reports/forms.py:142 reports/forms.py:191 reports/forms.py:239
+msgid "Excel"
+msgstr "Excel"
+
+#: reports/forms.py:16 reports/forms.py:105 reports/forms.py:143
+#: reports/forms.py:192
+msgid "Pdf"
+msgstr "Pdf"
+
+#: reports/forms.py:20 reports/forms.py:65 reports/forms.py:108
+#: reports/forms.py:146 reports/forms.py:195 reports/forms.py:243
+msgid "Date Time Start Filter"
+msgstr "Filtro de Fecha y Hora de Inicio"
+
+#: reports/forms.py:24 reports/forms.py:69 reports/forms.py:112
+#: reports/forms.py:150 reports/forms.py:199 reports/forms.py:247
+msgid "Date Time End Filter"
+msgstr "Filtro de Fecha y Hora de Finalización"
+
+#: reports/forms.py:29 reports/forms.py:297 reports/views.py:93
+#: reports/views.py:1709
+msgid "Payment Method"
+msgstr "Método de PAgo"
+
+#: reports/forms.py:33 reports/forms.py:213 reports/forms.py:281
+msgid "Medical Study Type"
+msgstr "Empresa"
+
+#: reports/forms.py:38 reports/forms.py:88 reports/forms.py:126
+#: reports/forms.py:164 reports/forms.py:218 reports/forms.py:301
+msgid "Report Type"
+msgstr "Tipo de Reporte"
+
+#: reports/forms.py:55
+msgid "Abaco"
+msgstr "Abaco"
+
+#: reports/forms.py:74
+msgid "Company Name"
+msgstr "Empresa"
+
+#: reports/forms.py:79
+msgid "Cliente"
+msgstr "cliente"
+
+#: reports/forms.py:83
+msgid "Payment Term"
+msgstr "Plazo de pago"
+
+#: reports/forms.py:116 reports/forms.py:286 reports/views.py:392
+msgid "Reporting Doctor"
+msgstr "Doctor Informante"
+
+#: reports/forms.py:121 reports/forms.py:159 reports/forms.py:208
+#: reports/forms.py:276 reports/views.py:399 reports/views.py:647
+#: reports/views.py:934
+msgid "Sector"
+msgstr "Sector"
+
+#: reports/forms.py:154 reports/forms.py:291 reports/views.py:640
+msgid "Treating Doctor"
+msgstr "Doctor Tratante"
+
+#: reports/forms.py:184
+msgid "Insurance Entry Sheets To pay without Invoices"
+msgstr "Fichas a pagar a seguros, sin facturadas de seguro"
+
+#: reports/forms.py:185
+msgid "Insurance Entry Sheets To pay with Invoices"
+msgstr "Fichas a pagar a seguros, con facturas de seguros"
+
+#: reports/forms.py:186
+msgid "Al Insurance Entry Sheets To pay"
+msgstr "Todas las Fichas a pagar a seguros"
+
+#: reports/forms.py:203 reports/forms.py:256 reports/views.py:927
+msgid "Insurance Plan"
+msgstr "Seguro"
+
+#: reports/forms.py:223 reports/views.py:948
+msgid "Invoice Filter"
+msgstr "Filtro de Fichas con Facturas"
+
+#: reports/forms.py:252
+msgid "Patient"
+msgstr "Paciente"
+
+#: reports/forms.py:261
+msgid "Medical Study"
+msgstr "Estudio médico"
+
+#: reports/forms.py:266
+msgid "Medical Equipment"
+msgstr "Equipo Médico"
+
+#: reports/forms.py:271
+msgid "Doctor"
+msgstr "Doctor"
+
+#: reports/models.py:17
+msgid "Report Request"
+msgstr "Solicitud de Reporte"
+
+#: reports/models.py:18
+msgid "Reports Requests"
+msgstr "Solicitudes de reportes"
+
+#: reports/models.py:31
+msgid "Report Definition"
+msgstr "Definición de Informe"
+
+#: reports/models.py:32
+msgid "Reports Definitions"
+msgstr "Definiciones de Reportes"
+
+#: reports/utils.py:269
+msgid "menu.albums"
+msgstr ""
+
+#: reports/utils.py:271
+msgid "menu.report"
+msgstr ""
+
+#: reports/views.py:100 reports/views.py:941 reports/views.py:1716
+msgid "Study Type"
+msgstr "Empresa"
+
+#: reports/views.py:106 reports/views.py:405 reports/views.py:653
+#: reports/views.py:1722
+msgid "User"
+msgstr "Usuario"
+
+#: reports/views.py:223 reports/views.py:293
+msgid "cash_report"
+msgstr "reporte_de_caja"
+
+#: reports/views.py:294
+msgid "Cash Report"
+msgstr "Reporte de Caja"
+
+#: reports/views.py:520 reports/views.py:546
+msgid "reporting_doctor_report"
+msgstr "reporte_doctores_informantes"
+
+#: reports/views.py:547
+msgid "Reporting Doctors Report"
+msgstr "Reporte de Médicos Informantes"
+
+#: reports/views.py:768 reports/views.py:794
+msgid "treating_doctor_report"
+msgstr "reporte_doctores_tratantes"
+
+#: reports/views.py:795
+msgid "Treating Doctors Report"
+msgstr "Reporte de Doctores Tratantes"
+
+#: reports/views.py:1063 reports/views.py:1109
+msgid "insurances_agreements_report"
+msgstr "reporte_cobro_a_seguros"
+
+#: reports/views.py:1110
+msgid "Insurances Agreements Report"
+msgstr "Reporte de Cobro a Seguros"
+
+#: reports/views.py:1427
+msgid "consultation_sheets_total_report"
+msgstr "reporte_total_consolidado"
+
+#: reports/views.py:1840
+msgid "invoice_report"
+msgstr "reporte_de_caja"
+
+#: reports/views.py:1905
+msgid "abaco_report"
+msgstr "reporte_abaco"

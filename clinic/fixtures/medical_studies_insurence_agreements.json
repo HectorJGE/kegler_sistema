@@ -1,0 +1,218 @@
+[
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:06:29.869Z",
+      "updated_at": "2021-03-17T16:06:29.869Z",
+      "medical_study": 1,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:06:43.044Z",
+      "updated_at": "2021-03-17T16:06:43.044Z",
+      "medical_study": 2,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:07:05.167Z",
+      "updated_at": "2021-03-17T16:07:05.167Z",
+      "medical_study": 3,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:12:42.451Z",
+      "updated_at": "2021-03-17T16:12:42.452Z",
+      "medical_study": 4,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:13:19.378Z",
+      "updated_at": "2021-03-17T16:13:19.378Z",
+      "medical_study": 5,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:13:46.563Z",
+      "updated_at": "2021-03-17T16:13:46.563Z",
+      "medical_study": 6,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:14:33.757Z",
+      "updated_at": "2021-03-17T23:04:14.354Z",
+      "medical_study": 1,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:15:04.924Z",
+      "updated_at": "2021-03-17T16:15:04.924Z",
+      "medical_study": 2,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:08:58.760Z",
+      "updated_at": "2021-03-17T23:08:58.760Z",
+      "medical_study": 3,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:13:10.475Z",
+      "updated_at": "2021-03-17T23:13:10.475Z",
+      "medical_study": 4,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:13:22.529Z",
+      "updated_at": "2021-03-17T23:13:22.529Z",
+      "medical_study": 5,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:14:42.033Z",
+      "updated_at": "2021-03-17T23:14:42.033Z",
+      "medical_study": 6,
+      "insurance_plan": 3,
+      "coverage_percentage": 50.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:02.313Z",
+      "updated_at": "2021-03-17T23:15:02.313Z",
+      "medical_study": 1,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:17.357Z",
+      "updated_at": "2021-03-17T23:15:17.357Z",
+      "medical_study": 2,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:27.439Z",
+      "updated_at": "2021-03-17T23:15:27.439Z",
+      "medical_study": 3,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:38.727Z",
+      "updated_at": "2021-03-17T23:15:38.727Z",
+      "medical_study": 4,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:47.369Z",
+      "updated_at": "2021-03-17T23:15:47.369Z",
+      "medical_study": 5,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:03.954Z",
+      "updated_at": "2021-03-17T23:16:03.954Z",
+      "medical_study": 6,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  }
+]

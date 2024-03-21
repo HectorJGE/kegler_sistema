@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SISTEMA IRIBAS</title>
+
+  <!-- Custom fonts for this template-->
+
+
+  <!-- Custom styles for this template-->
+
+  {% block extra_css %}
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            margin: 10mm auto;
+            background: white;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 99%;
+            }
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+        .page:last-child {
+            page-break-after: auto;
+        }
+    </style>
+  {% endblock %}
+
+</head>
+<body cz-shortcut-listen="true" style="
+    height: 100vh;
+">
+
+<!-- Wrapper -->
+<div id="wrapper" class="page" style="
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+">
+  <img width="100%" src="{{ consultation_sheet_document.file.url }}">
+</div>
+<!-- End Wrapper -->
+
+</body>
+</html>
+<script type="text/javascript">
+  window.print();
+</script>

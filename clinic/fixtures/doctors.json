@@ -1,0 +1,312 @@
+[
+  {
+    "model": "clinic.doctor",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:20:53.085Z",
+      "name": "Enzo",
+      "last_name": "Caballero",
+      "birth_date": "1986-03-11",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "enzo.caballero@prueba.com.py",
+      "document_number": "5201390",
+      "tax_identification_number": "5201390-4",
+      "address": null,
+      "city": 1,
+      "phone_number": null,
+      "tag_color": "#0536FF",
+      "doctor_specializations": [
+        6
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:20:45.641Z",
+      "name": "Fabrizio",
+      "last_name": "Ruiz",
+      "birth_date": "1990-08-14",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "fabrizzio.ruiz@prueba.com.py",
+      "document_number": "4983440",
+      "tax_identification_number": "4983440-3",
+      "address": null,
+      "city": 1,
+      "phone_number": null,
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        3
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:20:37.752Z",
+      "name": "Cinthya",
+      "last_name": "Alburquerque",
+      "birth_date": "1985-02-10",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "cinthy.albuquerque@prueba.com.py",
+      "document_number": "3530100",
+      "tax_identification_number": "3530100-1",
+      "address": null,
+      "city": 1,
+      "phone_number": null,
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        5
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:20:28.268Z",
+      "name": "Andrea",
+      "last_name": "Ramirez",
+      "birth_date": "1993-10-22",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "andrea.ramirez@prueba.com.py",
+      "document_number": "3526683",
+      "tax_identification_number": "3526683-2",
+      "address": null,
+      "city": 1,
+      "phone_number": null,
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        10
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:19:52.242Z",
+      "name": "María Inés",
+      "last_name": "Sanabria",
+      "birth_date": "1980-05-04",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "maria.sanabria@prueba.com.py",
+      "document_number": "4989284",
+      "tax_identification_number": "4989284-4",
+      "address": null,
+      "city": 1,
+      "phone_number": null,
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        4
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:19:27.815Z",
+      "name": "Viviana",
+      "last_name": "Chamorro",
+      "birth_date": "1983-08-14",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "vivianachamorro@prueba.com.py",
+      "document_number": "2039415",
+      "tax_identification_number": null,
+      "address": "Augusto Salazar 2040",
+      "city": 1,
+      "phone_number": "0992438716",
+      "tag_color": "#FF670C",
+      "doctor_specializations": [
+        6
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:19:14.970Z",
+      "name": "Matías",
+      "last_name": "Benítez",
+      "birth_date": "1990-06-28",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "matiasbenitez@prueba.com.py",
+      "document_number": "6215488",
+      "tax_identification_number": null,
+      "address": "Sgto. Otaño 765",
+      "city": 1,
+      "phone_number": "0984671354",
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        7
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:19:04.528Z",
+      "name": "Nelson Isaias",
+      "last_name": "Duarte Valvez",
+      "birth_date": "1996-01-07",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "nelsonduarte@prueba.com.py",
+      "document_number": "5440128",
+      "tax_identification_number": null,
+      "address": "Ing. Martin Caballero 1354 esq. Sacramento",
+      "city": 1,
+      "phone_number": "0992448752",
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        8
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:18:52.775Z",
+      "name": "Oscar",
+      "last_name": "Benitez Amarilla",
+      "birth_date": "1998-02-14",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "oscarbenitez@prueba.com.py",
+      "document_number": "4183189",
+      "tax_identification_number": "4183189-4",
+      "address": "Avda. Stma. Trinidad 2073",
+      "city": 1,
+      "phone_number": "0996367816",
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        9
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  },
+  {
+    "model": "clinic.doctor",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:18:41.072Z",
+      "name": "Rubén",
+      "last_name": "Fleitas",
+      "birth_date": "1979-07-09",
+      "sex": 1,
+      "weight": 75.0,
+      "email": "rubenfleitas@prueba.com.py",
+      "document_number": "2508666",
+      "tax_identification_number": null,
+      "address": "Kuarahy 948",
+      "city": 1,
+      "phone_number": "0971559367",
+      "tag_color": "#FF0000",
+      "doctor_specializations": [
+        10
+      ],
+      "sectors": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    }
+  }
+]

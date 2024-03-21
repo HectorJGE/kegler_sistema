@@ -1,0 +1,401 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        {% if not object %}
+            <a href="{% url 'consultation.doctors_list_to_inform' %}">Estudios a Informar</a>
+        {% else %}
+            <a href="{% url 'consultation_report.list' %}">Informes de Estudios</a>
+        {% endif %}
+    </h1>
+
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            {% if not object %}
+                <h6 class="m-0 font-weight-bold text-primary">Crear Informe</h6>
+            {% else %}
+                <h6 class="m-0 font-weight-bold text-primary">Actualizar Informe ID: {{ object.id }} </h6>
+            {% endif %}
+
+        </div>
+        <div class="card-body">
+            <form method="post" id="consultation_report_form" enctype="multipart/form-data" id="consultation_report_form"
+                    {% if not object %}
+                  action="{% url 'consultation_report.create' consultation.id %}"
+                    {% else %}
+                  action="{% url 'consultation_report.update' consultation_report.id %}"
+                    {% endif %}
+                  autocomplete="off">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form.report_date|as_crispy_field }}
+                {{ form.doctor|as_crispy_field }}
+                {{ form.patient|as_crispy_field }}
+                {{ form.patient_autocomplete|as_crispy_field }}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Sexo</label>
+                        <div>
+                            <strong>{{ patient.get_sex_display }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Edad</label>
+                        <div>
+                            <strong>{{ patient.calculate_age }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Peso</label>
+                        <div>
+                            <strong>{{ patient.weight }} Kgs</strong>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Estudio</th>
+                            <th>Notas</th>
+                            <th>Técnico</th>
+                            <th>Documentos</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for study in studies %}
+                            <tr>
+                                <td>
+                                    {{ study.medical_study }} <br>
+                                    {% for study_file in study.consultation_files.all %}
+                                        <a href="{{ study_file.file.url }}" target="_blank">
+                                            Descargar archivo de estudio({{ study_file.file_name }}) </a><br>
+                                    {% endfor %}
+                                    <input type="hidden" name="consultations" value="{{ study.id }}">
+                                </td>
+                                <td>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <p>
+                                                {{ study.notes|safe }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {{ study.technician|default_if_none:"" }}
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        {% for document in study.consultation_sheet.consultation_sheet_documents.all %}
+                                            {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png' %}
+                                                <div class="col-md-4">
+                                                    <label>{{ document.document_type }}</label>
+                                                    <a target="_blank" data-fancybox="gallery"
+                                                       href="{{ document.file.url }}">
+                                                        <img height="200px" width="200px"
+                                                             src="{{ document.file.url }}"
+                                                        >
+                                                    </a>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-md-6">
+                                                    <a target="_blank"
+                                                       href="{{ document.file.url }}">{{ document.file }}</a>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">Sin Estudios a Realizar seleccionados</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot></tfoot>
+                    </table>
+                </div>
+                {{ form.report_title|as_crispy_field }}
+                {{ form.template|as_crispy_field }}
+                {{ form.add_digital_signature|as_crispy_field }}
+                <a href="{% url 'consultation_report.list_by_patient' patient.id %}" target="_blank">Ver Otros Informes
+                    del Paciente</a><br>
+                {{ form.report }}
+
+                <br><br>
+                <!-- Audio -->
+                {% if not object %}
+                    <audio id="myAudio" class="video-js vjs-default-skin"></audio>
+                {% else %}
+                    {% if consultation_report.audio_report %}
+                        <audio controls>
+                            <source src="{{ consultation_report.audio_report.url }}">
+                        </audio>
+                    {% else %}
+                        <h5>Sin audio</h5>
+                    {% endif %}
+                {% endif %}
+                <br><br>
+                {% if object %}
+                    {{ form.finished|as_crispy_field }}
+                {% endif %}
+                <!-- for ajax submit audio
+                <button class="audio-btn strt disable-btn" id="submit" disabled>Guardar Audio Gravado</button>
+                <span class="upload-comp">Guardado Completado</span>
+                -->
+
+                <br><br>
+                {% if object %}
+                    <input type="submit" class="btn-sm btn-primary shadow-sm" value="Guardar">
+                {% else %}
+                    <input type="button" class="btn-sm btn-primary shadow-sm" id="btn_create_report" value="Guardar">
+                {% endif %}
+                <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation.doctors_list_to_inform' %}">
+                    Cancelar
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+    <!-- Audio recorder styles -->
+    <link href="{% static 'build/vendor/videojs/video-js.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/videojs-wavesurfer/css/videojs.wavesurfer.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/videojs-record/css/videojs.record.min.css' %}" rel="stylesheet">
+
+    <style>
+        /* change player background color */
+        #myAudio {
+            background-color: #9FD6BA;
+        }
+    </style>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+    <!-- Audio recorder files -->
+    <script src="{% static 'build/vendor/videojs/video.min.js' %}"></script>
+    <script src="{% static 'build/vendor/recordrtc/RecordRTC.min.js' %}"></script>
+    <script src="{% static 'build/vendor/webrtcadapter/adapter.js' %}"></script>
+    <script src="{% static 'build/vendor/wavesurfer/wavesurfer.min.js' %}"></script>
+    <script src="{% static 'build/vendor/wavesurfer/plugin/wavesurfer.microphone.min.js' %}"></script>
+    <script src="{% static 'build/vendor/videojs-wavesurfer/videojs.wavesurfer.min.js' %}"></script>
+    <script src="{% static 'build/vendor/videojs-record/videojs.record.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+    <script src="{% static 'base/js/utils.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            let get_template_detail_url = "{% url 'consultation.get_doctor_report_template_detail_json' 9999 %}";
+            let ajax_submit_url = "";
+            {% if not object %}
+                ajax_submit_url = "{% url 'consultation_report.create' consultation.id %}";
+            {% else %}
+                ajax_submit_url = "{% url 'consultation_report.update' consultation_report.id %}";
+            {% endif %}
+            $('#id_report_date').mask("00/00/0000 00:00")
+            $('#id_report_date').click(function () {
+                console.log('click en fecha de consulta');
+                $(this).select();
+            });
+
+            /* Datetime picker */
+            jQuery.datetimepicker.setLocale('es');
+
+            /* Se inicializa los select con chosen */
+            $('select').chosen();
+
+            /* Fancy Box Gallery */
+            $('[data-fancybox="gallery"]').fancybox({
+                // Options will go here
+            });
+
+            $('.to-upper-case').keyup(function () {
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            /* Si el campo de fecha no está vacío */
+            if ($("#id_report_date").val() !== '') {
+                var fecha = $("#id_report_date").val();
+                var fecha_date = moment(fecha, 'DD/MM/YYYY HH:mm').toDate();
+
+                /* Datetimepicker */
+                var datetimepicker_consultation_date = $("#id_report_date").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: true,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y H:i',
+                    inline: false,
+                    defaultDate: fecha_date
+                });
+            } else {
+                var datetimepicker_consultation_date = $('#id_report_date').datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: true,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y H:i',
+                    inline: false,
+                });
+            }
+
+            $('#consultation_report_form').submit(function () {
+                $('select').attr('disabled', false);
+                $('#id_report_date').attr('disabled', false);
+            });
+
+            $('#id_template').change(function () {
+
+                if ($('#id_template').val() === '') {
+                    console.log('No template selected');
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: get_template_detail_url.replace('9999', $('#id_template').val()),
+                        success: function (data, textStatus, jqXHR) {
+                            CKEDITOR.instances['id_report'].setData(data.template_text);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            /* Alerta de Error */
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Error al tratar de obtener la plantilla seleccionada.',
+                                footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                            });
+
+                        }
+                    });
+                }
+            });
+
+            /* eslint-disable */
+            let options = {
+                controls: true,
+                bigPlayButton: false,
+                width: 600,
+                height: 300,
+                fluid: false,
+                plugins: {
+                    wavesurfer: {
+                        backend: 'WebAudio',
+                        waveColor: '#36393b',
+                        progressColor: 'black',
+                        displayMilliseconds: true,
+                        debug: true,
+                        cursorWidth: 1,
+                        hideScrollbar: true,
+                        plugins: [
+                            // enable microphone plugin
+                            WaveSurfer.microphone.create({
+                                bufferSize: 4096,
+                                numberOfInputChannels: 1,
+                                numberOfOutputChannels: 1,
+                                constraints: {
+                                    video: false,
+                                    audio: true
+                                }
+                            })
+                        ]
+                    },
+                    record: {
+                        audio: true,
+                        video: false,
+                        maxLength: 300,
+                        displayMilliseconds: true,
+                        debug: true
+                    }
+                }
+            };
+
+            {% if not object %}
+                // create player
+                var player = videojs('myAudio', options, function () {
+                    // print version information at startup
+                    var msg = 'Using video.js ' + videojs.VERSION +
+                        ' with videojs-record ' + videojs.getPluginVersion('record') +
+                        ', videojs-wavesurfer ' + videojs.getPluginVersion('wavesurfer') +
+                        ', wavesurfer.js ' + WaveSurfer.VERSION + ' and recordrtc ' +
+                        RecordRTC.version;
+                    videojs.log(msg);
+                });
+
+                // error handling
+                player.on('deviceError', function () {
+                    console.log('device error:', player.deviceErrorCode);
+                });
+
+                player.on('error', function (element, error) {
+                    console.error(error);
+                });
+
+                // user clicked the record button and started recording
+                player.on('startRecord', function () {
+                    console.log('started recording!');
+                });
+
+                // user completed recording and stream is available
+                player.on('finishRecord', function () {
+                    // the blob object contains the recorded data that
+                    // can be downloaded by the user, stored on server etc.
+                    console.log('finished recording: ', player.recordedData);
+                });
+            {% endif %}
+
+
+            $('#btn_create_report').on('click', function(){
+                let sound_file = new File([player.recordedData], 'audio.webm');
+                formAjaxSubmitForSoundFile('#consultation_report_form', sound_file);
+                $('#consultation_report_form').submit();
+            });
+
+
+        });
+
+
+    </script>
+
+{% endblock %}

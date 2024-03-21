@@ -1,0 +1,508 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800" xmlns="http://www.w3.org/1999/html">
+    <a href="{% url 'consultation_entry_sheet.list' %}">Fichas de Entrada</a>
+  </h1>
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Crear Ficha de Entrada</h6>
+    </div>
+    <div class="card-body">
+      <form method="post" id="create_consultation_entry_sheet_form" enctype="multipart/form-data" action="{% url 'consultation_entry_sheet.create' %}" autocomplete="off">
+        {% csrf_token %}
+        {{ form.consultation_entry_sheet_date|as_crispy_field }}
+        {{ form.patient_autocomplete|as_crispy_field }}
+        {{ form.patient|as_crispy_field }}
+
+        <!-- new patient -->
+        {{ form.new_patient|as_crispy_field }}
+        {{ form.patient_name|as_crispy_field }}
+        {{ form.patient_last_name|as_crispy_field }}
+        {{ form.patient_sex|as_crispy_field }}
+        {{ form.patient_birth_date|as_crispy_field }}
+        {{ form.patient_document_number|as_crispy_field }}
+
+        <!-- Invoicing -->
+        {{ form.patient_phone_number|as_crispy_field }}
+        {{ form.patient_email|as_crispy_field }}
+        {{ form.patient_tax_identification_number|as_crispy_field }}
+        {{ form.patient_tax_identification_name|as_crispy_field }}
+        {{ form.patient_address|as_crispy_field }}
+        {{ form.patient_is_taxpayer|as_crispy_field }}
+
+        {{ form.patient_city|as_crispy_field }}
+        {{ form.patient_weight|as_crispy_field }}
+        {{ form.patient_insurance_plan|as_crispy_field }}
+        {{  form.currency|as_crispy_field }}
+
+        <!-- Estudios Asignados -->
+        <h4 style="text-align: center">Estudios Asignados a esta Hoja de Entrada</h4>
+
+        <table class="table table-bordered table-hover" id="id_table_appointments" style="text-align: center">
+          <thead>
+          <tr>
+            <th>Asignar a Ficha de Entrada</th>
+            <th>Fecha/Hora</th>
+            <th>Estudio</th>
+            <th>Equipo</th>
+            <th>Doctor</th>
+            <th>Turno</th>
+            <th>Ficha de Entrada</th>
+            <th>Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for consultation_sheet in consultation_sheets %}
+            <tr>
+              <td>
+                <input type="checkbox" name="consultation_sheets" value="{{ consultation_sheet.id }}" checked>
+              </td>
+              <td>{{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}</td>
+              <td>{{ consultation_sheet.medical_study }}</td>
+              <td>{{ consultation_sheet.medical_equipment|default_if_none:"-----" }}</td>
+              <td>{{ consultation_sheet.doctor|default_if_none:"-----" }}</td>
+              <td>
+                {% if consultation_sheet.appointment %}
+                  <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                    Ver Turno ID: {{ consultation_sheet.appointment.id }}
+                  </a>
+                {% else %}
+                  ---
+                {% endif %}
+              </td>
+              <td>{{ consultation_sheet.consultation_entry_sheet|default_if_none:"-----" }}</td>
+              <td><b>{{ consultation_sheet.consultation_state }}</b></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="8">Sin registros</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <br>
+
+        <!-- Otros Estudios del paciente del día -->
+        <h4 style="text-align: center">Otros Estudios del paciente en el día</h4>
+
+        <table class="table table-bordered table-hover" id="id_table_appointments" style="text-align: center">
+          <thead>
+          <tr>
+            <th>Asignar a Ficha de Entrada</th>
+            <th>Fecha/Hora</th>
+            <th>Estudio</th>
+            <th>Equipo</th>
+            <th>Doctor</th>
+            <th>Turno</th>
+            <th>Ficha de Entrada</th>
+            <th>Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for consultation_sheet in patient_consultation_sheets_of_the_day %}
+            <tr>
+              <td>
+                <input type="checkbox" name="consultation_sheets" value="{{ consultation_sheet.id }}">
+              </td>
+              <td>{{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}</td>
+              <td>{{ consultation_sheet.medical_study }}</td>
+              <td>{{ consultation_sheet.medical_equipment|default_if_none:"-----" }}</td>
+              <td>{{ consultation_sheet.doctor|default_if_none:"-----" }}</td>
+              <td>
+                {% if consultation_sheet.appointment %}
+                  <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                    Ver Turno ID: {{ consultation_sheet.appointment.id }}
+                  </a>
+                {% else %}
+                  ---
+                {% endif %}
+              </td>
+              <td>{{ consultation_sheet.consultation_entry_sheet|default_if_none:"-----" }}</td>
+              <td><b>{{ consultation_sheet.consultation_state }}</b></td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="8">Sin registros</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <br>
+
+        <!-- Turnos del paciente en el día -->
+        <h4 style="text-align: center">Turnos(No Fichados) del paciente en el día</h4>
+
+        <table class="table table-bordered table-hover" id="id_table_appointments" style="text-align: center">
+          <thead>
+          <tr>
+            <th>Crear Ficha de Estudio</th>
+            <th>Fecha Hora Inicio</th>
+            <th>Fecha Hora Fin</th>
+            <th>Paciente</th>
+            <th>Estudio</th>
+            <th>Equipo</th>
+            <th>Doctor</th>
+            <th>Doctor Tratante</th>
+            <th>Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for appointment in patient_appointments_of_the_day %}
+            <tr>
+              <td>
+                <input type="button" id="{{ appointment.id }}" data-url="{% url 'consultation_sheet.create_from_appointment' appointment.id %}" class="btn btn-sm btn-primary shadow-sm popup-create-cs"
+                       value="Crear Ficha"/>
+              </td>
+              <td>{{ appointment.appointment_date_start|date:"l d/m/Y H:i" }}</td>
+              <td>{{ appointment.appointment_date_end|date:"l d/m/Y H:i" }}</td>
+              <td>{{ appointment.patient }}</td>
+              <td>{{ appointment.medical_study }}</td>
+              <td>{{ appointment.medical_equipment|default_if_none:"-----" }}</td>
+              <td>{{ appointment.doctor|default_if_none:"-----" }}</td>
+              <td>{{ appointment.treating_doctor|default_if_none:"-----" }}</td>
+              <td>
+                {{ appointment.appointment_state }}
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="9">Sin registros</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+
+        <input type="submit" class="btn btn-sm btn-primary shadow-sm" id="submit_button" value="Guardar">
+
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_entry_sheet.list' %}">Cancelar</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+  <script type="text/javascript">
+      var get_patient_json_url = "{% url 'patient.detail_json' 9999 %}";
+      var get_patient_autocomplete_json_url = "{% url 'patient.detail_autocomplete_json' %}";
+      $(function () {
+          /*
+          $(".popup-create-cs").on('click', function (){
+              let url = $(this).data('url');
+              window.open(url);
+          });
+          */
+
+          $('#sidebarToggle').trigger('click');
+
+          $("#id_consultation_entry_sheet_date").mask("00/00/0000 00:00");
+          $("#id_consultation_entry_sheet_date").click(function () {
+              $(this).select();
+          });
+
+          /* Datetime picker */
+          jQuery.datetimepicker.setLocale('es');
+
+          /* Se agrega chosen a los selects */
+          $('.select.form-control').chosen(
+              {
+                  no_results_text: "No se encontraron resultados para",
+              }
+          );
+
+          $('.to-upper-case').keyup(function (){
+              $(this).val( $(this).val().toUpperCase() );
+          });
+
+
+          if ($("#id_consultation_entry_sheet_date").val() !== '') {
+              var str_fecha = $("#id_consultation_entry_sheet_date").val();
+              str_fecha = str_fecha.substring(0, 16);
+              $("#id_consultation_entry_sheet_date").val(str_fecha);
+              var fecha = $("#id_consultation_entry_sheet_date").val();
+
+              var fecha_date = moment(fecha, 'DD/MM/YYYY HH:mm').toDate();
+
+              /* Datetimepicker */
+              var datetimepicker = $("#id_consultation_entry_sheet_date").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: fecha_date
+              });
+
+              /* Si el campo de fecha está vacío */
+          } else {
+              /* Datetimepicker */
+              var datetimepicker = $("#id_consultation_entry_sheet_date").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 30,
+                  defaultDate: new Date()
+              });
+          }
+
+          $('#id_patient').change(function () {
+              if ($('#id_patient').val() === ''){
+                  console.log('no patient selected');
+                  $('#div_id_new_patient').show();
+              } else {
+                  $.ajax({
+                      type: 'GET',
+                      url: get_patient_json_url.replace('9999', $('#id_patient').val() ),
+                      success: function (data, textStatus, jqXHR) {
+                          $('#div_id_new_patient').hide();
+                          get_patient_json_url = get_patient_json_url.replace($('#id_patient').val(), '9999');
+                          $('#id_patient_insurance_plan').val(data.fields.insurance_plan);
+                          $('#id_patient_insurance_plan').trigger("chosen:updated");
+                          $('#id_patient_name').val(data.fields.name);
+                          $('#id_patient_last_name').val(data.fields.last_name);
+                          $('#id_patient_sex').val(data.fields.sex);
+                          $('#id_patient_document_number').val(data.fields.document_number);
+
+                          if(data.fields.tax_identification_number === null || data.fields.document_number === ''){
+                              $('#id_patient_tax_identification_number').val(data.fields.document_number);
+                          } else {
+                              $('#id_patient_tax_identification_number').val(data.fields.tax_identification_number);
+                          }
+
+
+                          if (data.fields.tax_identification_name === null){
+                              $('#id_patient_tax_identification_name').val(
+                                  data.fields.name + " " + data.fields.last_name
+                              );
+                          } else {
+                              $('#id_patient_tax_identification_name').val(data.fields.tax_identification_name);
+                          }
+
+                          $('#id_patient_phone_number').val(data.fields.phone_number);
+                          if(data.fields.email === null){
+                              $('#id_patient_email').val('Completar Email');
+                          } else {
+                              $('#id_patient_email').val(data.fields.email);
+                          }
+
+
+                          $('#id_patient_birth_date').val(data.fields.birth_date);
+                          $('#id_patient_weight').val(data.fields.weight);
+                          $('#id_patient_city').val(data.fields.city);
+                          if(data.fields.address === null || data.fields.address === ''){
+                              $('#id_patient_address').val('Completar Dirección');
+                          } else {
+                              $('#id_patient_address').val(data.fields.address);
+                          }
+
+
+                          $('#create_consultation_entry_sheet_form').submit();
+
+                      },
+                      error: function (xhr, ajaxOptions, thrownError) {
+                          /* Alerta de Error */
+                          Swal.fire({
+                              icon: 'error',
+                              title: 'Error...',
+                              text: 'Error al tratar de obtener los datos del paciente.',
+                              footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                          });
+                          get_patient_json_url = get_patient_json_url.replace($('#id_patient').val(), '9999');
+                      }
+                  });
+
+              }
+          });
+
+
+          /* Nuevos Pacientes */
+
+          $("#id_patient_birth_date").mask("00/00/0000");
+
+          $("#id_patient_birth_date").click(function (){
+              $(this).select();
+          });
+
+          /* Se esconden los inputs de crear pacientes */
+          $("#div_id_patient_name").hide();
+          $("#div_id_patient_last_name").hide();
+          $("#div_id_patient_sex").hide();
+          $("#div_id_patient_weight").hide();
+          $("#div_id_patient_document_number").hide();
+          /* invoicing */
+          $("#div_id_patient_tax_identification_number").hide();
+          $("#div_id_patient_tax_identification_name").hide();
+          $("#div_id_patient_phone_number").hide();
+          $("#div_id_patient_email").hide();
+          $("#div_id_patient_address").hide();
+          $("#div_id_patient_is_taxpayer").hide();
+
+          $("#div_id_patient_birth_date").hide();
+          $("#div_id_patient_insurance_plan").hide();
+
+          $("#div_id_patient_city").hide();
+
+          if ($('#id_patient').val() !== ''){
+              $('#div_id_new_patient').hide();
+          } else {
+              $('#div_id_new_patient').show();
+          }
+
+          /* Al checkear Paciente nuevo */
+          $('#id_new_patient').on('click', function (){
+              console.log('new patient');
+              if ( $('#id_new_patient').prop('checked') === false ){
+                  $("#div_id_patient_autocomplete").show();
+                  $("#div_id_patient_name").hide();
+                  $("#div_id_patient_last_name").hide();
+                  $("#div_id_patient_sex").hide();
+                  $("#div_id_patient_document_number").hide();
+                  /* invoicing */
+                  $("#div_id_patient_tax_identification_number").hide();
+                  $("#div_id_patient_tax_identification_name").hide();
+                  $("#div_id_patient_phone_number").hide();
+                  $("#div_id_patient_email").hide();
+                  $("#div_id_patient_address").hide();
+                  $("#div_id_patient_is_taxpayer").hide();
+
+                  $("#div_id_patient_birth_date").hide();
+                  $("#div_id_patient_insurance_plan").hide();
+                  $("#div_id_patient_city").hide();
+                  $("#div_id_patient_weight").hide();
+
+              } else {
+                  $("#div_id_patient_autocomplete").hide();
+                  $("#div_id_patient_name").show();
+                  $("#div_id_patient_last_name").show();
+                  $("#div_id_patient_sex").show();
+                  $("#div_id_patient_document_number").show();
+                  /* invoicing */
+                  $("#div_id_patient_tax_identification_number").show();
+                  $("#div_id_patient_tax_identification_name").show();
+                  $("#div_id_patient_phone_number").show();
+                  $("#div_id_patient_email").show();
+                  $("#div_id_patient_address").show();
+                  $("#div_id_patient_is_taxpayer").show();
+
+                  $("#div_id_patient_birth_date").show();
+                  $("#div_id_patient_insurance_plan").show();
+
+                  $("#div_id_patient_city").show();
+                  $("#div_id_patient_weight").show();
+
+              }
+          });
+
+
+          /* Si el campo de fecha no está vacío */
+          if ($("#id_patient_birth_date").val() !== '') {
+              var fecha = $("#id_patient_birth_date").val();
+              var fecha_date = moment(fecha, 'DD/MM/YYYY HH:mm').toDate();
+
+              /* Datetimepicker */
+              var datetimepicker_birth_date = $("#id_patient_birth_date").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  datepicker: true,
+                  timepicker: false,
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y',
+                  inline: false,
+                  defaultDate : fecha_date
+              });
+          } else {
+              $('#id_patient_birth_date').datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  datepicker: true,
+                  timepicker: false,
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y',
+                  inline: false,
+              });
+          }
+
+          /* Fin nuevos pacientes */
+
+          $('#id_patient_autocomplete').autocomplete({
+              source: get_patient_autocomplete_json_url,
+              select: function (event, ui) {
+                  console.log(ui.item);
+                  event.preventDefault();
+                  $('#id_patient').val(ui.item.value);
+                  $('#id_patient_autocomplete').val(ui.item.label);
+                  $('#id_patient').trigger('change');
+              }
+          });
+
+      });
+
+  </script>
+
+{% endblock %}

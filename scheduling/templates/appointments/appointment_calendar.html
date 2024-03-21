@@ -1,0 +1,201 @@
+{% extends "layout.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Turnos
+  </h1>
+  <!--<p class="mb-4">Some text</p>-->
+
+{% endblock %}
+{% block content %}
+
+  <div class="card">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-sm-6">
+          <h6 class="m-0 font-weight-bold text-primary">
+            Calendario
+            <button id="btn-create-appointment" class="btn btn-info btn-circle">
+              <i class="fas fa-plus"></i>
+            </button>
+          </h6>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-5 col-md-12 col-sm-12">
+        <div class="col-xl-12 col-md-12 col-sm-12">
+          <form class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+            {% csrf_token %}
+            {% for field in calendar_filters_form %}
+              {{ field|as_crispy_field }}
+              <br>
+            {% endfor %}
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <div class="table-responsive">
+              <table style="width: 100%; text-align: center; border-spacing: 0" class="table table-bordered" id="dataTable">
+                <thead>
+                <tr>
+                  <th id="color_table_item_title" style="color: black!important;">Equipos</th>
+                  <th style="color: black!important;">Color</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for equipment in equipments %}
+                  <tr>
+                    <td style="color: black!important;">{{ equipment.name }}</td>
+                    <td style="background-color:{{ equipment.tag_color }}; color: black!important;"></td>
+                  </tr>
+                {% empty %}
+                  <tr style="text-align: center;">
+                    <td colspan="2">Sin Equipos Configurados</td>
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-xl-6 col-md-6 col-sm-12">
+            <div class="table-responsive">
+              <table style="width: 100%; text-align: center; border-spacing: 0" class="table table-bordered" id="dataTable">
+                <thead>
+                <tr>
+                  <th style="color: black!important;" id="color_table_item_title">Doctores</th>
+                  <th style="color: black!important;">Color</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for doctor in doctors %}
+                  <tr>
+                    <td style="color: black!important;">{{ doctor.name }} {{ doctor.last_name }}</td>
+                    <td style="background-color:{{ doctor.tag_color }}; color: black!important;"></td>
+                  </tr>
+                {% empty %}
+                  <tr style="text-align: center;">
+                    <td colspan="2">Sin Doctores Configurados</td>
+                  </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-md-12 col-sm-12">
+        <div id="appointments_calendar">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Appointment modal -->
+  <div class="modal fade" id="appointmentModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="appointmentModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/fullcalendar/main.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/dropify/css/dropify.min.css' %}" rel="stylesheet">
+
+  <style>
+      .card {
+          background-color: #bec1d8;
+          color: black;
+      }
+
+      .fc-v-event .fc-event-main {
+          color: black;
+          font-weight: bold;
+      }
+
+      .fc-timegrid-event-harness {
+          cursor: pointer;
+      }
+  </style>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/fullcalendar/main.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-formset/jquery.formset.js' %}"></script>
+  <script src="{% static 'build/vendor/dropify/js/dropify.min.js' %}"></script>
+
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      /* URLs */
+      /* Appointments */
+      var appointment_calendar_url = "{% url 'appointment.calendar' %}";
+      var appointments_list_url = "{% url 'appointment.list_for_calendar' %}";
+      var appointments_create_url = "{% url 'appointment.create' %}";
+      var appointments_update_url = "{% url 'appointment.update' 9999 %}";
+      var appointments_cancel_url = "{% url 'appointment.cancel_appointment' 9999 %}";
+      var appointments_check_equipment_availability_url = "{% url 'appointment.check_equipment_availability' %}";
+      var appointments_check_doctor_availability_url = "{% url 'appointment.check_doctor_availability' %}";
+
+      /* Patients */
+      var patient_add_url = "{% url 'patient.create' %}";
+      var get_patient_json_url = "{% url 'patient.detail_json' 9999 %}";
+      var get_patient_autocomplete_json_url = "{% url 'patient.detail_autocomplete_json' %}";
+
+      /* Medical study */
+      var get_medical_study_json_url = "{% url 'medical_study.detail_json' 9999 %}";
+      var get_medical_study_autocomplete_json_url = "{% url 'medical_study.autocomplete_detail_json' %}";
+
+      /* Medical Equipments */
+      var list_medical_equiment_by_study_url = "{% url 'medical_equipment.list_by_study_json' 9999 %}";
+      var list_medical_equiment_all_url = "{% url 'medical_equipment.list_all_json' %}";
+
+      /* Doctor */
+      var list_doctor_by_study_url = "{% url 'doctor.list_by_study_json' 9999 %}";
+      var list_doctor_all_url = "{% url 'doctor.list_all_json'  %}";
+
+      /* Datetime picker */
+      jQuery.datetimepicker.setLocale('es');
+
+      var study_filter_id = '';
+      var equipment_filter_id = '';
+      var doctor_filter_id = '';
+
+      var event_datetime = '{{ event_datetime }}';
+      var event_id = '{{ event_id }}';
+
+  </script>
+
+  <script type="text/javascript" src="{% static 'base/js/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scheduling/js/appointment_formsets.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scheduling/js/appointment_modal_functions.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scheduling/js/full_calendar_config.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scheduling/js/calendar_filters.js' %}"></script>
+  <script type="text/javascript" src="{% static 'scheduling/js/appointment_calendar.js' %}"></script>
+
+{% endblock %}

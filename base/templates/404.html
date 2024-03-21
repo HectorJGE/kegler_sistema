@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block content %}
+  <!-- 404 Error Text -->
+  <div class="text-center">
+    <div class="error mx-auto" data-text="404">404</div>
+    <p class="lead text-gray-800 mb-5">Error 404 - Página no encontrada</p>
+    <p class="text-gray-500 mb-0">La pagina a la que quieres acceder no existe, o no fue encontrada...</p>
+    <a href="{% url 'dashboard' %}">&larr; Volver al Inicio</a>
+  </div>
+{% endblock %}

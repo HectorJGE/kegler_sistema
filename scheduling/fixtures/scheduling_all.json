@@ -1,0 +1,200 @@
+[
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Agendado",
+      "state_code": 0
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Cancelado",
+      "state_code": 2
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Fichado",
+      "state_code": 1
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-18T01:47:53.162Z",
+      "updated_at": "2021-03-18T01:47:53.162Z",
+      "name": "Ausente",
+      "state_code": 3
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "day": 2,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 6,
+      "day": 3,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 9,
+      "day": 4,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 5,
+      "day": 5,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "day": 4,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 6,
+      "day": 5,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "day": 0,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 6,
+      "day": 1,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 5,
+      "day": 1,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 5,
+      "day": 3,
+      "start_time": "09:00:00",
+      "end_time": "12:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 9,
+      "day": 0,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "scheduling.defaultdoctorappointmentschedule",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 9,
+      "day": 2,
+      "start_time": "12:00:00",
+      "end_time": "17:00:00",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  }
+]

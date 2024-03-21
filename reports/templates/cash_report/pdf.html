@@ -1,0 +1,107 @@
+{% extends "base_pdf.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+  <!-- Logo
+  <div><img src="{{ url }}{{ logo }}"  width="300px" style="margin-bottom: 50px"></div>
+  -->
+  <div>
+    <span><b>Del:</b> {{ start|date:"d/m/Y H:i" }} - <b>Al:</b> {{ end|date:"d/m/Y H:i" }} </span><br>
+    {% for filter in filters %}
+      <span><b>{{ filter.name }}:</b> {{ filter.value }}</span>
+      {% if not forloop.last %}
+        <br>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <br/>
+  <table style="border: #0A0A0A 1px solid;table-layout: fixed; margin: 0;">
+
+    <thead>
+      {% if report_title %}
+        <tr>
+          <th colspan="{{ headers|length }}" style="text-align:center;padding: 4px;word-wrap:break-word; background-color: #4E73DF">
+            <h1> {{ report_title }}</h1>
+          </th>
+        </tr>
+      {% endif %}
+      <tr>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF; ">
+          <h3>CI</h3>
+        </th>
+        <th class="test" style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF;">
+          <h3>Paciente</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Seguro</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Servicio</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>MP</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Estudio</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Insumos</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Descuento</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>A Pagar</h3>
+        </th>
+        <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #4E73DF">
+          <h3>Pagado</h3>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {% for element in elements %}
+        <tr>
+          <td style="text-align: center">{{ element.consultation_sheet.patient.document_number }}</td>
+          <td style="text-align: center">{{ element.consultation_sheet.patient.name }} {{ element.consultation_sheet.patient.last_name }}</td>
+          <td style="text-align: center">{{ element.consultation_sheet.patient_insurance_plan.name }}</td>
+          <td style="text-align: center">{{ element.consultation_sheet.medical_study }}</td>
+          <td style="text-align: center">{{ element.consultation_sheet.payment_method.abbreviation }}</td>
+          <td style="text-align: right">{{ element.consultation_sheet.medical_study_ammount|intcomma }}</td>
+          <td style="text-align: right">{{ element.consultation_sheet.medical_supplies_ammount|intcomma }}</td>
+          <td style="text-align: right">{{ element.consultation_sheet.discount|intcomma }}</td>
+          <td style="text-align: right">{{ element.consultation_sheet.total_ammount_to_pay_patient_with_discount|intcomma }}</td>
+          <td style="text-align: right">{{ element.amount|intcomma }}</td>
+        </tr>
+      {% empty %}
+        <tr style="text-align: center">
+          <td style="padding: 2px;word-wrap:break-word" colspan="{{ headers|length }}">No se encontraron registros</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    {% if totals %}
+      <tfoot>
+        <tr style="text-align: right">
+          <td style="padding: 4px;word-wrap:break-word;" colspan="{{ not_total_columns_number }}">Totales:</td>
+          {% for total in totals %}
+            <td style="padding: 4px;word-wrap:break-word">{{ total|intcomma }}</td>
+          {% endfor %}
+        </tr>
+
+        {% if special_totals %}
+          {% for special_total in special_totals %}
+            {% if not special_total.total == 0  %}
+              <tr style="text-align: right">
+                <td style="padding: 4px;word-wrap:break-word;" colspan="{{ special_not_total_columns_number }}">Total {{ special_total.total_name }}:</td>
+                <td style="padding: 4px;word-wrap:break-word">{{ special_total.total|intcomma }}</td>
+            {% endif %}
+            </tr>
+          {% endfor %}
+        {% endif %}
+
+      </tfoot>
+    {% endif %}
+
+  </table>
+{% endblock %}

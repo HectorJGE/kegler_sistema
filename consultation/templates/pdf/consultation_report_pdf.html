@@ -1,0 +1,27 @@
+{% extends "base_pdf.html" %}
+{% load static %}
+{% load utils %}
+{% block content %}
+
+    <div style="height: 150px">
+        <!--<img src="{{ url }}{{ logo }}"  width="300px" style="margin-bottom: 50px" alt="No Image"/> -->
+
+    </div>
+
+    <br/>
+    <div id="content_header">
+        <h4>{{ consultation_report.report_title }}</h4>
+
+    </div>
+    <div id="content_body">
+        {{ consultation_report.report|safe }}
+    </div>
+
+    <div id="content_footer" style="text-align: right">
+        {% if consultation_report.add_digital_signature %}
+            <img src="{{ consultation_report.doctor.digital_signature.url }}"  width="300px" style="margin-bottom: 50px" alt="No Image"/><br>
+        {% endif %}
+        <pan>___________________________</pan>
+        <p> Dr. {{ consultation_report.doctor }} </p>
+    </div>
+{% endblock %}

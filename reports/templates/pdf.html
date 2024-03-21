@@ -1,0 +1,73 @@
+{% extends "base_pdf.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+
+  <!-- Logo
+  <div><img src="{{ url }}{{ logo }}"  width="300px" style="margin-bottom: 50px"></div>
+  -->
+  <div>
+    <span><b>Del:</b> {{ start|date:"d/m/Y H:i" }} - <b>Al:</b> {{ end|date:"d/m/Y H:i" }} </span><br>
+    {% for filter in filters %}
+      <span><b>{{ filter.name }}:</b> {{ filter.value }}</span>
+      {% if not forloop.last %}
+        <br>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <br/>
+  <table style="border: #0A0A0A 1px solid;table-layout: fixed; margin: 0;">
+    <thead>
+      {% if report_title %}
+        <tr>
+          <th colspan="{{ headers|length }}" style="text-align:center;padding: 4px;word-wrap:break-word; background-color: #ff9900">
+            <h1> {{ report_title }}</h1>
+          </th>
+        </tr>
+      {% endif %}
+      <tr>
+        {% for header in headers %}
+          <th style="text-align:center;padding: 2px;word-wrap:break-word; background-color: #ff9900">
+            <h3>{{ header }}</h3>
+          </th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for element in elements %}
+        <tr style="text-align: right">
+          {% for column in element %}
+            <td style="padding: 2px;word-wrap:break-word"> {{ column|default_if_none:"----" }} </td>
+          {% endfor %}
+        </tr>
+      {% empty %}
+        <tr style="text-align: center">
+          <td style="padding: 2px;word-wrap:break-word" colspan="{{ headers|length }}">No se encontraron registros</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+    {% if totals %}
+      <tfoot>
+        <tr style="text-align: right">
+          <td style="padding: 4px;word-wrap:break-word;" colspan="{{ not_total_columns_number }}">Totales:</td>
+          {% for total in totals %}
+            <td style="padding: 4px;word-wrap:break-word">{{ total|intcomma }}</td>
+          {% endfor %}
+        </tr>
+
+        {% if special_totals %}
+          {% for special_total in special_totals %}
+            {% if not special_total.total == 0  %}
+              <tr style="text-align: right">
+                <td style="padding: 4px;word-wrap:break-word;" colspan="{{ special_not_total_columns_number }}">Total {{ special_total.total_name }}:</td>
+                <td style="padding: 4px;word-wrap:break-word">{{ special_total.total|intcomma }}</td>
+            {% endif %}
+            </tr>
+          {% endfor %}
+        {% endif %}
+
+      </tfoot>
+    {% endif %}
+
+  </table>
+{% endblock %}

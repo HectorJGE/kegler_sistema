@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+      <a href="{% url 'patient.list' %}">Pacientes</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Actualizar Paciente</h6>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data" action="{% url 'patient.update' patient.id %}" autocomplete="off">
+          {% csrf_token %}
+          {% for field in form %}
+            {{ field|as_crispy_field }}
+          {% endfor %}
+          <input type="submit" class="btn btn-success" value="Guardar Cambios">
+          <!--
+          <a class="btn btn-success btn-icon-split">
+            <span class="icon text-white-50">
+                <i class="fas fa-check"></i>
+            </span>
+            <span class="text">Guardar Cambios</span>
+          </a>
+          -->
+          <a href="{% url 'patient.detail' patient.id%}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+            <span class="text">Cancelar</span>
+          </a>
+        </form>
+      </div>
+  </div>
+{% endblock %}
+{% block extra_css %}
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+  <script type="text/javascript">
+      $(function() {
+          $('#id_birth_date').mask("00/00/0000")
+          $('#id_birth_date').click(function (){
+              console.log('click en fecha de nacimiento');
+              $(this).select();
+          });
+
+          /* Datetime picker */
+          jQuery.datetimepicker.setLocale('es');
+
+          $('select').chosen();
+
+          $('.to-upper-case').keyup(function (){
+              $(this).val( $(this).val().toUpperCase() );
+          });
+
+          /* Si el campo de fecha no está vacío */
+          if ($("#id_birth_date").val() !== '') {
+              var fecha = $("#id_birth_date").val();
+              var fecha_date = moment(fecha, 'DD/MM/YYYY HH:mm').toDate();
+
+              /* Datetimepicker */
+              var datetimepicker_birth_date = $("#id_birth_date").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  datepicker: true,
+                  timepicker: false,
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y ',
+                  inline: false,
+                  defaultDate : fecha_date
+              });
+          } else {
+              $('#id_birth_date').datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  datepicker: true,
+                  timepicker: false,
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y',
+                  inline: false,
+              });
+          }
+      });
+
+  </script>
+
+{% endblock %}

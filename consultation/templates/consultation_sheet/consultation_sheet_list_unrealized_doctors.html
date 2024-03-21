@@ -1,0 +1,120 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        Fichas de Estudios
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Listado de Estudios No Realizados para Doctores
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form id="id_form_consultations" name="form_consultations" action="{% url 'consultation.doctor_multiple_consultation_create' %}"
+                      method="GET">
+                {{ datatable }}
+                    <div>
+                        <input class="btn-primary" type="button" id="id_send_form_button" value="Agrupar Estudios Realizar e Informar"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+
+        /* Document ready */
+        $(function () {
+
+            $('#sidebarToggle').trigger('click');
+
+            /* Se inicializa el datatables */
+            datatableview.initialize($('.datatable'),{
+                    /* Archivo de traducción */
+                    language: {
+                        url: "{% url 'datatables_translation' %}",
+                    },
+                    columnDefs: [
+                        { type: "numeric-comma", targets: [1] },
+                    ],
+                }
+
+            ); /* Fin del datatable initialize */
+
+            
+            $('#id_send_form_button').click(function (e){
+                let consultation_sheets_ids = [];
+                let patients_ids = [];
+                let first_patient_id;
+                let diferent_patient = false;
+                $("input[type='checkbox']").each(function (){
+                    if( $(this).is(":checked") ) {
+                        consultation_sheets_ids.push( $(this).val() );
+                        patients_ids.push( $(this).next().val() );
+                    }
+                });
+                if ( patients_ids.length > 0 ){
+                    first_patient_id = patients_ids[0];
+                }
+
+                for (let i = 0; i < patients_ids.length;i++){
+                    if( patients_ids[i] !== first_patient_id){
+                        diferent_patient = true;
+                    }
+                }
+
+                if(consultation_sheets_ids.length < 1){
+                    /* Alerta de Error */
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Atencion!',
+                        text: 'Debe seleccionar estudios para poder agruparlos',
+                    });
+                } else {
+                    if(diferent_patient){
+                        /* Alerta de Error */
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Atencion!',
+                            text: 'No se puede agrupar Estudios que no pertenezcan al mismo paciente',
+                        });
+                    } else {
+                        $('#id_form_consultations').submit();
+                    }
+                }
+
+            }); /* Fin del click function */
+
+
+
+        }); /* Fin Document Ready */
+
+    </script>
+
+
+{% endblock %}

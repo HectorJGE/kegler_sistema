@@ -1,0 +1,159 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 17:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: sales/apps.py:7
+msgid "Sales"
+msgstr "Ventas"
+
+#: sales/management/commands/create_insurance_payments.py:12
+msgid "Command to create insurance sale and payments in consultation sheets."
+msgstr "Comando para crear venta y pagos de seguros en ficha de estudios."
+
+#: sales/management/commands/create_insurance_payments.py:15
+msgid "Starting create insurance payments in consultation sheets."
+msgstr "Comenzando a crear pagos de seguros en fichas de estudio."
+
+#: sales/management/commands/create_insurance_payments.py:39
+#: sales/management/commands/fill_totals_and_create_sales.py:62
+msgid "Sale created:"
+msgstr "Venta creada:"
+
+#: sales/management/commands/create_insurance_payments.py:72
+#: sales/management/commands/fill_totals_and_create_sales.py:96
+msgid " new sale details were succesfully created!"
+msgstr " nuevos detalles de venta fueron creados exitosamente!"
+
+#: sales/management/commands/create_insurance_payments.py:73
+#: sales/management/commands/fill_totals_and_create_sales.py:97
+msgid " new sale payments were succesfully created!"
+msgstr " nuevos pagos de venta fueron creados satisfactoriamente!"
+
+#: sales/management/commands/create_insurance_payments.py:75
+#: sales/management/commands/fill_totals_and_create_sales.py:106
+msgid " new sales were succesfully created!"
+msgstr " nuevas ventas fueron creadas satisfactoriamente!"
+
+#: sales/management/commands/fill_totals_and_create_sales.py:13
+msgid ""
+"Command to fill consultation entry sheets, consultation sheets new totals, "
+"and create sales from entry sheets"
+msgstr ""
+"Comando para llenar fichas de entrada, fichas de estudio nuevos totales, y "
+"crear ventas a partir de fichas de entrada"
+
+#: sales/management/commands/fill_totals_and_create_sales.py:16
+msgid ""
+"Starting command to fill consultation entry sheets, consultation sheets new "
+"totals, and create sales from entry sheets"
+msgstr ""
+"Empezando comando para llenar fichas de entrada, fichas de estudio nuevos "
+"totales, y crear ventas a partir de fichas de entrada"
+
+#: sales/models.py:13
+msgid "Client Name"
+msgstr "Nombre del Cliente"
+
+#: sales/models.py:17
+msgid "Client Tax Identification Number"
+msgstr "RUC"
+
+#: sales/models.py:21
+msgid "Sale Date"
+msgstr "Fecha de Venta"
+
+#: sales/models.py:26
+msgid "Sale Total"
+msgstr "Total de Venta"
+
+#: sales/models.py:32 sales/models.py:72 sales/models.py:96
+msgid "Currency"
+msgstr "Moneda"
+
+#: sales/models.py:50
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: sales/models.py:55
+msgid "Description"
+msgstr "Descripción"
+
+#: sales/models.py:61
+msgid "Unit price"
+msgstr "Precio Unitario"
+
+#: sales/models.py:66
+msgid "Total Price"
+msgstr "Precio Total"
+
+#: sales/models.py:90
+msgid "Amount"
+msgstr "Monto"
+
+#: sales/models.py:101
+msgid "Payment Method"
+msgstr "Método de PAgo"
+
+#: sales/models.py:106
+msgid "Payment Date"
+msgstr "Fecha de Pago"
+
+#: sales/models.py:111
+msgid "Observations"
+msgstr "Observaciones"
+
+#: sales/models.py:123
+msgid "Consultation Entry Sheet"
+msgstr "Ficha de Entrada"
+
+#: sales/models.py:130
+msgid "Consultation Sheet Sale Header"
+msgstr "Cabecera de Venta"
+
+#: sales/models.py:131
+msgid "Consultation Sheets Sales Headers"
+msgstr "Cabeceras de Ventas"
+
+#: sales/models.py:141
+msgid "Sale Header"
+msgstr "Cabecera de Venta"
+
+#: sales/models.py:146 sales/models.py:170
+msgid "Consultation Sheet"
+msgstr "Ficha de Estudio"
+
+#: sales/models.py:154
+msgid "Consultation Sheet Sale Detail"
+msgstr "Detalle de Venta"
+
+#: sales/models.py:155
+msgid "Consultation Sheets Sales Details"
+msgstr "Detalles de Ventas"
+
+#: sales/models.py:164
+msgid "Sale"
+msgstr "Venta"
+
+#: sales/models.py:178
+msgid "Consultation Sheet Sale Payment"
+msgstr "Pago de Venta"
+
+#: sales/models.py:179
+msgid "Consultation Sheets Sales Payments"
+msgstr "Pagos de Ventas"

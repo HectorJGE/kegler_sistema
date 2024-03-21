@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    <a href="{% url 'consultation_sheet.list' %}">Fichas de Estudio</a>
+  </h1>
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Eliminar Ficha de Estudio</h6>
+    </div>
+    <div class="card-body">
+      <p>Está Seguro que quiere eliminar esta ficha de Estudio? </p>
+      <span><b>{{ consultation_sheet.patient }} - {{ consultation_sheet.medical_study }} - {{ consultation_sheet.consultation_date }}</b></span>
+      <br><br>
+      <form method="post" enctype="multipart/form-data" action="{% url 'consultation_sheet.delete' consultation_sheet.id %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger shadow-sm" value="Confirmar">
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_sheet.detail' consultation_sheet.id %}">Volver a Detalles Ficha de Estudio</a>
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_sheet.update' consultation_sheet.id %}">Volver a Edición Ficha de Estudio</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

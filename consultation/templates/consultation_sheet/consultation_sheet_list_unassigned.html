@@ -1,0 +1,184 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Fichas de Estudios
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">
+        Listado de Estudios Realizados Sin Asignar
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%;">
+          <colgroup>
+            <col style="width:5%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:10%">
+            <col style="width:35%">
+          </colgroup>
+          <thead>
+            <tr style="text-align: center;">
+              <th>ID</th>
+              <th>Fecha Hora</th>
+              <th>Paciente</th>
+              <th>Seguro</th>
+              <th>Estudio Médico</th>
+              <!---<th>Doctor</th>-->
+              <th>Equipo</th>
+              <!--<th>Técnico</th>-->
+              <th>Estado</th>
+              <th>Médico Informante</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for consultation_sheet in consultation_sheets %}
+
+              <tr style="text-align: center;">
+                <td>{{ consultation_sheet.id }}</td>
+                <td>
+                  <span style="display:none;">{{ consultation_sheet.consultation_date|date:"U"}}</span>
+                  {{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}
+                </td>
+                <td>
+                  <a href="{% url 'patient.detail' consultation_sheet.patient.id %}">
+                    {{ consultation_sheet.patient }}
+                  </a>
+                </td>
+                <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"---" }}</td>
+                <td>{{ consultation_sheet.medical_study }}</td>
+                <!--<td>{{ consultation_sheet.doctor|default_if_none:"---" }}</td>-->
+                <td>{{ consultation_sheet.medical_equipment|default_if_none:"---" }}</td>
+                <!--<td>{{ consultation_sheet.technician|default_if_none:"---" }}</td>-->
+                <td>{{ consultation_sheet.consultation_state }}</td>
+                <td>
+                  <div id="div_id_reporting_doctor_select_{{ consultation_sheet.id }}" class="form-group">
+                    <select class="select form-control reporting-doctor-select"
+                            id="id_reporting_doctor_select_{{ consultation_sheet.id }}"
+                            name="reporting_doctor"
+                            data-consultation-sheet-id="{{ consultation_sheet.id }}"
+                    >
+                      <option value="">------</option>
+                      {% for doctor in doctors %}
+                        <option value="{{ doctor.id }}">{{ doctor }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+
+                </td>
+
+              </tr>
+            {% empty %}
+              <tr style="text-align: center;">
+                <td colspan="10">Sin Registros</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      /* url para asignar médico informante a ficha de estudio */
+      var assign_reporting_doctor_to_consultation_sheet_url = '{% url 'consultation_sheet.assign_reporting_doctor' 9999 8888 %}';
+
+      /* Document ready */
+      $(function () {
+          /* Se inicializan todos los selects como chosen */
+          $('select').chosen();
+
+          /* se inicializa el datatables */
+          $('#dataTable').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      { type: "numeric-comma", targets: [0] },
+                  ],
+              }
+          );
+
+          /* Al elegir un doctor */
+          $('.reporting-doctor-select').change(function(){
+              var select = $(this);
+              if (select.val() !== ''){
+                  Swal.fire({
+                      title: 'Está seguro que quiere Asignar este doctor como médico informante?',
+                      showDenyButton: true,
+                      showCancelButton: true,
+                      cancelButtonText: 'Cancelar',
+                      confirmButtonText: `Si`,
+                      denyButtonText: `No`,
+                  }).then((result) => {
+                      /* Read more about isConfirmed, isDenied below */
+                      if (result.isConfirmed) {
+                          var reporting_doctor_id = select.val();
+                          var consultation_sheet_id = select.data('consultation-sheet-id');
+                          var url = assign_reporting_doctor_to_consultation_sheet_url.replace('9999', consultation_sheet_id);
+                          url = url.replace('8888', reporting_doctor_id);
+                          console.log(url);
+
+                          /* Hacer llamada ajax para asignar el doctor */
+                          $.ajax({
+                              type: 'GET',
+                              url: url,
+                              success: function (data, textStatus, jqXHR) {
+                                  window.location.reload();
+                              },
+                              error: function (xhr, ajaxOptions, thrownError) {
+                                  /* Alerta de Error */
+                                  Swal.fire({
+                                      icon: 'error',
+                                      title: 'Error...',
+                                      text: 'Error al tratar de asignar el médico informante a la ficha de estudio " + consultation_sheet_id',
+                                      footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                                  });
+                              }
+                          });
+                          Swal.fire('Médico Informante asignado', '', 'success')
+                      } else if (result.isDenied) {
+                          select.val("");
+                          //Swal.fire('Changes are not saved', '', 'info')
+                      }
+                  })
+              }
+          });
+
+
+      });
+
+  </script>
+
+
+{% endblock %}

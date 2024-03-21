@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Fichas de Estudios
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Fichas de Estudios <a href="{% url 'consultation_entry_sheet.create' %}" class="btn btn-info btn-circle">
+        <i class="fas fa-plus"></i></a>
+      </h6>
+    </div>
+    <div class="card-body">
+      <form enctype="multipart/form-data" name="form_consultation_sheets" id="id_form_consultation_sheets" method="get" action="{% url 'consultation_entry_sheet.create' %}">
+        <div class="table-responsive">
+          {{ datatable }}
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+
+      $(function () {
+
+          $('#sidebarToggle').trigger('click');
+
+          /* Se inicializa el datatables */
+          datatableview.initialize($('.datatable'),{
+              language: {
+                  url: "{% url 'datatables_translation' %}",
+              },
+              columnDefs: [
+                  {type: "numeric-comma", targets: [1, 8, 9]},
+                  {
+                      //data: "Total a Pagar Seguro",
+                      render: $.fn.dataTable.render.number('.', ',', 0, '', ''),
+                      targets: 8
+
+                  },
+                  {
+                      //data: "Total a Pagar Paciente",
+                      render: $.fn.dataTable.render.number('.', ',', 0, '', ''),
+                      targets: 9
+
+                  },
+              ],
+          });
+      });
+
+  </script>
+
+{% endblock %}

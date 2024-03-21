@@ -1,0 +1,277 @@
+{% load static %}
+{% load utils %}
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'dashboard' %}">
+        <div class="sidebar-brand-icon">
+            <i class="fa fa-hospital"></i>
+        </div>
+        <div class="sidebar-brand-text mx-3"><!--SB Admin <sup>2</sup>--> Sistema Iribas</div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    {% if user.is_staff %}
+      <!-- Nav Item - Dashboard -->
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'admin:index' %}" target="_blank">
+          <i class="fas fa-fw fa-cog "></i>
+          <span><!--Dashboard--> Admin del Sistema</span></a>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+    {% endif %}
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'dashboard' %}">
+            <i class="fa fa-house-user"></i>
+            <span><!--Dashboard--> Inicio</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        <!--Interface---> Módulos
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+
+    <!-- CLINIC -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseClinic"
+           aria-expanded="true" aria-controls="collapseClinic">
+            <i class="fa fa-users"></i>
+            <span><!--Components--> Pacientes</span>
+        </a>
+        <div id="collapseClinic" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"><!---Custom Components:--> Pacientes</h6>
+                <a class="collapse-item" href="{% url 'patient.list' %}"><!---Buttons---> Listado Pacientes</a>
+                <a class="collapse-item" href="{% url 'patient.create' %}"><!---Buttons---> Agregar Paciente</a>
+                <!--<a class="collapse-item" href="cards.html">Cards</a>-->
+            </div>
+        </div>
+    </li>
+
+    <!-- Scheduling -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAppointment"
+         aria-expanded="true" aria-controls="collapseAppointment">
+        <i class="fa fa-calendar"></i>
+        <span><!--Components--> Turnos</span>
+      </a>
+      <div id="collapseAppointment" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header"><!---Custom Components:--> Turnos</h6>
+          <a class="collapse-item" href="{% url 'appointment.calendar' %}"><!---Buttons--->Calendario de Turnos</a>
+          <a class="collapse-item" href="{% url 'appointment.list' %}"><!---Buttons--->Listado de Turnos</a>
+          <a class="collapse-item" href="{% url 'appointment.list_appointments_of_the_day' %}"><!---Buttons--->Listado de Turnos del Día</a>
+          <!--<a class="collapse-item" href="cards.html">Cards</a>-->
+        </div>
+      </div>
+    </li>
+
+    <!-- Consultation -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsultationEntrySheet"
+           aria-expanded="true" aria-controls="collapseConsultationEntrySheet">
+            <i class="fa fa-clipboard-check"></i>
+            <span><!--Components--> Fichas</span>
+        </a>
+        <div id="collapseConsultationEntrySheet" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"><!---Custom Components:--> Ficha de Entrada</h6>
+                <a class="collapse-item" href="{% url 'consultation_entry_sheet.list' %}"><!---Buttons---> Fichas de Entrada</a>
+                <a class="collapse-item" href="{% url 'consultation_entry_sheet.create' %}"><!---Buttons---> Crear Ficha de Entrada</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Consultation -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseConsultation"
+         aria-expanded="true" aria-controls="collapseConsultation">
+        <i class="fa fa-notes-medical"></i>
+        <span><!--Components--> Estudios</span>
+      </a>
+      <div id="collapseConsultation" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <!--<a class="collapse-item" href="{% url 'consultation_sheet.list' %}"> Fichas de Estudios</a> -->
+           <!-- Si el usuario pertenece al grupo copiadores -->
+            <h6 class="collapse-header"><!---Custom Components:--> Copiadores</h6>
+          {% if request.user|has_group:"Copiadores" or request.user|has_group:"Tecnicos" or request.user.is_superuser %}
+
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_unassigned' %}"><!---Buttons---> Estudios a Asignar </a>
+              <!--
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_assigned' %}"> Estudios Asignados </a>
+
+              <a class="collapse-item" href="{% url 'consultation.list_without_files' %}"> Estudios sin Archivos </a>
+              -->
+          {% endif %}
+          {% if request.user|has_group:"Copiadores" or request.user.is_superuser %}
+              <!--
+              <a class="collapse-item" href="{% url 'consultation_report.recorded_list' %}"> Estudios a Copiar </a>
+              <a class="collapse-item" href="{% url 'consultation_report.list' %}">Estudios Informados</a>
+                -->
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_undelivered' %}"> Estudios a Entregar </a>
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_delivered' %}"> Estudios Entregados </a>
+          {% endif %}
+          <!-- Si el usuario pertenece al grupo técnicos -->
+          {% if request.user|has_group:"Tecnicos" or request.user.is_superuser %}
+              <!--
+              <h6 class="collapse-header"> Técnicos</h6>
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_unrealized_technicians' %}"> Estudios a Realizar <br> Técnicos</a>
+
+              <a class="collapse-item" href="{% url 'consultation.list_technicians' %}"> Estudios Realizados <br> Técnicos</a>
+              -->
+          {% endif %}
+          <!-- Si el usuario pertenece al grupo doctores -->
+          {% if request.user|has_group:"Doctores" or request.user|has_group:"Copiadores" or request.user.is_superuser %}
+              <!--
+              <h6 class="collapse-header"> Doctores</h6>
+              <a class="collapse-item" href="{% url 'consultation_sheet.list_unrealized_doctors' %}"> Estudios a Realizar <br> Doctores</a>
+              <a class="collapse-item" href="{% url 'consultation.list_doctors' %}">
+                     Estudios Realizados <br> Doctores
+                    </a>
+
+              <a class="collapse-item" href="{% url 'consultation.doctors_list_to_inform' %}"> Estudios a Informar</a>
+              <a class="collapse-item" href="{% url 'consultation_report.list' %}"> Estudios Informados</a>
+              <a class="collapse-item" href="{% url 'consultation_report.list_finished' %}"> Estudios Finalizados</a>
+              -->
+          {% endif %}
+        </div>
+      </div>
+    </li>
+
+<!-- INVOICE -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice"
+           aria-expanded="true" aria-controls="collapseInvoice">
+            <i class="fas fa-file-invoice"></i>
+            <span><!--Components--> Facturacion</span>
+        </a>
+        <div id="collapseInvoice" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header"><!---Custom Components:--> Clientes</h6>
+                <a class="collapse-item" href="{% url 'invoicing.customer_list' %}"><!---Buttons---> Listado de Clientes</a>
+                <a class="collapse-item" href="{% url 'invoicing.customer_create' %}"><!---Buttons---> Agregar Cliente</a>
+                <h6 class="collapse-header"><!---Custom Components:--> Facturas</h6>
+                <a class="collapse-item" href="{% url 'invoice_list' %}"><!---Buttons---> Listado Facturas</a>
+                <a class="collapse-item" href="{% url 'invoice_create' %}"><!---Buttons---> Agregar Facturas</a>
+                <h6 class="collapse-header"><!---Custom Components:--> Notas de Crédito</h6>
+                <a class="collapse-item" href="{% url 'credit_note_list' %}"><!---Buttons---> Listado de Notas de Crédito</a>
+                <a class="collapse-item" href="{% url 'credit_note_create' %}"><!---Buttons---> Agregar Nota de Crédito</a>
+                <!--<a class="collapse-item" href="cards.html">Cards</a>-->
+            </div>
+        </div>
+    </li>
+
+  <!-- Reports -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReports"
+       aria-expanded="true" aria-controls="collapseReports">
+      <i class="fa fa-chart-line"></i>
+      <span><!--Components--> Reportes</span>
+    </a>
+    <div id="collapseReports" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header"><!---Custom Components:--> Reportes</h6>
+        <a class="collapse-item" href="{% url 'reports.cash_report_list' %}"><!---Buttons---> Caja</a>
+        <a class="collapse-item" href="{% url 'reports.reporting_doctors_report_list' %}"><!---Buttons---> Doctores Informantes</a>
+        <a class="collapse-item" href="{% url 'reports.treating_doctors_report_list' %}"><!---Buttons---> Doctores Tratantes</a>
+        {% if request.user|has_group:"Administracion" or request.user.is_superuser %}
+            <a class="collapse-item" href="{% url 'reports.invoice_report_list' %}"><!---Buttons---> Facturas</a>
+            <a class="collapse-item" href="{% url 'reports.insurances_agreements_report_list' %}"><!---Buttons---> Cobro a Seguros</a>
+            <a class="collapse-item" href="{% url 'reports.consultation_sheet_total_report_list' %}"><!---Buttons---> Total Consolidado</a>
+            <a class="collapse-item" href="{% url 'reports.reports_definition_list' %}"><!---Buttons---> Definición de Reportes</a>
+        {% endif %}
+      </div>
+    </div>
+  </li>
+
+    <!-- Nav Item - Utilities Collapse Menu
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+           aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Utilities</span>
+        </a>
+        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+             data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Utilities:</h6>
+                <a class="collapse-item" href="utilities-color.html">Colors</a>
+                <a class="collapse-item" href="utilities-border.html">Borders</a>
+                <a class="collapse-item" href="utilities-animation.html">Animations</a>
+                <a class="collapse-item" href="utilities-other.html">Other</a>
+            </div>
+        </div>
+    </li>
+    -->
+    <!-- Divider
+    <hr class="sidebar-divider">
+    -->
+    <!-- Heading
+    <div class="sidebar-heading">
+        Addons
+    </div>
+    -->
+    <!-- Nav Item - Pages Collapse Menu
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Pages</span>
+        </a>
+        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Login Screens:</h6>
+                <a class="collapse-item" href="login.html">Login</a>
+                <a class="collapse-item" href="register.html">Register</a>
+                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
+                <div class="collapse-divider"></div>
+                <h6 class="collapse-header">Other Pages:</h6>
+                <a class="collapse-item" href="404.html">404 Page</a>
+                <a class="collapse-item" href="blank.html">Blank Page</a>
+            </div>
+        </div>
+    </li>
+    -->
+
+    <!-- Nav Item - Charts
+    <li class="nav-item">
+        <a class="nav-link" href="charts.html">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Charts</span></a>
+    </li>
+    -->
+    <!-- Nav Item - Tables
+    <li class="nav-item">
+        <a class="nav-link" href="tables.html">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Tables</span></a>
+    </li>
+    -->
+    <!-- Divider
+    <hr class="sidebar-divider d-none d-md-block">
+    -->
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+    <!-- Sidebar Message
+    <div class="sidebar-card">
+        <img class="sidebar-card-illustration mb-2" src="{% static 'build/img/undraw_rocket.svg' %}" alt="">
+        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and
+            more!</p>
+        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+    </div>
+    -->
+</ul>

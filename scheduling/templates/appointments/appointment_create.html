@@ -1,0 +1,120 @@
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+<div class="modal-header">
+  <h5 class="modal-title" id="appointmentModalLabel">Agregar Turno</h5>
+  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">×</span>
+  </button>
+</div>
+<div class="modal-body ui-front">
+  <form id="appointment_form" method="post" contentType="multipart/form-data" enctype="multipart/form-data" action="{% url 'appointment.create' %}" autocomplete="off">
+    {% csrf_token %}
+
+    {{ form.appointment_date_start|as_crispy_field }}
+    {{ form.appointment_date_end|as_crispy_field }}
+    {{ form.patient_autocomplete|as_crispy_field }}
+    {{ form.patient|as_crispy_field }}
+    <!-- New Patient -->
+    {{ form.new_patient|as_crispy_field }}
+    {{ form.patient_name|as_crispy_field }}
+    {{ form.patient_last_name|as_crispy_field }}
+    {{ form.patient_sex|as_crispy_field }}
+    {{ form.patient_document_number|as_crispy_field }}
+
+    <!-- Invoicing -->
+    {{ form.patient_tax_id_number|as_crispy_field }}
+    {{ form.patient_tax_id_name|as_crispy_field }}
+    {{ form.patient_is_taxpayer|as_crispy_field }}
+
+    {{ form.patient_weight|as_crispy_field }}
+    {{ form.patient_birth_date|as_crispy_field }}
+    {{ form.patient_city|as_crispy_field }}
+
+    <!-- Invoicing -->
+    {{ form.patient_address|as_crispy_field }}
+    {{ form.contact_number|as_crispy_field }}
+    {{ form.contact_email|as_crispy_field }}
+
+    {{ form.insurance_plan|as_crispy_field }}
+    {{ form.medical_study_autocomplete|as_crispy_field }}
+    {{ form.medical_study|as_crispy_field }}
+    {{ form.medical_equipment|as_crispy_field }}
+    {{ form.doctor|as_crispy_field }}
+    {{ form.appointment_state|as_crispy_field }}
+    {{ form.estimated_cost|as_crispy_field }}
+    {{ form.currency|as_crispy_field }}
+    {{ form.treating_doctor|as_crispy_field }}
+    <!-- New treating Doctor -->
+    {{ form.new_treating_doctor|as_crispy_field }}
+    {{ form.treating_doctor_name|as_crispy_field }}
+    {{ form.treating_doctor_last_name|as_crispy_field }}
+    {{ form.treating_doctor_sex|as_crispy_field }}
+
+    <!-- inicio formset documentos -->
+          <div {% if not documents_formset %}style="display: none"{% endif %}>
+            <h4>Documentos para el estudio</h4>
+            {{ documents_formset.management_form|crispy }}
+            <table class="table table-bordered table-hover" id="id-table-documents">
+              <tbody>
+              {% for document_form in documents_formset.forms %}
+                <tr id="{{ document_form.prefix }}-row">
+                  {{ document_form.id }}
+                  <!-- Document Type -->
+                  <td {% if document_form.document_type.errors %}class="has-error"{% endif %}>
+                    <div class="col-md-12">
+                      {{ document_form.document_type|as_crispy_field }}
+                    </div>
+                    {% if document_form.document_type.errors %}
+                      <span class="help-block">
+                          {{ document_form.document_type.errors|join:'. ' }}
+                        </span>
+                    {% endif %}
+                  </td>
+                  <!-- File -->
+                  <td {% if document_form.file.errors %}class="has-error"{% endif %}>
+                    <div class="col-md-12">
+                      {{ document_form.file|as_crispy_field }}
+                    </div>
+                    {% if document_form.file.errors %}
+                      <span class="help-block">
+                          {{ document_form.file.errors|join:'. ' }}
+                        </span>
+                    {% endif %}
+                  </td>
+                  <td class="text-center" style="width:10%;">
+                    {{ document_form.DELETE }}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- fin formset documentos -->
+
+    {{ form.observations|as_crispy_field }}
+
+    <div class="modal-footer">
+      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cerrar</button>
+      <button id="save_appointment" class="btn btn-primary" type="button">Guardar</button>
+    </div>
+  </form>
+</div>
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <style type="text/css">
+      #id_observations {
+          height: 100px;
+      }
+  </style>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript">
+        var documents_formset_prefix = '{{ documents_formset.prefix }}';
+
+        var documents_files = [];
+
+    </script>
+{% endblock %}

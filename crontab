@@ -1,0 +1,8 @@
+# Crontab file to be copied by docker compose into container crontab
+# Run midnight_scheduled_commands.sh at midnight
+0 0 * * * /code/midnight_scheduled_commands.sh >> /var/log/`date +\%d-\%m-\%Y_\%H:\%M:\%S`-midnight_scheduled_commands.log 2>&1
+# Run SIFEN Commands every 2, 5, 7 minutes
+*/2 * * * * /code/invoice_consult_sifen_batches_command.sh >> /var/log/`date +\%d-\%m-\%Y`-invoice_consult_sifen_batches_command.log 2>&1
+# */5 * * * * /code/invoice_pdf_command.sh >> /var/log/`date +\%d-\%m-\%Y`-invoice_pdf_command.log 2>&1
+*/5 * * * * /code/invoice_html_command.sh >> /var/log/`date +\%d-\%m-\%Y`-invoice_html_command.log 2>&1
+*/7 * * * * /code/invoice_dte_command.sh >> /var/log/`date +\%d-\%m-\%Y`-invoice_dte_command.log 2>&1

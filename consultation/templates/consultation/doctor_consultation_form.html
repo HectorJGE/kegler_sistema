@@ -1,0 +1,254 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        {% if not object %}
+            <a href="{% url 'consultation_sheet.list_unrealized_doctors' %}">Estudios a Realizar</a>
+        {% else %}
+            <a href="{% url 'consultation.list_doctors' %}">Estudios Realizados</a>
+        {% endif %}
+
+    </h1>
+
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">{% if not object %}Crear {% else %}Actualizar {% endif %}Estudio</h6>
+        </div>
+        <div class="card-body">
+            <form method="post" id="consultation_form" enctype="multipart/form-data"
+                    {% if not object %}
+                        action="{% url 'consultation.doctor_consultation_create' consultation_sheet.id %}"
+                    {% else %}
+                        action="{% url 'consultation.doctor_consultation_update' object.id %}"
+                    {% endif %}
+                  autocomplete="off">
+                {% csrf_token %}
+                {{ form.consultation_date|as_crispy_field }}
+                {{ form.doctor|as_crispy_field }}
+                {{ form.patient|as_crispy_field }}
+                {{ form.patient_autocomplete|as_crispy_field }}
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Sexo</label>
+                        <div>
+                            <strong>{{ patient.get_sex_display }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Edad</label>
+                        <div>
+                            <strong>{{ patient.calculate_age }}</strong>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Peso</label>
+                        <div>
+                            <strong>{{ patient.weight }} Kgs</strong>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {{ form.medical_study|as_crispy_field }}
+                <!-- Documentos -->
+                <div>
+                    <h4>Documentos del Estudio</h4>
+                    <table class="table table-bordered table-hover" id="id-table-documents" style="text-align: center">
+                        <thead>
+                        <th><strong class="text-primary">Tipo</strong></th>
+                        <th><strong class="text-primary">Archivo</strong></th>
+                        </thead>
+                        <tbody>
+                        {% for document in consultation_sheet.consultation_sheet_documents.all %}
+                            <tr>
+                                <!-- Document Type -->
+                                <td>
+                                    <div class="col-md-12">
+                                        {{ document.document_type }}
+                                    </div>
+                                </td>
+                                <!-- File -->
+                                <td>
+                                    {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                                        <div class="col-md-12">
+                                            <a target="_blank" data-fancybox="gallery" href="{{ document.file.url }}">
+                                                <img height="200px" width="200px"
+                                                     src="{{ document.file.url }}"
+                                                >
+                                            </a>
+                                        </div>
+                                    {% else %}
+                                        <div class="col-md-12">
+                                            <a target="_blank" href="{{ document.file.url }}">{{ document.file }}</a>
+                                        </div>
+                                    {% endif %}
+
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr style="text-align: center">
+                                <td colspan="2">Sin Documentos agregados</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                {{ form.treating_doctor|as_crispy_field }}
+                {{ form.consultation_sheet|as_crispy_field }}
+                {% if not object %}
+                    {{ form.report_title|as_crispy_field }}
+                {% endif %}
+                {% if not object %}
+                    {{ form.template|as_crispy_field }}
+                    {{ form.add_digital_signature|as_crispy_field }}
+                {% endif %}
+                {{ form.notes }}
+                <br>
+                <input type="submit" class="btn-sm btn-primary shadow-sm" value="Guardar">
+                {% if not object %}
+                    <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_sheet.list_unrealized_doctors' %}">
+                        Cancelar
+                    </a>
+                {% else %}
+                    <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation.list_doctors' %}">
+                        Cancelar
+                    </a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link type="text/css" href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/moment/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            let get_template_detail_url = "{% url 'consultation.get_doctor_report_template_detail_json' 9999 %}";
+
+            $('#id_consultation_date').mask("00/00/0000 00:00")
+            $('#id_consultation_date').click(function (){
+                console.log('click en fecha de consulta');
+                $(this).select();
+            });
+
+            /* Datetime picker */
+            jQuery.datetimepicker.setLocale('es');
+
+            /* Se inicializa los select con chosen */
+            $('select').chosen();
+
+            /* Fancy Box Gallery */
+            $('[data-fancybox="gallery"]').fancybox({
+                // Options will go here
+            });
+
+            $('.to-upper-case').keyup(function (){
+                $(this).val( $(this).val().toUpperCase() );
+            });
+
+            /* Si el campo de fecha no está vacío */
+            if ($("#id_consultation_date").val() !== '') {
+                var fecha = $("#id_consultation_date").val();
+                var fecha_date = moment(fecha, 'DD/MM/YYYY HH:mm').toDate();
+
+                /* Datetimepicker */
+                var datetimepicker_consultation_date = $("#id_consultation_date").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: true,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y H:i',
+                    inline: false,
+                    defaultDate : fecha_date
+                });
+            } else {
+                var datetimepicker_consultation_date = $('#id_consultation_date').datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: true,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y H:i',
+                    inline: false,
+                });
+            }
+
+            $('#consultation_form').submit(function (){
+                $('select').attr('disabled', false);
+                $('#id_consultation_date').attr('disabled', false);
+            });
+
+            $('#id_template').change(function (){
+
+                if ($('#id_template').val() === ''){
+                    console.log('No template selected');
+                } else {
+                    $.ajax({
+                        type: 'GET',
+                        url: get_template_detail_url.replace('9999', $('#id_template').val()),
+                        success: function (data, textStatus, jqXHR) {
+                            CKEDITOR.instances['id_notes'].setData(data.template_text);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            /* Alerta de Error */
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Error...',
+                                text: 'Error al tratar de obtener la plantilla seleccionada.',
+                                footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                            });
+
+                        }
+                    });
+                }
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}

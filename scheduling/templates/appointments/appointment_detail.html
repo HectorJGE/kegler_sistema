@@ -1,0 +1,276 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load humanize %}
+{% load i18n %}
+{% load scheduling_template_filters %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    <a href="{% url 'appointment.list' %}">Listado de Turnos</a>
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Detalles de Turno ID: {{ appointment.id }}</h6>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover" style="width: 60%;">
+        <thead></thead>
+        <tbody style="text-align: center">
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Estado</strong>
+          </td>
+          <td><b>{{ appointment.appointment_state }}</b></td>
+        </tr>
+
+        {% for state_log in appointment.appointment_states_user_logs.all %}
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">{{ state_log.appointment_state }} por</strong>
+            </td>
+            <td><b>{{ state_log.user }}</b> - el {{ state_log.state_log_datetime }}</td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Inicio</strong>
+          </td>
+          <td>{{ appointment.appointment_date_start }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Fin</strong>
+          </td>
+          <td>{{ appointment.appointment_date_end }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Paciente</strong>
+          </td>
+          <td>
+            <a href="{% url 'patient.detail' appointment.patient.id %}">{{ appointment.patient }}</a>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Nro de contacto</strong>
+          </td>
+          <td>{{ appointment.contact_number|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Email de contacto</strong>
+          </td>
+          <td>{{ appointment.contact_email|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Seguro</strong>
+          </td>
+          <td>{{ appointment.insurance_plan|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Estudio Realizado</strong>
+          </td>
+          <td>{{ appointment.medical_study|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Doctor que realizó el estudio</strong>
+          </td>
+          <td>{{ appointment.doctor|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Equipo Utilizado</strong>
+          </td>
+          <td>{{ appointment.medical_equipment|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Costo Estimado</strong>
+          </td>
+          <td>{{ appointment.estimated_cost|intcomma }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Moneda</strong>
+          </td>
+          <td>{{ appointment.currency }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Dr. Tratante</strong>
+          </td>
+          <td>{{ appointment.treating_doctor|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Ficha de Estudio</strong>
+          </td>
+          <td>
+            {% for consultation_sheet in appointment.consultation_sheets.all %}
+              <a href="{% url 'consultation_sheet.detail' consultation_sheet.id %}">Ficha: {{ consultation_sheet.id }}<br> (Ver Ficha)</a>
+            {% empty %}
+              {% if appointment.appointment_state.state_code != 2 %}
+                <a href="{% url 'consultation_entry_sheet.create_from_appointment' appointment.id %}" class='btn btn-primary'>Crear Ficha</a>
+              {% else %}
+                ---
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong class="text-primary">Observaciones</strong>
+          </td>
+          <td>
+            <p>{{ appointment.observations|default_if_none:"---" }}</p>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- Documentos -->
+      <div>
+        <h4>Documentos del Turno</h4>
+        <table class="table table-bordered table-hover" id="id-table-documents" style="text-align: center">
+          <thead>
+          <th><strong class="text-primary">Tipo</strong></th>
+          <th><strong class="text-primary">Archivo</strong></th>
+          </thead>
+          <tbody>
+          {% for document in appointment.appointment_documents.all %}
+            <tr>
+              <!-- Document Type -->
+              <td>
+                <div class="col-md-12">
+                  {{ document.document_type }}
+                </div>
+              </td>
+              <!-- File -->
+              <td>
+                {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                  <div class="col-md-12">
+                    <a target="_blank" data-fancybox="gallery" href="{{ document.file.url }}">
+                      <img height="200px" width="200px"
+                      src="{{ document.file.url }}"
+                      >
+                    </a>
+                  </div>
+                {% else %}
+                  <div class="col-md-12">
+                    <a target="_blank" href="{{ document.file.url }}">{{ document.file }}</a>
+                  </div>
+                {% endif %}
+
+              </td>
+            </tr>
+          {% empty %}
+            <tr style="text-align: center">
+              <td colspan="2">Sin Documentos agregados</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <h4>Log de Cambios</h4>
+      <table class="table table-bordered table-hover" >
+          <thead>
+            <tr>
+                <th>Fecha:</th>
+                <th>Tipo de Acción</th>
+                <th>Autor</th>
+                <th>Cambios</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for audit_log in audit_log_entries %}
+                <tr>
+                    <td>{{ audit_log.timestamp }}</td>
+                    <td>
+                        {% if audit_log.action == 0 %}
+                            Creación
+                        {% else %}
+                            Actualización
+                        {% endif %}
+                    </td>
+                    <td>{{ audit_log.actor|default_if_none:"" }}</td>
+                    <td>
+                        <table>
+                        <thead>
+                            <tr>
+                                <th>Campo</th><th>De:</th><th>A:</th>
+                            </tr>
+                        </thead>
+                            {% for key,value in audit_log.changes_dict.items %}
+                                {% if key != 'consultation_sheets' and key != 'appointment_states_user_logs' and key != 'appointment_documents' %}
+                                    {% if key != 'appointment_date_start' and key != 'appointment_date_end' %}
+                                        <tr>
+                                            <td><b>{% trans key %}</b></td>
+                                            <td>
+                                                {% if value.0 != 'None'  %}
+                                                    {{ value.0|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if value.1 != 'None'  %}
+                                                    {{ value.1|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td><b>{% trans key %}</b></td>
+                                            <td>
+                                                {% if value.0 != 'None'  %}
+                                                    {{ value.0|datedate|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if value.1 != 'None'  %}
+                                                    {{ value.1|datedate|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No history for this item has been logged yet.</td></tr>
+            {% endfor %}
+          </tbody>
+      </table>
+      {% if appointment.appointment_state.state_code != 2 and appointment.appointment_state.state_code != 3 %}
+        <a href="{% url 'appointment.calendar' %}?event_datetime={{ appointment.appointment_date_start|date:"U" }}&event_id={{ appointment.id }}" class="btn btn-primary btn-icon-split">
+                                          <span class="icon text-white-50">
+                                              <i class="fas fa-calendar-alt"></i>
+                                          </span>
+          <span class="text">Ver en Calendario</span>
+        </a>
+      {% endif %}
+      <!--
+      <a href="{% url 'appointment.cancel_appointment' appointment.id %}" class="btn btn-danger btn-icon-split">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-trash"></i>
+                                    </span>
+        <span class="text">Cancelar Turno</span>
+      </a>
+      -->
+      <a href="{% url 'appointment.list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+        <span class="text">Volver al Listado</span>
+      </a>
+
+    </div>
+  </div>
+{% endblock %}

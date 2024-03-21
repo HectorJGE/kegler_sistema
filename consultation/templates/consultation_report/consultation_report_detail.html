@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'consultation_report.list' %}">Informes de Estudios</a>
+    </h1>
+
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalles de Informe</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Titulo: </label> <strong>{{ consultation_report.report_title }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha de Informe: </label> <strong>{{ consultation_report.report_date }}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Paciente: </label> <strong>{{ consultation_report.patient }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Sexo: </label> <strong>{{ patient.get_sex_display }}</strong>
+                    <label>Edad: </label> <strong>{{ patient.calculate_age }}</strong>
+                    <label>Peso: </label> <strong>{{ patient.weight }} Kgs</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Doctor:</label> <strong>{{ consultation_report.doctor }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Firma Digital:</label> <strong>{% if consultation_report.add_digital_signature %} Si {% else %} No {% endif %} </strong>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Estudio</th><th>Notas</th><th>Técnico</th><th>Documentos</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for study in studies %}
+                        <tr>
+                            <td>
+                                {{ study.medical_study }}
+                                <input type="hidden" name="consultations" value="{{ study.id }}">
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <p>
+                                            {{ study.notes|safe }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ study.technician|default_if_none:"" }}
+                            </td>
+                            <td>
+                                <div class="row">
+                                    {% for document in study.consultation_sheet.consultation_sheet_documents.all %}
+                                        {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                                            <div class="col-md-4">
+                                                <label>{{ document.document_type }}</label>
+                                                <a target="_blank" data-fancybox="gallery" href="{{ document.file.url }}">
+                                                    <img height="200px" width="200px"
+                                                         src="{{ document.file.url }}"
+                                                    >
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-md-6">
+                                                <a target="_blank" href="{{ document.file.url }}">{{ document.file }}</a>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4">Sin Estudios a Realizar seleccionados</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot></tfoot>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Informe: </label><br><br>
+                    {{ consultation_report.report|safe }}
+                </div>
+            </div>
+
+            <label>Finalizado: </label> <strong>{{ consultation_report.finished|yesno:"Si, No" }}</strong>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            /* Fancy Box Gallery */
+            $('[data-fancybox="gallery"]').fancybox({
+                // Options will go here
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}

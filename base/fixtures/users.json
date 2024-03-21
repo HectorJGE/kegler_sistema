@@ -1,0 +1,78 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$0ha5qsTXjMm3$nvy7FKUgIXM1GA1uxN1ccqRoSND90dFEuMrstIuDeZM=",
+      "last_login": "2021-02-08T13:09:33.764Z",
+      "is_superuser": true,
+      "username": "superuser",
+      "first_name": "Super",
+      "last_name": "Usuario",
+      "email": "superuser@yourdomain.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-01-22T14:44:09.896Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$c9gYn0T5mxuo$VHKFt0QKFXlah2/KrnHC0jH+Y6fYTmYetWFdZ3CDWbQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "normaluser",
+      "first_name": "Usuario",
+      "last_name": "Normal",
+      "email": "normaluser@byourdomain.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-01-22T14:47:18Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$ZiUWzIduqyz1$21nHQWHZHiwTGMNBkCzeEsfidqS6dhirOxHjZDcrSmg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "staffuser",
+      "first_name": "Usuario",
+      "last_name": "Staff",
+      "email": "staffuser@prueba.com.py",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2021-02-08T13:13:14Z",
+      "groups": [
+        1
+      ],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$216000$tfbLDcHclLwN$rHXdAdPWohVzne15C+d1BD3tjC3ZSUPRVvdr61QJHVw=",
+      "last_login": "2021-03-22T17:53:01.212Z",
+      "is_superuser": true,
+      "username": "systemuser",
+      "first_name": "Usuario",
+      "last_name": "Sistema",
+      "email": "systemuser@prueba.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2021-03-22T17:51:19Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]
+
+

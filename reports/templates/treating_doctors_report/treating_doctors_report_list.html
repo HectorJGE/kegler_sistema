@@ -1,0 +1,355 @@
+{% extends "layout.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Reportes
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTables Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Reporte de Médicos Tratantes
+      </h6>
+      <br>
+      <form action="{% url 'reports.treating_doctors_report_list' %}" method="get" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+        {% csrf_token %}
+        {% for field in filter_form %}
+          {{ field|as_crispy_field }}
+          <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" id="id_submit_button">Obtener Reporte</button>
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" style="width: 100%; border-spacing: 0">
+          <thead>
+          <tr style="text-align: center;">
+            <th>ID de Ficha de Estudio</th>
+            <th>Fecha Hora</th>
+            <th>Paciente</th>
+            <th>Seguro</th>
+            <th>Doctor Tratante</th>
+            <th>Estudio</th>
+            <th>Sector</th>
+            <th>Arancel de Estudio</th>
+            <th>Insumos</th>
+            <th>Descuento</th>
+            <th>Monto Pagado Seguro</th>
+            <th>Monto Pagado Paciente</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for cs in consultation_sheets %}
+
+            <tr style="text-align: center;">
+              <td>{{ cs.id }}</td>
+              <td>
+                <span style="display:none;">{{ cs.consultation_date|date:"U"}}</span>
+                {{ cs.consultation_date|date:"D d/m/Y H:i" }}
+              </td>
+              <td>
+                <a href="{% url 'patient.detail' cs.patient.id %}" target="_blank">
+                  {{ cs.patient }}
+                </a>
+              </td>
+                <td>
+                    {{ cs.patient_insurance_plan|default_if_none:"-" }}
+                </td>
+              <td>
+                {{ cs.treating_doctor|default_if_none:"----" }}
+              </td>
+              <td>
+                <a href="{% url 'consultation_sheet.detail' cs.id %}" target="_blank">
+                  {{ cs.medical_study }}
+                </a>
+              </td>
+              <td>{{ cs.medical_study.sector }}</td>
+              <td>{{ cs.medical_study_ammount }}</td>
+              <td>{{ cs.medical_supplies_ammount }}</td>
+              <td>{{ cs.discount }}</td>
+              <td>{{ cs.total_ammount_to_pay_insurance }}</td>
+              <td>{{ cs.total_ammount_to_pay_patient_with_discount }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+          <tfoot style="text-align: right">
+          <th colspan="6"></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link type="text/css" href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script type="text/javascript" src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'base/js/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      $(function () {
+          /* Chosen */
+          $('select').chosen();
+
+          /* Datetime picker */
+          $('#id_date_time_start').mask("00/00/0000 00:00");
+          $('#id_date_time_end').mask("00/00/0000 00:00");
+
+          $('#id_date_time_start').click(function (){
+              $(this).select();
+          });
+          $('#id_date_time_end').click(function (){
+              $(this).select();
+          });
+
+          jQuery.datetimepicker.setLocale('es');
+
+          /* Se inicializa el datatables */
+          $('#dataTable').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      {type: "numeric-comma", targets: [0, 6, 7, 8, 9, 10]},
+                      {
+                          data: "Arancel de Estudio",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 6
+
+                      },
+                      {
+                          data: "Total Insumos",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 7
+
+                      },
+                      {
+                          data: "Descuento",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 8
+
+                      },
+                      {
+                          data: "Total Seguro",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 9
+
+                      },
+                      {
+                          data: "Total Paciente con descuento",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 10
+
+                      },
+                  ],
+                  "footerCallback": function (row, data, start, end, display) {
+                      var api = this.api(), data;
+
+                      var number_format = $.fn.dataTable.render.number('.', ',', 1, '', '').display;
+
+                      // converting to interger to find total
+                      var intVal = function (i) {
+                          return typeof i === 'string' ?
+                              i.replace(/[\$,]/g, '') * 1 :
+                              typeof i === 'number' ?
+                                  i : 0;
+                      };
+
+                      // computing column Total of the complete result
+                      var estudio = api
+                          .column(6)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var materiales = api
+                          .column(7)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+
+                      var descuento = api
+                          .column(8)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var total_seguro = api
+                          .column(9)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var total_paciente_con_descuento = api
+                          .column(10)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+
+                      // Update footer by showing the total with the reference of the column index
+                      $(api.column(0).footer()).html('Total:');
+                      $(api.column(6).footer()).html(number_format(estudio));
+                      $(api.column(7).footer()).html(number_format(materiales));
+                      $(api.column(8).footer()).html(number_format(descuento));
+                      $(api.column(9).footer()).html(number_format(total_seguro));
+                      $(api.column(10).footer()).html(number_format(total_paciente_con_descuento));
+                  },
+                  //"processing": true,
+
+              }
+          );
+
+          /* Se inicializan los datetime picker de los filtros */
+          /* Si el campo de fecha no está vacío */
+          if ($("#id_date_time_start").val() !== '') {
+              var str_fecha = $("#id_date_time_start").val();
+              str_fecha = str_fecha.substring(0, 16);
+              $("#id_date_time_start").val(str_fecha);
+              var fecha_inicio = $("#id_date_time_start").val();
+
+              str_fecha = $("#id_date_time_end").val();
+              str_fecha = str_fecha.substring(0, 16);
+              $("#id_date_time_end").val(str_fecha);
+              var fecha_fin = $("#id_date_time_end").val();
+
+              var fecha_inicio_date = moment(fecha_inicio, 'DD/MM/YYYY HH:mm').toDate();
+              var fecha_fin_date = moment(fecha_fin, 'DD/MM/YYYY HH:mm').toDate();
+
+              /* Datetimepicker */
+              var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: fecha_inicio_date
+              });
+
+              var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: fecha_fin_date
+              });
+
+
+              /* Si el campo de fecha está vacío */
+          } else {
+              /* Datetimepicker */
+              var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: new Date()
+              });
+
+
+              var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: new Date()
+              });
+
+          }
+
+      });
+
+  </script>
+
+
+{% endblock %}

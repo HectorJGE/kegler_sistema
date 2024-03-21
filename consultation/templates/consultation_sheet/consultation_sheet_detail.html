@@ -1,0 +1,590 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load humanize %}
+{% block heading %}
+{% load i18n %}
+{% load utils %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    <a href="{% url 'consultation_sheet.list' %}">Fichas de Estudios</a>
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Detalle de Ficha de Estudio ID: {{ consultation_sheet.id }}</h6>
+    </div>
+    <div class="card-body">
+      <table class="table table-bordered table-hover" style="width: 60%;">
+        <thead></thead>
+        <tbody style="text-align: center">
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Estado</strong>
+          </td>
+          <td><b>{{ consultation_sheet.consultation_state }}</b></td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Fecha para Entrega de Resultados(Interna)</strong>
+          </td>
+          <td>
+
+              {% if consultation_sheet.internal_results_delivery_date %}
+                {{ consultation_sheet.internal_results_delivery_date|date:"d/m/Y H:i" }}
+              {% else %}
+                {{ consultation_sheet.internal_results_delivery_date|default_if_none:"---" }}
+              {% endif %}
+
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Fecha para Entrega de Resultados(Paciente)</strong>
+          </td>
+          <td>
+
+              {% if consultation_sheet.patient_results_delivery_date %}
+                {{ consultation_sheet.patient_results_delivery_date|date:"d/m/Y H:i" }}
+              {% else %}
+                {{ consultation_sheet.patient_results_delivery_date|default_if_none:"---" }}
+              {% endif %}
+
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Fecha y Hora del Estudio</strong>
+          </td>
+          <td>{{ consultation_sheet.consultation_date|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Paciente</strong>
+          </td>
+          <td>
+            <a href="{% url 'patient.detail' consultation_sheet.patient.id %}">
+              {{ consultation_sheet.patient }}
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Nro de contacto</strong>
+          </td>
+          <td>{{ consultation_sheet.contact_number|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Email de contacto</strong>
+          </td>
+          <td>{{ consultation_sheet.contact_email|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Seguro</strong>
+          </td>
+          <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Estudio</strong>
+          </td>
+          <td>{{ consultation_sheet.medical_study|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Doctor que realizó el estudio</strong>
+          </td>
+          <td>{{ consultation_sheet.doctor|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Equipo Utilizado</strong>
+          </td>
+          <td>{{ consultation_sheet.medical_equipment|default_if_none:"---" }}</td>
+        </tr>
+        <tr>
+          <td style="text-align: center">
+            <strong class="text-primary">Técnico que realizó el estudio</strong>
+          </td>
+          <td>{{ consultation_sheet.technician|default_if_none:"---" }}</td>
+        </tr>
+        </tbody>
+      </table>
+      <!-- Documentos -->
+      <div>
+        <h4>Documentos para el Estudio</h4>
+        <table class="table table-bordered table-hover" id="id-table-documents" style="text-align: center">
+          <thead>
+          <th><strong class="text-primary">Tipo</strong></th>
+          <th><strong class="text-primary">Archivo</strong></th>
+          <th><strong class="text-primary">Acción</strong></th>
+          </thead>
+          <tbody>
+          {% for document in consultation_sheet.consultation_sheet_documents.all %}
+            <tr>
+              <!-- Document Type -->
+              <td>
+                <div class="col-md-12">
+                  {{ document.document_type }}
+                </div>
+              </td>
+              <!-- File -->
+              <td>
+                {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                  <div class="col-md-12">
+                    <a target="_blank" data-fancybox="gallery" href="{{ document.file.url }}">
+                      <img height="200px" width="200px"
+                      src="{{ document.file.url }}"
+                      >
+                    </a>
+                  </div>
+                {% else %}
+                  <div class="col-md-12">
+                    <a target="_blank" href="{{ document.file.url }}">{{ document.file }}</a>
+                  </div>
+                {% endif %}
+              </td>
+              {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                    <td>
+                        <a target="_blank" href="{% url 'consultation_sheet.document_print' document.id %}">
+                          Imprimir documento
+                        </a>
+                    </td>
+                {% else %}
+                     <td>
+                        <a target="_blank" href="{{ document.file.url }}">
+                            {{ document.file.url }}
+                        </a>
+                    </td>
+                {% endif %}
+            </tr>
+          {% empty %}
+            <tr style="text-align: center">
+              <td colspan="2">Sin Documentos agregados</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div>
+        <table class="table table-bordered table-hover" style="width: 60%;">
+          <thead></thead>
+          <tbody style="text-align: center">
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Porcentaje de Cobertura del Seguro</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.insurance_agreement_coverage_percent|intcomma }} %
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Estudio Médico</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_study_ammount|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Estudio Médico a Pagar Seguro</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_study_ammount_to_pay_insurance|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Estudio Médico a Pagar Paciente</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_study_ammount_to_pay_patient|intcomma }}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Insumos -->
+      <div>
+        <h4>Insumos Utilizados</h4>
+        <table class="table table-bordered table-hover" id="id-table-documents" style="text-align: center">
+          <thead>
+          <th><strong class="text-primary">Insumo</strong></th>
+          <th><strong class="text-primary">Cantidad</strong></th>
+          <th><strong class="text-primary">Precio</strong></th>
+          <th><strong class="text-primary">Porcentaje de Cobertura</strong></th>
+          <th><strong class="text-primary">Monto a Pagar Seguro</strong></th>
+          <th><strong class="text-primary">Monto a Pagar Paciente</strong></th>
+          <th><strong class="text-primary">Moneda</strong></th>
+          </thead>
+          <tbody>
+          {% for supply_used in consultation_sheet.medical_supplies_used.all %}
+            <tr>
+              <!-- Medical Supply -->
+              <td>
+                <div class="col-md-12">
+                  {{ supply_used.medical_supply }}
+                </div>
+              </td>
+              <!-- Quantity -->
+              <td>
+                <div class="col-md-12">
+                  {{ supply_used.quantity }}
+                </div>
+              </td>
+              <!-- Price -->
+              <td>
+                <div class="col-md-12" style="text-align: right">
+                  {{ supply_used.price|intcomma }}
+                </div>
+              </td>
+              <!-- Insurence Agreement Cover Percentage -->
+              <td>
+                <div class="col-md-12" style="text-align: right">
+                  {{ supply_used.insurance_agreement_coverage_percent|intcomma }}
+                </div>
+              </td>
+              <!-- Ammount to Pay Insurance -->
+              <td>
+                <div class="col-md-12" style="text-align: right">
+                  {{ supply_used.ammount_to_pay_insurance|intcomma }}
+                </div>
+              </td>
+              <!-- Ammount to Pay Patient -->
+              <td>
+                <div class="col-md-12" style="text-align: right">
+                  {{ supply_used.ammount_to_pay_patient|intcomma }}
+                </div>
+              </td>
+              <!-- Currency -->
+              <td>
+                <div class="col-md-12">
+                  {{ supply_used.currency }}
+                </div>
+              </td>
+            </tr>
+          {% empty %}
+            <tr style="text-align: center">
+              <td colspan="7">Sin Insumos Utilizados</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table class="table table-bordered table-hover" style="width: 60%;">
+          <thead></thead>
+          <tbody style="text-align: center">
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Insúmos Médicos</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_supplies_ammount|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto de Insúmos Médicos a Pagar Seguro</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_supplies_ammount_to_pay_insurance|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto de Insumos Médicos a Pagar Paciente</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.medical_supplies_ammount_to_pay_patient|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Total</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.total_amount|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Total a Pagar Seguro</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.total_ammount_to_pay_insurance|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Total a Pagar Paciente</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.total_ammount_to_pay_patient|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Descuento</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.discount|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Total a Pagar Paciente con descuento</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.total_ammount_to_pay_patient_with_discount|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Monto Pagado por el Paciente</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.amount_paid|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Saldo del Paciente</strong>
+            </td>
+            <td style="text-align: right">
+              {{ consultation_sheet.patient_balance|intcomma }}
+            </td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Moneda</strong>
+            </td>
+            <td>{{ consultation_sheet.currency|default_if_none:"---" }}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Método de Pago</strong>
+            </td>
+            <td>{{ consultation_sheet.payment_method|default_if_none:"---" }}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Nro. Referencia de Pago</strong>
+            </td>
+            <td>{{ consultation_sheet.payment_reference|default_if_none:"---" }}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Doctor Tratante</strong>
+            </td>
+            <td>{{ consultation_sheet.treating_doctor|default_if_none:"---" }}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Médico Informante</strong>
+            </td>
+            <td>{{ consultation_sheet.reporting_doctor|default_if_none:"---" }}</td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Observaciones</strong>
+            </td>
+            <td>{{ consultation_sheet.observations|default_if_none:"---" }}</td>
+          </tr>
+          {% for state_log in consultation_sheet.consultation_states_user_logs.all %}
+            {% if state_log.consultation_state.name != 'Preparado' and state_log.consultation_state.name != 'Informado' and state_log.consultation_state.name != 'Realizado' %}
+              <tr>
+                <td style="text-align: center">
+                  <strong class="text-primary">{{ state_log.consultation_state }} por</strong>
+                </td>
+                <td><b>{{ state_log.user }}</b> - el {{ state_log.state_log_datetime }}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Recibido por</strong>
+            </td>
+            <td>{{ consultation_sheet.received_by|default_if_none:"---" }}</td>
+          </tr>
+
+          <tr>
+            <td style="text-align: center">
+              <strong class="text-primary">Turno</strong>
+            </td>
+            <td>
+              {% if consultation_sheet.appointment %}
+                <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                  Ver Turno ID: {{ consultation_sheet.appointment.id }}
+                </a>
+              {% else %}
+                ---
+              {% endif %}
+            </td>
+          </tr>
+          {%  for state_log in consultation_sheet.appointment.appointment_states_user_logs.all %}
+            {%  if state_log.appointment_state.state_code != 1 %}
+              <tr>
+                <td style="text-align: center">
+                  <strong class="text-primary">{{ state_log.appointment_state }} por</strong>
+                </td>
+                <td><b>{{ state_log.user }}</b> - el {{ state_log.state_log_datetime }}</td>
+              </tr>
+            {% endif %}
+
+          {% endfor %}
+          <tr>
+            <td>
+              <strong class="text-primary">Ficha de Entrada</strong>
+            </td>
+            <td>
+              {% if consultation_sheet.consultation_entry_sheet %}
+                <a href="{% url 'consultation_entry_sheet.detail' consultation_sheet.consultation_entry_sheet.id %}">
+                  Ver Ficha de Entrada ID: {{ consultation_sheet.consultation_entry_sheet.id }}
+                </a>
+              {% else %}
+                -----
+              {% endif %}
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      <h4>Log de Cambios</h4>
+      <table class="table table-bordered table-hover" >
+          <thead>
+            <tr>
+                <th>Fecha:</th>
+                <th>Tipo de Acción</th>
+                <th>Autor</th>
+                <th>Cambios</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for audit_log in audit_log_entries %}
+                <tr>
+                    <td>{{ audit_log.timestamp }}</td>
+                    <td>
+                        {% if audit_log.action == 0 %}
+                            Creación
+                        {% else %}
+                            Actualización
+                        {% endif %}
+                    </td>
+                    <td>{{ audit_log.actor|default_if_none:"" }}</td>
+                    <td>
+                        <table>
+                        <thead>
+                            <tr>
+                                <th>Campo</th><th>De:</th><th>A:</th>
+                            </tr>
+                        </thead>
+                            {% for key,value in audit_log.changes_dict.items %}
+                                {% if key != 'medical_supplies_used' and key != 'sale_details' and key != 'sale_payments' and key != 'consultation_sheet_documents' and key != 'consultation_states_user_logs'  %}
+                                    {% if key != 'consultation_date' and key != 'created_at' and key != 'updated_at'  %}
+                                        <tr>
+                                            <td><b>{% trans key %}</b></td>
+                                            <td>
+                                                {% if value.0 != 'None'  %}
+                                                    {{ value.0|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if value.1 != 'None'  %}
+                                                    {{ value.1|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td><b>{% trans key %}</b></td>
+                                            <td>
+                                                {% if value.0 != 'None'  %}
+                                                    {{ value.0|datedate|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                {% if value.1 != 'None'  %}
+                                                    {{ value.1|datedate|default_if_none:"" }}
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                            {% endif %}
+                            {% endfor %}
+                        </table>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No history for this item has been logged yet.</td></tr>
+            {% endfor %}
+          </tbody>
+      </table>
+
+      </div>
+      {% if consultation_sheet.consultation_entry_sheet.invoice == None %}
+          <a href="{% url 'consultation_sheet.update' consultation_sheet.id %}" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </span>
+            <span class="text">Editar</span>
+          </a>
+      {% endif %}
+      {% if perms.consultation.delete_consultationsheet %}
+        {% if consultation_sheet.consultation_entry_sheet.invoice == None %}
+            <a href="{% url 'consultation_sheet.delete' consultation_sheet.id %}" class="btn btn-danger btn-icon-split">
+                                              <span class="icon text-white-50">
+                                                  <i class="fas fa-trash"></i>
+                                              </span>
+              <span class="text">Eliminar Ficha de Estudio</span>
+            </a>
+        {% endif %}
+
+      {% endif %}
+      <a href="{% url 'consultation_sheet.list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+        <span class="text">Volver al Listado</span>
+      </a>
+      {% if not consultation_sheet.consultation_entry_sheet %}
+        <a href="{% url 'consultation_entry_sheet.create' %}?consultation_sheet_ids={{ consultation_sheet.id }}" target="_blank" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa fa-notes-medical"></i>
+          </span>
+          <span class="text">Crear Ficha de Entrada</span>
+        </a>
+      {% endif %}
+      <a href="{% url 'consultation_sheet.print_tag' consultation_sheet.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+          <span class="icon text-white-50">
+            <i class="fas fa fa-print"></i>
+          </span>
+        <span class="text">Imprimir etiqueta</span>
+      </a>
+
+    </div>
+  </div>
+{% endblock %}
+{% block extra_css %}
+  <link href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block extra_js %}
+  <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+  <!-- Page Custom Scripts -->
+  <script type="text/javascript">
+      $('[data-fancybox="gallery"]').fancybox({
+          // Options will go here
+      });
+      refreshParent();
+      function refreshParent() {
+          window.opener.location.reload();
+      }
+  </script>
+{% endblock %}

@@ -1,0 +1,89 @@
+{%  extends 'layout.html' %}
+{% load static %}
+{% block content %}
+  <div>
+    <div id="div_id_" class="form-group">
+      <label style="color: black" for="id_report_type" class=" requiredField">
+        Nombre del Reporte<span class="asteriskField">*</span>
+      </label>
+      <div class="">
+        <input type="text" name="report_type" maxlength="100"
+               class="textinput textInput form-control" required=""
+               id="id_report_type" value="{{ report_definition_object.report_type }}">
+      </div>
+    </div>
+  </div>
+  <div id="reportbro"></div>
+{% endblock %}
+{% block extra_css %}
+  <link rel="SHORTCUT ICON" href="{% static 'reports/report_bro_static/favicon.ico' %}" type="image/x-icon">
+  <link href="{% static 'reports/report_bro_static/reportbro/ext/spectrum.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'reports/report_bro_static/reportbro/reportbro.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'reports/report_bro_static/css/styles.css' %}" rel="stylesheet" type="text/css"/>
+
+{% endblock %}
+{% block extra_js %}
+  <script src="{% static 'reports/report_bro_static/reportbro/ext/jquery.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/reportbro/ext/autosize.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/reportbro/ext/JsBarcode.all.min.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/reportbro/ext/spectrum.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/reportbro/reportbro.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/js/knockout-3.5.1.min.js' %}"></script>
+  <script src="{% static 'reports/report_bro_static/js/jquery.cookie.js' %}"></script>
+
+  <script type="text/javascript">
+
+      function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      }
+
+      $.ajaxSetup({
+          beforeSend: function(xhr, settings) {
+              if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                  var csrftoken = $.cookie('csrftoken');
+                  xhr.setRequestHeader("X-CSRFToken", csrftoken);
+              }
+          }
+      });
+
+  </script>
+
+  <script type="text/javascript">
+
+      var rb = null;
+
+      function saveReport() {
+          var report = rb.getReport();
+          report['report_type'] = $('#id_report_type').val();
+
+
+          // console.log(JSON.stringify(report));
+          $.ajax("{% url 'reports.report_definition.save' report_definition_object.id %}", {
+              data: JSON.stringify(report),
+              type: "PUT",
+              contentType: "application/json",
+              success: function(data) {
+                  // report definition saved successfully,
+                  // set modified flag to false to disable save button
+                  rb.setModified(false);
+              },
+              error: function(jqXHR, textStatus, errorThrown) {
+                  alert('saving report failed');
+              }
+          });
+      }
+
+      $(document).ready(function() {
+          rb = $('#reportbro').reportBro({
+              reportServerUrl: "{% url 'reports.report_definition.run' %}",
+              saveCallback: saveReport
+          });
+          var report = {{report_definition}};
+          if (report) {
+              rb.load(report);
+          }
+          $('#sidebarToggle').trigger('click');
+      });
+  </script>
+{% endblock %}

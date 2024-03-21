@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 17:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: stock/apps.py:7
+msgid "Stock"
+msgstr "Inventario"
+
+#: stock/models.py:12 stock/models.py:45
+msgid "Name"
+msgstr "Nombre"
+
+#: stock/models.py:16
+msgid "Default Deposit"
+msgstr "Depósito por defecto"
+
+#: stock/models.py:24 stock/models.py:82 stock/models.py:118
+msgid "Deposit"
+msgstr "Depósito"
+
+#: stock/models.py:25
+msgid "Deposits"
+msgstr "Depositos"
+
+#: stock/models.py:49 stock/models.py:139
+msgid "Description"
+msgstr "Descripción"
+
+#: stock/models.py:53
+msgid "Purchase price"
+msgstr "Precio de Compra"
+
+#: stock/models.py:57
+msgid "Sale price"
+msgstr "Precio de Venta"
+
+#: stock/models.py:62
+msgid "Currency"
+msgstr "Moneda"
+
+#: stock/models.py:71 stock/models.py:88 stock/models.py:124
+#: stock/models.py:227
+msgid "Product"
+msgstr "Producto"
+
+#: stock/models.py:72
+msgid "Products"
+msgstr "Productos"
+
+#: stock/models.py:93 stock/models.py:135 stock/models.py:232
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: stock/models.py:102
+msgid "Product Deposit Quantity"
+msgstr "Cantidad de Producto en Depósito"
+
+#: stock/models.py:103
+msgid "Products Deposits Quantitys"
+msgstr "Cantidades de Productos en Depósitos"
+
+#: stock/models.py:114
+msgid "IN"
+msgstr "ENTRADA"
+
+#: stock/models.py:115
+msgid "OUT"
+msgstr "SALIDA"
+
+#: stock/models.py:130
+msgid "Movement Type"
+msgstr "Tipo de movimiento"
+
+#: stock/models.py:144
+msgid "User"
+msgstr "Usuario"
+
+#: stock/models.py:154
+msgid "Stock Movement"
+msgstr "Movimiento de Stock"
+
+#: stock/models.py:155
+msgid "Stock Movements"
+msgstr "Movimientos de Stock"
+
+#: stock/models.py:195
+msgid "Deposit Out"
+msgstr "Deposito Salida"
+
+#: stock/models.py:201
+msgid "Deposit In"
+msgstr "Deposito Entrada"
+
+#: stock/models.py:207
+msgid "Deposit out: "
+msgstr "Deposito salida"
+
+#: stock/models.py:210 stock/models.py:221
+msgid "Cart"
+msgstr "Carrito"
+
+#: stock/models.py:211
+msgid "Carts"
+msgstr "Carritos"
+
+#: stock/models.py:240
+msgid "Cart Detail"
+msgstr "Detalle de Carrito"
+
+#: stock/models.py:241
+msgid "Cart Details"
+msgstr "Detalles de Carrito"
+
+#~ msgid "The new quantity cant't be a negative number"
+#~ msgstr "La nueva cantidad no puede ser un número negativo"
+
+#~ msgid "Can't create a Negative Stock Movement if there is no Stock created!"
+#~ msgstr ""
+#~ "No se puede crear un movimiento de stock negativo, si no hay un stock del "
+#~ "mismo creado!"
+
+#~ msgid " Quantity: "
+#~ msgstr " Cantidad: "
+
+#~ msgid " to Deposit in: "
+#~ msgstr " a Deposito entrada"

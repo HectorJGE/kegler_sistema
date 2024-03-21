@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'credit_note_list' %}">Notas de Crédito</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Actualizar Nota de Crédito ID: {{ credit_note.id }} Nro: {{ credit_note.credit_note_number }}</h6>
+        </div>
+        <div class="card-body">
+            <form id="update_credit_note_form" method="POST">
+                {% csrf_token %}
+                {{ form.management_form }}
+                {{ form.credit_note_stamp }}
+                {{ form.customer }}
+                {{ form.company|as_crispy_field}}
+                {{ form.invoice_header|as_crispy_field }}
+                {{ form.credit_note_number|as_crispy_field }}
+                {{ form.client_name|as_crispy_field }}
+                {{ form.client_tax_identification_number|as_crispy_field }}
+                {{ form.client_email|as_crispy_field }}
+                {{ form.client_address|as_crispy_field }}
+                {{ form.client_phone_number|as_crispy_field }}
+                {{ form.client_tax_payer|as_crispy_field }}
+                {{ form.credit_note_date|as_crispy_field }}
+                {{ form.currency|as_crispy_field }}
+
+                <!-- inicio formset detalles de factura -->
+
+                <div>
+                    <h4>Detalles de nota de crédito</h4>
+                    {{ detail_formset.management_form }}
+                </div>
+                <table class="table table-bordered table-hover" id="id-table-details">
+                    <thead>
+{#                    <tr>#}
+{#                        <th>Cantidad</th>#}
+{#                        <th>Descripcion</th>#}
+{#                        <th>Precio Unitario</th>#}
+{#                        <th>Exentas</th>#}
+{#                        <th>IVA 5%</th>#}
+{#                        <th>IVA 10%</th>#}
+{#                    </tr>#}
+                    </thead>
+                    <tbody>
+                    {% for detail_form in detail_formset.forms %}
+                        <tr id="{{ detail_form.prefix }}-row">
+                            {{ detail_form.id }}
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.quantity|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.description|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.unit_price|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.exempt|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.tax_5|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="col-md-12">
+                                    {{ detail_form.tax_10|as_crispy_field }}
+                                </div>
+                            </td>
+                            <td class="text-center" style="width:10%;">
+                                {{ detail_form.DELETE }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {{ form.total_exempt|as_crispy_field }}
+                {{ form.total_tax5|as_crispy_field }}
+                {{ form.total_tax10|as_crispy_field }}
+                {{ form.total_tax|as_crispy_field }}
+                {{ form.subtotal|as_crispy_field }}
+                {{ form.credit_note_total|as_crispy_field }}
+                {{ form.credit_note_total_letters|as_crispy_field }}
+                <input type="submit" class="btn btn-success" value="Guardar Cambios">
+                <!--
+                <a href="{% url 'credit_note.print' credit_note.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-print"></i>
+                      </span>
+                    <span class="text">Imprimir Nota de Crédito</span>
+                </a>
+                -->
+                <a href="{% url 'credit_note_detail' credit_note.id %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+                    <span class="text">Cancelar</span>
+                </a>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_css %}
+    <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-formset/jquery.formset.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-ui-dist/jquery-ui.min.js' %}"></script>
+    <script src="{% static 'invoicing/js/credit_note_update.js' %}"></script>
+    <script type="text/javascript">
+        var details_formset_prefix = '{{ detail_formset.prefix }}';
+        var url_autocomplete_client_name = '{% url 'customer.query' %}';
+        var url_get_last_credit_note_number = '{% url 'credit_note.get_last_number' 9999 %}';
+        var url_get_invoice_data = '{% url 'invoice.get_invoice_data_json' 9999 %}';
+        var url_get_invoices_by_company_id = '{% url 'invoice.get_invoices_by_company_json' 9999 %}';
+
+        var formset_initial_index = parseInt($('#id_credit_note_details-INITIAL_FORMS').val());
+        var borrado = false;
+
+        $(function () {
+            initializeFormsets();
+            initializeCreditNoteInputs();
+        });
+
+    </script>
+
+{% endblock %}

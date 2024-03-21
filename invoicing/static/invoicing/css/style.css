@@ -1,0 +1,171 @@
+* {
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    font-size: 13px;
+}
+
+.blank{
+    height: 2mm;
+    flex: auto;
+}
+
+.minispace{
+    height: 0.8mm;
+    flex: auto;
+}
+
+.topspace{
+    height: 14mm;
+    flex: auto;
+ }
+
+.middlespace{
+    height: 4mm;
+    flex: auto;
+ }
+
+.endspace{
+    height: 4mm;
+    flex: auto;
+}
+
+.page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10mm;
+    margin: 10mm auto;
+    background: white;
+}
+
+@page {
+    size: legal;
+    margin: 0;
+}
+
+@media print {
+    html, body {
+        width: 210mm;
+        height: 99%;
+    }
+
+    .page {
+        margin: 0;
+        border: initial;
+        border-radius: initial;
+        width: initial;
+        min-height: initial;
+        box-shadow: initial;
+        background: initial;
+        page-break-after: avoid;
+    }
+}
+
+.page:last-child {
+    page-break-after: auto;
+}
+
+.details-table {
+    height: 100px;
+}
+
+.details {
+    display: flex;
+    height: 25px;
+}
+
+.space{
+    width: 100px;
+    height: 20px;
+}
+.bigspace{
+    width: 500px;
+    height: 100px;
+}
+
+.detail {
+    flex-direction: row;
+    height: 10px;
+    flex: auto;
+}
+
+.quantity {
+    width: 22mm;
+    text-align: end;
+}
+
+.description {
+    width: 85mm;
+    text-align: center;
+}
+
+.unit_price {
+    width: 16mm;
+    text-align: end;
+}
+
+.exempt {
+    width: 20mm;
+    text-align: end;
+}
+
+.tax_5 {
+    width: 20mm;
+    text-align: end;
+}
+
+.tax_10 {
+    width: 20mm;
+    text-align: end;
+}
+
+
+.container{
+    display: flex;
+    height: 30px;
+}
+
+.coldata{
+    flex-direction: row;
+    margin: auto;
+    flex: auto;
+}
+
+.colflex{
+    flex-direction: row;
+    margin: auto;
+    flex: 1;
+}
+
+.subtotal{
+    width: 20% !important;
+    text-align: end;
+}
+
+.blankspace{
+    width: 10% !important;
+}
+
+.total-letter{
+    font-size: 13px;
+    inline-size: max-content;
+    width: 75% !important;
+    text-align: end;
+}
+
+.tax-5{
+    width: 35px;
+    text-align: end;
+}
+
+.tax-10 {
+    width: 35px;
+    text-align: end;
+}
+
+.tax-total{
+    width: 35px;
+    text-align: center;
+}
+
+
+

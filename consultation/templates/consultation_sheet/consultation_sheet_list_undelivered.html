@@ -1,0 +1,188 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Fichas de Estudios
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Estudios Realizados Sin Entregar
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" cellspacing="0" style="width: 100%;">
+          <thead>
+          <tr style="text-align: center;">
+            <th>ID</th>
+            <th>Fecha Hora</th>
+            <th>Paciente</th>
+            <th>Seguro</th>
+            <th>Estudio Médico</th>
+            <!--
+            <th>Doctor</th>
+            <th>Equipo</th>
+            <th>Técnico</th>
+            -->
+            <th>Médico Informante</th>
+            <th>Fecha para Entrega de Resultados (Interna)</th>
+            <th>Fecha para Entrega de Resultados (Paciente)</th>
+            <th>Estado</th>
+            <th>Recibido por</th>
+            <th>Acción</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for consultation_sheet in consultation_sheets %}
+
+            <tr style="text-align: center;">
+              <td>{{ consultation_sheet.id }}</td>
+              <td>
+                <span style="display:none;">{{ consultation_sheet.consultation_date|date:"U"}}</span>
+                {{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}
+              </td>
+              <td>
+                <a href="{% url 'patient.detail' consultation_sheet.patient.id %}">
+                  {{ consultation_sheet.patient }}
+                </a>
+              </td>
+              <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"---" }}</td>
+              <td>{{ consultation_sheet.medical_study }}</td>
+              <!--
+              <td>{{ consultation_sheet.doctor|default_if_none:"---" }}</td>
+              <td>{{ consultation_sheet.medical_equipment|default_if_none:"---" }}</td>
+              <td>{{ consultation_sheet.technician|default_if_none:"---" }}</td>
+              -->
+              <td>{{ consultation_sheet.reporting_doctor|default_if_none:"---" }}</td>
+              <td>
+                {% if consultation_sheet.internal_results_delivery_date %}
+                  <span style="display:none;">{{ consultation_sheet.internal_results_delivery_date|date:"U"}}</span>
+                  {{ consultation_sheet.internal_results_delivery_date|date:"d/m/Y H:i" }}
+                {% else %}
+                  {{ consultation_sheet.internal_results_delivery_date|default_if_none:"---" }}
+                {% endif %}
+              </td>
+              <td>
+                {% if consultation_sheet.patient_results_delivery_date %}
+                  <span style="display:none;">{{ consultation_sheet.patient_results_delivery_date|date:"U"}}</span>
+                  {{ consultation_sheet.patient_results_delivery_date|date:"d/m/Y H:i" }}
+                {% else %}
+                  {{ consultation_sheet.patient_results_delivery_date|default_if_none:"---" }}
+                {% endif %}
+              </td>
+              <td>{{ consultation_sheet.consultation_state }}</td>
+              <td>
+                <div style="padding-top: 20px" id="div_id_received_by_{{ consultation_sheet.id }}" class="form-group">
+                  <input style="text-transform: uppercase" class="textinput textInput form-control to-upper-case" id="id_received_by_{{ consultation_sheet.id }}" type="text" placeholder="Nombre y CI">
+                </div>
+              </td>
+              <td>
+                <div style="padding-top: 20px" class="form-group">
+                  <input class="btn btn-sm btn-success shadow-sm mark-as-delivered-button" data-consultation-sheet-id="{{ consultation_sheet.id }}" type="button" value="Marcar Como entregado">
+                </div>
+              </td>
+
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      /* url para marcar como entregada la ficha de estudio */
+      var mark_as_delivered_url = '{% url 'consultation_sheet.mark_as_delivered' 9999 %}';
+
+      /* Document ready */
+      $(function () {
+          /* Se inicializa el datatables */
+          $('#dataTable').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      { type: "numeric-comma", targets: [0] },
+                  ],
+              }
+          );
+
+          $('.to-upper-case').keyup(function (){
+              $(this).val( $(this).val().toUpperCase() );
+          });
+
+          /* Al hacer click en el botón de marcar como entgregado */
+          $('.mark-as-delivered-button').on('click', function () {
+              Swal.fire({
+                  title: 'Está seguro que quiere marcar este estudio como entregado?',
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  cancelButtonText: 'Cancelar',
+                  confirmButtonText: `Si`,
+                  denyButtonText: `No`,
+              }).then((result) => {
+                  /* Read more about isConfirmed, isDenied below */
+                  if (result.isConfirmed) {
+                      var button = $(this);
+                      var consultation_sheet_id = button.data('consultation-sheet-id');
+                      var received_by = $("#id_received_by_" + consultation_sheet_id).val();
+                      var url = mark_as_delivered_url.replace('9999', consultation_sheet_id);
+                      console.log(url);
+
+                      /* Hacer llamada ajax para marcar  */
+                      $.ajax({
+                          type: 'GET',
+                          url: url,
+                          data: {'received_by': received_by},
+                          success: function (data, textStatus, jqXHR) {
+                              window.location.reload();
+                          },
+                          error: function (xhr, ajaxOptions, thrownError) {
+                              /* Alerta de Error */
+                              Swal.fire({
+                                  icon: 'error',
+                                  title: 'Error...',
+                                  text: 'Error al tratar de marcar como entregado, los resultados de la ficha de estudio ' + consultation_sheet_id,
+                                  footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                              });
+                          }
+                      });
+                      Swal.fire('Estudio Entregado!', '', 'success')
+                  } else if (result.isDenied) {
+
+                  }
+              })
+
+          });
+
+
+      });
+
+  </script>
+
+
+{% endblock %}

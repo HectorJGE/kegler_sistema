@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load humanize %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'invoicing.customer_list' %}">Clientes</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalles de cliente: {{ customer.id }}</h6>
+        </div>
+        <div class="card-body">
+            <div id="invoice">
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px" class="container">
+                        <div class="p-2 col-8 bd-highlight">
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Nombre o Razón Social:</b> {{ customer.customer_name }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>RUC:</b> {{ customer.customer_tax_id_number }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Email:</b> {{ customer.customer_email }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Nro de Teléfono:</b> {{ customer.customer_phone_number }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Dirección:</b> {{ customer.customer_address }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Es Contribuyente:</b> {{ customer.is_taxpayer|yesno:"Si, No" }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Tipo de Cliente:</b> {{ customer.get_customer_type_display }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>RUC validado por la SET:</b> {{ customer.sifen_ruc_validated|yesno:"Si, No" }}
+                            </div>
+                            <div class="p-1 bd-highlight text-end">
+                                <b>Paciente Relacionado:</b> {{ customer.patient|default_if_none:"---" }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'invoicing.customer_update' customer.id %}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                <span class="text">Editar Cliente</span>
+            </a>
+            <a href="{% url 'invoicing.customer_delete' customer.id %}" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+                <span class="text">Eliminar Cliente</span>
+            </a>
+            <a href="{% url 'invoicing.customer_list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+                <span class="text">Volver al Listado</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+
+
+{% endblock %}

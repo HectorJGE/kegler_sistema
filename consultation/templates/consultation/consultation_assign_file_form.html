@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+      <a href="{% url 'consultation.list_without_files' %}">Estudios sin archivos asignados</a>
+    </h1>
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+      <div class="card-header py-3">
+          <h6 class="m-0 font-weight-bold text-primary">Asignar archivo a Estudio</h6>
+      </div>
+      <div class="card-body">
+          <div>
+              <p><strong>Estudio:</strong> {{ consultation }}</p>
+
+          </div>
+          <form method="post" enctype="multipart/form-data" action="{% url 'consultation.assign_files' consultation.id %}" autocomplete="off">
+          {% csrf_token %}
+          {{ form.consultation|as_crispy_field }}
+          {{ form.doctor|as_crispy_field }}
+
+          <!-- inicio formset files -->
+          <div {% if not consultation_files_formset %}style="display: none"{% endif %}>
+            <h4>Archivos a asignar</h4>
+            {{ consultation_files_formset.management_form|crispy }}
+            <table class="table table-bordered table-hover" id="id-table-consultation-files">
+              <tbody>
+              {% for consultation_file_form in consultation_files_formset.forms %}
+                <tr id="{{ consultation_file_form.prefix }}-row">
+                  {{ consultation_file_form.id }}
+                  <!-- File Name -->
+                  <td {% if consultation_file_form.file_name.errors %}class="has-error"{% endif %}>
+                    <div class="col-md-12">
+                      {{ consultation_file_form.file_name|as_crispy_field }}
+                    </div>
+                    {% if consultation_file_form.file_name.errors %}
+                      <span class="help-block">
+                          {{ consultation_file_form.file_name.errors|join:'. ' }}
+                        </span>
+                    {% endif %}
+                  </td>
+                    <!-- File consultation_file_type -->
+                    <td {% if consultation_file_form.consultation_file_type.errors %}class="has-error"{% endif %}>
+                        <div class="col-md-12">
+                            {{ consultation_file_form.consultation_file_type|as_crispy_field }}
+                        </div>
+                        {% if consultation_file_form.consultation_file_type.errors %}
+                            <span class="help-block">
+                          {{ consultation_file_form.consultation_file_type.errors|join:'. ' }}
+                        </span>
+                        {% endif %}
+                    </td>
+                  <!-- File -->
+                  <td {% if consultation_file_form.file.errors %}class="has-error"{% endif %}>
+                    <div class="col-md-12">
+                      {{ consultation_file_form.file|as_crispy_field }}
+                    </div>
+                    {% if consultation_file_formv.file.errors %}
+                      <span class="help-block">
+                          {{ consultation_file_form.file.errors|join:'. ' }}
+                        </span>
+                    {% endif %}
+                  </td>
+                  <td class="text-center" style="width:10%;">
+                    {{ consultation_file_form.DELETE }}
+                  </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <!-- fin formset de archivos -->
+
+
+          <input type="submit" class="btn btn-sm btn-primary shadow-sm" value="Guardar">
+          <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation.list_without_files' %}">Cancelar</a>
+        </form>
+      </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/dropify/css/dropify.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-formset/jquery.formset.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+  <script src="{% static 'build/vendor/dropify/js/dropify.min.js' %}"></script>
+
+  <script type="text/javascript">
+      var consultation_files_formset_prefix = '{{ consultation_files_formset.prefix }}';
+
+      /* Datetime picker */
+      jQuery.datetimepicker.setLocale('es');
+
+  </script>
+
+  <script type="text/javascript" src="{% static 'consultation/js/consultation_assing_file_form_formsets.js' %}"></script>
+    <script type="text/javascript">
+        initializeFormsets();
+        $('#id_doctor').chosen();
+    </script>
+
+
+{% endblock %}

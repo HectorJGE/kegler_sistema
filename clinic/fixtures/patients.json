@@ -1,0 +1,202 @@
+[
+  {
+    "model": "clinic.Patient",
+    "pk": 1,
+    "fields": {
+      "name": "Franco Luis",
+      "last_name": "Albertini Alonso",
+      "birth_date": "1986-08-20",
+      "email": "francoalbertini@gmail.com",
+      "document_number": "3497322",
+      "tax_identification_number": "3497322-2",
+      "address": "Sgto. 1ro Manuel Benitez 1590 e/ Kuarahy y Prof. Dr. Francisco Fernandez",
+      "phone_number": "+595986210344",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 2,
+    "fields": {
+      "name": "Fernando Ariel",
+      "last_name": "Liuzzi Encina",
+      "birth_date": "1987-02-17",
+      "email": "Fernando.liuzzi.encina@gmail.com",
+      "document_number": "2356837",
+      "tax_identification_number": "2356837",
+      "address": "Avda. Molas Lopez n° 1438 c/ Veteranos de la guerra del 70",
+      "phone_number": "+595981327645",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 3,
+    "fields": {
+      "name": "Guillermo Alejandro",
+      "last_name": "Modica Doldán",
+      "birth_date": "1988-02-18",
+      "email": "gmodicadoldan@gmail.com",
+      "document_number": "3798377",
+      "tax_identification_number": "3798377-6",
+      "address": "Tacuary 920 casi tte fariña",
+      "phone_number": "+595971277193",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 4,
+    "fields": {
+      "name": "Álvaro Maria",
+      "last_name": "Cubilla Sarubbi",
+      "birth_date": "1987-12-09",
+      "email": "cubilla.alvaro@gmail.com",
+      "document_number": "4414606",
+      "tax_identification_number": "4414606-0",
+      "address": "Austria 1843 c/ Viena",
+      "phone_number": "+595986102557",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 5,
+    "fields": {
+      "name": "Jesús",
+      "last_name": "Valdez",
+      "birth_date": "1988-11-24",
+      "email": "jesus.valdez@gmail.com",
+      "document_number": "5992683",
+      "tax_identification_number": "5992683-3",
+      "address": "4 de julio 235",
+      "phone_number": "0992567891",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 6,
+    "fields": {
+      "name": "Joel",
+      "last_name": "Espínola",
+      "birth_date": "1985-07-19",
+      "email": "joel.espinola@gmail.com",
+      "document_number": "3895775",
+      "tax_identification_number": "3895775-7",
+      "address": "Rca. de Siria 953",
+      "phone_number": "0971227864",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 7,
+    "fields": {
+      "name": "Daniel ",
+      "last_name": "Otazú",
+      "birth_date": "1994-08-15",
+      "email": "daniel.otazu@gmail.com",
+      "document_number": "1946416",
+      "tax_identification_number": "1946416-0",
+      "address": "Aviadores del Chaco 947",
+      "phone_number": "0981154678",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 8,
+    "fields": {
+      "name": "Ivanir",
+      "last_name": "Castioni",
+      "birth_date": "1986-05-14",
+      "email": "ivanir.castioni@gmail.com",
+      "document_number": "4060434",
+      "tax_identification_number": "4060434-3",
+      "address": "Medicos del chaco 794",
+      "phone_number": "0981549763",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 9,
+    "fields": {
+      "name": "Gustavo",
+      "last_name": "Cardozo",
+      "birth_date": "1987-12-09",
+      "email": "gustavo.cardozo@gmail.com",
+      "document_number": "5481592",
+      "tax_identification_number": "5481592-5",
+      "address": "6 de Enero 438",
+      "phone_number": "0972497358",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 10,
+    "fields": {
+      "name": "Gabriela",
+      "last_name": "Aquino",
+      "birth_date": "1999-07-12",
+      "email": "gabriela.aquino@gmail.com",
+      "document_number": "7111506",
+      "tax_identification_number": "7111506-2",
+      "address": "Mcal. Estigarriba 781",
+      "phone_number": "0982222657",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  }
+]

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>{{ title|default:"" }}</title>
+    {% block style_base %}
+        {% block layout_style %}
+            <style>
+                @page {
+                    size: A4;
+                    margin: 0.5cm;
+                }
+                @media print {
+                    .test{
+                        width: 300px;
+                    }
+                }
+            </style>
+        {% endblock %}
+        {% block extra_style %}{% endblock %}
+    {% endblock %}
+</head>
+<body style="font-size: 10px">
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

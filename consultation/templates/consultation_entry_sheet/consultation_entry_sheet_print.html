@@ -1,0 +1,447 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SISTEMA IRIBAS</title>
+
+  <!-- Custom fonts for this template-->
+
+
+  <!-- Custom styles for this template-->
+
+  {% block extra_css %}
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+        .page {
+            width: 210mm;
+            min-height: 297mm;
+            padding: 10mm;
+            margin: 10mm auto;
+            background: white;
+        }
+
+        @page {
+            size: A4;
+            margin: 0;
+        }
+        @media print {
+            html, body {
+                width: 210mm;
+                height: 99%;
+            }
+            .page {
+                margin: 0;
+                border: initial;
+                border-radius: initial;
+                width: initial;
+                min-height: initial;
+                box-shadow: initial;
+                background: initial;
+                page-break-after: always;
+            }
+        }
+        .page:last-child {
+            page-break-after: auto;
+        }
+    </style>
+  {% endblock %}
+
+</head>
+<body cz-shortcut-listen="true" style="
+    height: 100vh;
+">
+
+<!-- Wrapper -->
+<div id="wrapper" class="page" style="
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    height: 100%;
+">
+
+  <!--- Header -->
+  <div id="header" style="
+    display: flex;
+">
+    <div class="" style="
+    flex: 1;
+">
+      <table>
+        <tbody>
+        <tr>
+          <td><b>Preparado por:</b></td>
+          <td>
+            {% for state_user_log in consultation_sheet.consultation_states_user_logs.all %}
+              {% if state_user_log.consultation_state.name == 'Preparado'  %}
+                {{ state_user_log.user }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Recibido por: </b></td>
+          <td>
+            {{ consultation_sheet.received_by|default_if_none:"_____________" }}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Entregado por:</b></td>
+          <td>
+            {% for state_user_log in consultation_sheet.consultation_states_user_logs.all %}
+              {% if state_user_log.consultation_state.name == 'Entregado'  %}
+                {{ state_user_log.user }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-4" style="
+    flex: 1;
+    display: flex;
+    justify-content: center;
+">
+      <h2>Grupo Iribas</h2>
+    </div>
+    <div class="col-4" style="
+    flex: 1;
+">
+      <table>
+        <tbody>
+        <tr>
+          <td><b>Usuario:</b></td>
+          <td>
+            {% for state_user_log in consultation_sheet.consultation_states_user_logs.all %}
+              {% if state_user_log.consultation_state.name == 'Fichado'  %}
+                {{ state_user_log.user }}
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+        <tr>
+          <td><b>Técnico: </b></td>
+          <td>{{ consultation_sheet.technician|default_if_none:"__________________" }}</td>
+        </tr>
+        <tr>
+          <td><b>CD:</b></td>
+          <td>________________</td>
+        </tr>
+        <tr>
+          <td><b>Placa:</b></td>
+          <td>________________</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- End Header -->
+
+  <!-- Title -->
+  <div id="tittle" style="text-align: center">
+    <h2>Ficha de entrada</h2>
+  </div>
+  <!-- End Title -->
+
+  <!-- Body -->
+  <div id="body" style="
+    flex: 1;
+">
+
+    <!-- Top Part -->
+    <div id="top-part" style="
+    display: flex;
+">
+
+      <!-- Top Part Left -->
+      <div id="top-part-left" style="
+    flex: 1;
+">
+        <table>
+          <tbody>
+          <tr>
+            <td><b>Nro de Paciente:</b></td>
+            <td>{{ consultation_sheet.patient.id }}</td>
+          </tr>
+          <tr>
+            <td><b>Entrada:</b></td>
+            <td>{{ consultation_sheet.consultation_date|date:"d/m/Y H:i" }}</td>
+          </tr>
+          <tr>
+            <td><b>Paciente:</b></td>
+            <td>{{ consultation_sheet.patient }}</td>
+          </tr>
+          <tr>
+            <td><b>Fecha Nac:</b></td>
+            <td>{{ consultation_sheet.patient.birth_date|date:"d/m/Y" }} <b>Edad:</b> {{ consultation_sheet.patient.calculate_age }}</td>
+          </tr>
+          <tr>
+            <td><b>Direccion:</b></td>
+            <td>{{ consultation_sheet.patient.address|default_if_none:"------" }}</td>
+          </tr>
+          <tr>
+            <td><b>Observaciones:</b></td>
+            <td>{{ consultation_sheet.observations|default_if_none:"-----" }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End Top Part Left -->
+
+      <!-- Top Part Right -->
+      <div id="top-part-right" style="
+    flex: 1;
+">
+        <table>
+          <tbody>
+          <tr>
+            <td><b>Resultado:</b></td>
+            <td>
+              {% if consultation_sheet.internal_results_delivery_date %}
+                {{ consultation_sheet.internal_results_delivery_date|date:"d/m/Y H:i" }}
+              {% else %}
+                ____/____/____
+              {% endif %}
+            </td>
+          </tr>
+          <tr>
+            <td><b>Cédula:</b></td>
+            <td>{{ consultation_sheet.patient.document_number }}</td>
+          </tr>
+          <tr>
+            <td><b>Sexo:</b></td>
+            <td>{{ consultation_sheet.patient.get_sex_display }}</td>
+          </tr>
+          <tr>
+            <td><b>Teléfono:</b></td>
+            <td>{{ consultation_sheet.patient.phone_number }}</td>
+          </tr>
+          <tr>
+            <td><b>Turno:</b></td>
+            <td>
+              {% for study_sheet in studies_sheets %}
+                {% if forloop.first %}
+                  {% if study_sheet.appointment %}
+                    {{ study_sheet.appointment.appointment_date_start|date:"l d/m/Y H:i" }}
+                  {% else %}
+                    _________________
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          <tr>
+              <td><b>Fichado:</b></td>
+              <td>
+                  {% for study_sheet in studies_sheets %}
+                    {% if forloop.first %}
+                      {% for state_user_log in study_sheet.consultation_states_user_logs.all %}
+                        {% if state_user_log.consultation_state.name == 'Fichado'  %}
+                            {{ state_user_log.state_log_datetime|date:"l d/m/Y H:i" }}
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+              </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End Top Part Right -->
+
+      <!-- Top Part Studies -->
+
+      <!-- End Top Part Studies -->
+    </div>
+    <div id="top-part-studies">
+      <table style="width: 100%; text-align: left;">
+        <thead>
+          <tr>
+            <th>Examen a Realizar</th>
+            <th>Dr. Tratante</th>
+            <th>Seguro</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if studies_sheets %}
+          {% for study_sheet in studies_sheets %}
+            <tr>
+              <td>{{ study_sheet.medical_study }}({{ study_sheet.medical_equipment|default_if_none:"" }}{{ study_sheet.doctor|default_if_none:"" }})</td>
+              <td>{{ study_sheet.treating_doctor|default_if_none:"-" }}</td>
+              <td>{{ study_sheet.patient_insurance_plan|default_if_none:"-" }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td>{{ consultation_sheet.medical_study }}({{ study_sheet.medical_equipment|default_if_none:"" }}{{ study_sheet.doctor|default_if_none:"" }})</td>
+            <td>{{ consultation_sheet.treating_doctor|default_if_none:"-" }}</td>
+            <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"-" }}</td>
+          </tr>
+        {% endif %}
+        </tbody>
+      </table>
+    </div><!-- End Top Part -->
+
+    <!-- Second tittle -->
+
+    <!-- End Second Title -->
+
+    <!-- Bottom Part -->
+
+    <!-- End Bottom Part -->
+
+  </div>
+  <div id="body" style="
+    flex: 1;
+">
+
+    <!-- Top Part -->
+
+    <!-- End Top Part -->
+
+    <!-- Second tittle -->
+    <div id="second-title" style="text-align: center">
+      <h2>Grupo Iribas</h2>
+      <span>Mcal López 327 c/Curupayty - Tel. (595 21) 225 145</span>
+    </div>
+    <!-- End Second Title -->
+
+    <!-- Bottom Part -->
+    <div id="bottom-part" style="
+    display: flex;
+">
+
+      <!-- Bottom Part Left -->
+      <div id="bottom-part-left" style="
+    flex: 1;
+">
+        <table>
+          <tbody>
+          <tr>
+            <td><b>Protocolo:</b></td>
+            <td>{{ consultation_entry_sheet.id }}</td>
+          </tr>
+          <tr>
+            <td><b>Fecha:</b></td>
+            <td>{{ consultation_sheet.consultation_date|date:"d/m/Y" }}</td>
+          </tr>
+          <tr>
+            <td><b>Paciente:</b></td>
+            <td>{{ consultation_sheet.patient }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End Bottom Part Left -->
+
+      <!-- Bottom part right -->
+      <div id="bottom-part-right" style="
+    flex: 1;
+">
+        <table>
+          <tbody>
+          <tr>
+            <td><b>Usuario:</b></td>
+            <td>
+              {% for state_user_log in consultation_sheet.consultation_states_user_logs.all %}
+                {% if state_user_log.consultation_state.name == 'Fichado'  %}
+                  {{ state_user_log.user }}
+                {% endif %}
+              {% endfor %}
+            </td>
+          </tr>
+          <tr>
+            <td><b>Hora:</b></td>
+            <td>{{ consultation_sheet.consultation_date|date:"H:i" }}</td>
+          </tr>
+          <tr>
+            <td><b>Cédula:</b></td>
+            <td>{{ consultation_sheet.patient.document_number }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End Bottom part Right -->
+
+      <!-- Bottom part Studies -->
+
+      <!-- End bottom part Studies -->
+
+    </div>
+    <div id="botom-part-studies">
+      <table style="width: 100%; text-align: left;">
+        <thead>
+          <tr>
+            <th>Examen a Realizar</th>
+            <th>Dr. Tratante</th>
+            <th>Seguro</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if studies_sheets %}
+          {% for study_sheet in studies_sheets %}
+            <tr>
+              <td>{{ study_sheet.medical_study }}</td>
+              <td>{{ study_sheet.treating_doctor|default_if_none:"-" }}</td>
+              <td>{{ study_sheet.patient_insurance_plan|default_if_none:"-" }}</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td>{{ consultation_sheet.medical_study }}</td>
+            <td>{{ consultation_sheet.treating_doctor|default_if_none:"-" }}</td>
+            <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"-" }}</td>
+          </tr>
+        {% endif %}
+        </tbody>
+      </table>
+    </div><!-- End Bottom Part -->
+
+  </div><!-- End Body -->
+
+  <!-- Footer -->
+  <div id="footer" style="text-align: center">
+    <h4>RETIRAR SU EXAMEN EN FECHA
+      {% for study_sheet in studies_sheets %}
+        {% if forloop.last %}
+          {% if study_sheet.patient_results_delivery_date %}
+            {{ study_sheet.patient_results_delivery_date|date:"d/m/Y" }}
+            DESDE LAS
+            {{ study_sheet.patient_results_delivery_date|date:"H:i" }}
+          {% else %}
+            ____/____/____
+            DESDE LAS
+            __:__ HS
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      HASTA LAS 19:00 HS</h4>
+    <p>Sin esta Contraseña no se entregarán los resultados. En caso de extravío del mismo, presentar Documento de Identidad del Paciente. Los Estudios</p>
+    <p>Los Estudios no retirados en un plazo de 21 días serán destruídos.</p>
+  </div>
+  <!-- End Footer -->
+</div>
+<!-- End Wrapper -->
+
+</body>
+</html>
+<script type="text/javascript">
+  window.print();
+</script>

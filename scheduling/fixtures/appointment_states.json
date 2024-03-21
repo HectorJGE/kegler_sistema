@@ -1,0 +1,47 @@
+[
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Agendado",
+      "state_code": 0
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Cancelado",
+      "state_code": 2
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-10T17:16:24.690Z",
+      "updated_at": "2021-02-10T17:16:24.697Z",
+      "name": "Fichado",
+      "state_code": 1
+    }
+  },
+  {
+    "model": "scheduling.appointmentstate",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-18T01:47:53.162Z",
+      "updated_at": "2021-03-18T01:47:53.162Z",
+      "name": "Ausente",
+      "state_code": 3
+    }
+  }
+]
+

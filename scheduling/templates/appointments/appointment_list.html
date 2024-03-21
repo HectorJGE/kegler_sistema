@@ -1,0 +1,278 @@
+{% extends "layout.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Turnos
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTables Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Turnos <a href="{% url 'appointment.calendar' %}" class="btn btn-info btn-circle">
+        <i class="fas fa-plus"></i></a>
+      </h6>
+      <br>
+      <form action="{% url 'appointment.list' %}" method="get" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+        {% csrf_token %}
+        {% for field in filter_form %}
+          {{ field|as_crispy_field }}
+          <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" id="id_submit_button">Obtener Reporte</button>
+      </form>
+    </div>
+    <div class="card-body">
+
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr style="text-align: center;">
+              <th>ID</th>
+              <th>Inicio</th>
+              <th>Fin</th>
+              <th>Paciente</th>
+              <th>Seguro</th>
+              <th>Estudio</th>
+              <th>Equipo o Doctor</th>
+              <th>Estado</th>
+              <th>Doctor Tratante</th>
+              <th>Ficha de Estudio</th>
+              <th>Observaciones</th>
+              <th style="width:5%; text-align: center;"  data-orderable="false" class="no-column-search">Acciones</th>
+            </tr>
+          </thead>
+          <!--
+          <tfoot>
+            <tr>
+              <th>Name</th>
+              <th>Position</th>
+              <th>Office</th>
+              <th>Age</th>
+              <th>Start date</th>
+              <th>Salary</th>
+            </tr>
+          </tfoot>
+          -->
+          <tbody>
+            {% for appointment in appointments %}
+
+              <tr style="text-align: center;">
+                <td>{{ appointment.id }}</td>
+                <td>
+                  <span style="display:none;">{{ appointment.appointment_date_start|date:"U"}}</span>
+                  {{ appointment.appointment_date_start|date:"l d/m/Y H:i" }}
+                </td>
+                <td>
+                  <span style="display:none;">{{ appointment.appointment_date_end|date:"U"}}</span>
+                  {{ appointment.appointment_date_end|date:"l d/m/Y H:i" }}
+                </td>
+                <td>
+                  <a href="{% url 'patient.detail' appointment.patient.id %}">
+                    {{ appointment.patient }}
+                  </a><br>
+                  {{ appointment.contact_number }}<br>
+                  {{ appointment.contact_email|default_if_none:"" }}
+                </td>
+                <td>{{ appointment.insurance_plan|default_if_none:"Sin Seguro" }}</td>
+                <td>{{ appointment.medical_study|default_if_none:"---" }}</td>
+                <td>{{ appointment.medical_equipment|default_if_none:"" }} {{ appointment.doctor|default_if_none:"" }}</td>
+                <td>{{ appointment.appointment_state }}</td>
+                <td>{{ appointment.treating_doctor|default_if_none:"---" }}</td>
+                <td>
+                  {% for consultation_sheet in appointment.consultation_sheets.all %}
+                    <a href="{% url 'consultation_sheet.detail' consultation_sheet.id %}">Ficha ID:{{ consultation_sheet.id }}<br> (Ver Ficha)</a>
+                  {% endfor %}
+                </td>
+                <td>{{ appointment.observations }}</td>
+                <td style="white-space: nowrap;">
+                  <a href="{% url 'appointment.detail'  appointment.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <!--
+                  <a href="{% url 'appointment.update'  appointment.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+
+                  <a href="#" class="btn btn-danger btn-circle" data-target="#confirmDeleteModal">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  -->
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link type="text/css" href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'base/js/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+    $(function (){
+        /* Chosen */
+        $('select').chosen();
+
+        /* Datetime picker */
+        /* Datetime picker */
+        $('#id_date_time_start').mask("00/00/0000 00:00");
+        $('#id_date_time_end').mask("00/00/0000 00:00");
+
+        $('#id_date_time_start').click(function (){
+            $(this).select();
+        });
+        $('#id_date_time_end').click(function (){
+            $(this).select();
+        });
+
+        jQuery.datetimepicker.setLocale('es');
+
+        /* se inicializa el datatables */
+        $('#dataTable').DataTable(
+            /* Archivo de traducción */
+            {
+                language: {
+                    url: "{% url 'datatables_translation' %}",
+                },
+                columnDefs: [
+                    { type: "numeric-comma", targets: [0] },
+                ]
+            }
+        );
+
+        /* Se inicializan los datetime picker de los filtros */
+        /* Si el campo de fecha no está vacío */
+        if ($("#id_date_time_start").val() !== '') {
+            var str_fecha = $("#id_date_time_start").val();
+            str_fecha = str_fecha.substring(0, 16);
+            $("#id_date_time_start").val(str_fecha);
+            var fecha_inicio = $("#id_date_time_start").val();
+
+            str_fecha = $("#id_date_time_end").val();
+            str_fecha = str_fecha.substring(0, 16);
+            $("#id_date_time_end").val(str_fecha);
+            var fecha_fin = $("#id_date_time_end").val();
+
+            var fecha_inicio_date = moment(fecha_inicio, 'DD/MM/YYYY HH:mm').toDate();
+            var fecha_fin_date = moment(fecha_fin, 'DD/MM/YYYY HH:mm').toDate();
+
+            /* Datetimepicker */
+            var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                i18n: {
+                    es: {
+                        months: [
+                            'Enero', 'Febrero', 'Marzo', 'Abril',
+                            'Mayo', 'Junio', 'Julio', 'Agosto',
+                            'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                        ],
+                        dayOfWeek: [
+                            "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                        ]
+                    }
+                },
+                lang: 'es',
+                locale: 'es',
+                format: 'd/m/Y H:i',
+                inline: false,
+                step: 15,
+                defaultDate: fecha_inicio_date
+            });
+
+            var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                i18n: {
+                    es: {
+                        months: [
+                            'Enero', 'Febrero', 'Marzo', 'Abril',
+                            'Mayo', 'Junio', 'Julio', 'Agosto',
+                            'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                        ],
+                        dayOfWeek: [
+                            "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                        ]
+                    }
+                },
+                lang: 'es',
+                locale: 'es',
+                format: 'd/m/Y H:i',
+                inline: false,
+                step: 15,
+                defaultDate: fecha_fin_date
+            });
+
+            /* Si el campo de fecha está vacío */
+        } else {
+            /* Datetimepicker */
+            var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                i18n: {
+                    es: {
+                        months: [
+                            'Enero', 'Febrero', 'Marzo', 'Abril',
+                            'Mayo', 'Junio', 'Julio', 'Agosto',
+                            'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                        ],
+                        dayOfWeek: [
+                            "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                        ]
+                    }
+                },
+                lang: 'es',
+                locale: 'es',
+                format: 'd/m/Y H:i',
+                inline: false,
+                step: 15,
+                defaultDate: new Date()
+            });
+
+            var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                i18n: {
+                    es: {
+                        months: [
+                            'Enero', 'Febrero', 'Marzo', 'Abril',
+                            'Mayo', 'Junio', 'Julio', 'Agosto',
+                            'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                        ],
+                        dayOfWeek: [
+                            "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                        ]
+                    }
+                },
+                lang: 'es',
+                locale: 'es',
+                format: 'd/m/Y H:i',
+                inline: false,
+                step: 15,
+                defaultDate: new Date()
+            });
+        }
+
+    });
+
+  </script>
+
+
+{% endblock %}

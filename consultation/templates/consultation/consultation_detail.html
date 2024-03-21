@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'consultation.list_technicians' %}">Estudios Realizados</a>
+    </h1>
+
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalles de Estudio Realizado</h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Estudio: </label> <strong>{{ consultation_sheet.medical_study }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Fecha: </label> <strong>{{ consultation.consultation_date }}</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Paciente: </label> <strong>{{ consultation.patient }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Sexo: </label> <strong>{{ patient.get_sex_display }}</strong>
+                    <label>Edad: </label> <strong>{{ patient.calculate_age }}</strong>
+                    <label>Peso: </label> <strong>{{ patient.weight }} Kgs</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Técnico:</label> <strong>{{ consultation.technician|default_if_none:"---" }}</strong>
+                </div>
+                <div class="col-md-6">
+                    <label>Doctor:</label> <strong>{{ consultation.doctor|default_if_none:"---" }}</strong>
+                </div>
+            </div>
+            <div class="row">
+                {% for document in consultation_sheet.consultation_sheet_documents.all %}
+                    {% if document.get_extension == '.jpg' or  document.get_extension == '.jpeg' or  document.get_extension == '.png'  %}
+                        <div class="col-md-4">
+                            <label>{{ document.document_type }}</label>
+                            <a target="_blank" data-fancybox="gallery" href="{{ document.file.url }}">
+                                <img height="200px" width="200px"
+                                     src="{{ document.file.url }}"
+                                >
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="col-md-6">
+                            <a target="_blank" href="{{ document.file.url }}">{{ document.file }}</a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div><br>
+            <div class="row">
+                <div class="col-md-12">
+                    <label>Notas: </label><br><br>
+                    {{ consultation.notes|safe }}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(function () {
+
+            /* Fancy Box Gallery */
+            $('[data-fancybox="gallery"]').fancybox({
+                // Options will go here
+            });
+
+        });
+
+
+    </script>
+
+{% endblock %}

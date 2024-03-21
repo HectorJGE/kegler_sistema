@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'consultation_entry_sheet.update' consultation_sheet.consultation_entry_sheet.id %}">Ficha de Entrada</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Actualizar Ficha de Estudio ID: {{ consultation_sheet.id }}</h6>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" action="{% url 'consultation_sheet.update_documents' consultation_sheet.id %}" autocomplete="off">
+                {% csrf_token %}
+
+                <!-- inicio formset documentos -->
+                <div class="col-sm-12" {% if not documents_formset %}style="display: none"{% endif %}>
+                    <h4>Documentos</h4>
+                    {{ documents_formset.management_form|crispy }}
+                    <table class="table-responsive table-bordered" id="id-table-documents">
+                        <tbody >
+                        {% for document_form in documents_formset.forms %}
+                            <tr id="{{ document_form.prefix }}-row">
+                                {{ document_form.id }}
+                                <!-- Document Type -->
+                                <td {% if document_form.document_type.errors %}class="has-error"{% endif %}>
+                                    <div class="col-sm-12">
+                                        {{ document_form.document_type|as_crispy_field }}
+                                    </div>
+                                    {% if document_form.document_type.errors %}
+                                        <span class="help-block">
+                                            {{ document_form.document_type.errors|join:'. ' }}
+                                        </span>
+                                    {% endif %}
+                                    <!-- File -->
+                                    <div class="col-sm-12 {% if document_form.file.errors %} has-error{% endif %}" style="width: 245px">
+                                        {{ document_form.file|as_crispy_field }}
+                                    </div>
+                                    {% if document_form.file.errors %}
+                                        <span class="help-block">
+                                            {{ document_form.file.errors|join:'. ' }}
+                                        </span>
+                                    {% endif %}
+                                    <div class="col-sm-12">
+                                        Eliminar {{ document_form.DELETE }}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- fin formset documentos -->
+
+
+                <input type="submit" class="btn btn-success" value="Guardar Cambios">
+                <a href="{% url 'consultation_entry_sheet.update' consultation_sheet.consultation_entry_sheet.id %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+                    <span class="text">Volver a Edición Ficha de Entrada</span>
+                </a>
+                <a href="{% url 'consultation_entry_sheet.detail' consultation_sheet.consultation_entry_sheet.id %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-left"></i>
+            </span>
+                    <span class="text">Volver Detalles Ficha de Entrada</span>
+                </a>
+
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/dropify/css/dropify.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/moment/moment.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-formset/jquery.formset.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+    <script src="{% static 'build/vendor/dropify/js/dropify.min.js' %}"></script>
+
+    <script type="text/javascript">
+        var documents_formset_prefix = '{{ documents_formset.prefix }}';
+        var medical_supplies_formset_prefix = '{{ medical_supplies_formset.prefix }}';
+        var payments_formset_prefix = '{{ payments_formset.prefix }}';
+
+        /* Patients */
+        var patient_add_url = "{% url 'patient.create' %}";
+        var get_patient_json_url = "{% url 'patient.detail_json' 9999 %}";
+
+        /* Medical study */
+        var get_medical_study_json_url = "{% url 'medical_study.detail_json' 9999 %}";
+
+        /* Doctor */
+        var list_doctor_by_study_url = "{% url 'doctor.list_by_study_json' 9999 %}";
+
+        /* Product (Medical Supply) */
+        var get_product_json_url = "{% url 'product.detail_json' 9999 %}";
+
+        /* Medical Equipments */
+        var list_medical_equiment_by_study_url = "{% url 'medical_equipment.list_by_study_json' 9999 %}";
+
+        /* Datetime picker */
+        jQuery.datetimepicker.setLocale('es');
+
+        var documents_files = [
+            {% for document_form in documents_formset.forms %}
+                {% if document_form.initial %}
+                    '{{ document_form.initial.file.url }}'{% if not forloop.last %},{% endif %}
+                {% endif %}
+            {% endfor %}
+        ];
+        /* Se esconden los inputs de datos del paciente */
+        $('#div_id_contact_number').hide();
+        $('#div_id_contact_email').hide();
+
+        /* Se deshabilita la seleccion del paciente */
+        $('#id_patient').attr('disabled', true);
+
+
+    </script>
+    <script type="text/javascript" src="{% static 'consultation/js/consultation_sheet_update_form_functions.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'consultation/js/consultation_sheet_update_form_inputs.js' %}"></script>
+    <script type="text/javascript" src="{% static 'consultation/js/consultation_sheet_update_form_formsets.js' %}"></script>
+    <script type="text/javascript" src="{% static 'consultation/js/consultation_sheet_update_form.js' %}"></script>
+
+{% endblock %}

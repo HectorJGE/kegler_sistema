@@ -1,0 +1,1948 @@
+[
+  {
+    "model": "clinic.InsuranceCompany",
+    "pk": 1,
+    "fields": {
+      "name": "Asismed",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.InsuranceCompany",
+    "pk": 2,
+    "fields": {
+      "name": "Migone",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.InsuranceCompany",
+    "pk": 3,
+    "fields": {
+      "name": "SPS COOMECIPAR",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.InsurancePlan",
+    "pk": 1,
+    "fields": {
+      "name": "VIP BBVA",
+      "insurance_company_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.InsurancePlan",
+    "pk": 2,
+    "fields": {
+      "name": "VIP Puma Energy",
+      "insurance_company_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.InsurancePlan",
+    "pk": 3,
+    "fields": {
+      "name": "SPS VIP",
+      "insurance_company_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 1,
+    "fields": {
+      "name": "Alergia, Asma e Inmunología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 2,
+    "fields": {
+      "name": "Anatomía Patológica",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 3,
+    "fields": {
+      "name": "Cardiología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 4,
+    "fields": {
+      "name": "Cardiología Pediátrica",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 5,
+    "fields": {
+      "name": "Nefrología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 6,
+    "fields": {
+      "name": "Cardiocirugía",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 7,
+    "fields": {
+      "name": "Neurología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 8,
+    "fields": {
+      "name": "Cirugía General",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 9,
+    "fields": {
+      "name": "Cirugía Pediatrica",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 10,
+    "fields": {
+      "name": "Cirugía Plástica",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 11,
+    "fields": {
+      "name": "Mastología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 12,
+    "fields": {
+      "name": "Neumología",
+      "created_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 13,
+    "fields": {
+      "name": "Clínica médica",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 14,
+    "fields": {
+      "name": "Proctología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 15,
+    "fields": {
+      "name": "Dermatología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 16,
+    "fields": {
+      "name": "Endocrinología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 17,
+    "fields": {
+      "name": "Fisiatría",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 18,
+    "fields": {
+      "name": "Gastroenterología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 19,
+    "fields": {
+      "name": "Hematología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 20,
+    "fields": {
+      "name": "Infectología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 21,
+    "fields": {
+      "name": "Geriatría",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 22,
+    "fields": {
+      "name": "Oftalmología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 23,
+    "fields": {
+      "name": "Nutriología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 24,
+    "fields": {
+      "name": "Oncología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 25,
+    "fields": {
+      "name": "Psicología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 26,
+    "fields": {
+      "name": "Reumatología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 27,
+    "fields": {
+      "name": "Urología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.DoctorSpecialization",
+    "pk": 28,
+    "fields": {
+      "name": "Traumatología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 1,
+    "fields": {
+      "name": "Adan Chamil",
+      "last_name": "Cáceres Robles",
+      "birth_date": "1976-03-22",
+      "email": "adancaceres@prueba.com.py",
+      "document_number": "3525856",
+      "tax_identification_number": "3525856-1",
+      "address": "Sgto. Martinez 1354",
+      "phone_number": "+59598123456",
+      "doctor_specializations": [1],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 2,
+    "fields": {
+      "name": "Adolfo Javier",
+      "last_name": "Martinez",
+      "birth_date": "1988-05-12",
+      "email": "adolfomartinez@prueba.com.py",
+      "document_number": "5193947",
+      "tax_identification_number": "5193947-3",
+      "address": "Gral. Rodriguez 1265",
+      "phone_number": "0981443852",
+      "doctor_specializations": [2],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 3,
+    "fields": {
+      "name": "Agustín",
+      "last_name": "Almada",
+      "birth_date": "1970-08-01",
+      "email": "agustinalmada@prueba.com.py",
+      "document_number": "5700285",
+      "tax_identification_number": "5700285-7",
+      "address": "Las Palmeras 2045",
+      "phone_number": "0982445333",
+      "doctor_specializations": [3],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 4,
+    "fields": {
+      "name": "Alberto",
+      "last_name": "Cabrera Toledo",
+      "birth_date": "1992-03-16",
+      "email": "albertocabrera@prueba.com.py",
+      "document_number": "6564560",
+      "tax_identification_number": "6564560-5",
+      "address": "Eligio Ayala 943",
+      "phone_number": "0991478463",
+      "doctor_specializations": [4],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 5,
+    "fields": {
+      "name": "María Cecilia",
+      "last_name": "Benítez Da Costa",
+      "birth_date": "1980-11-10",
+      "email": "ceciliabenitez@prueba.com.py",
+      "document_number": "2026708",
+      "tax_identification_number": "2026708-2",
+      "address": "Dr. Miranda 741",
+      "phone_number": "0981259783",
+      "doctor_specializations": [5],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 6,
+    "fields": {
+      "name": "Viviana",
+      "last_name": "Chamorro",
+      "birth_date": "1983-08-14",
+      "email": "vivianachamorro@prueba.com.py",
+      "document_number": "2039415",
+      "tag_color": "#FF670C",
+      "tax_identification_number": "",
+      "address": "Augusto Salazar 2040",
+      "phone_number": "0992438716",
+      "doctor_specializations": [6],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 7,
+    "fields": {
+      "name": "Matías",
+      "last_name": "Benítez",
+      "birth_date": "1990-06-28",
+      "email": "matiasbenitez@prueba.com.py",
+      "document_number": "6215488",
+      "tax_identification_number": "",
+      "address": "Sgto. Otaño 765",
+      "phone_number": "0984671354",
+      "doctor_specializations": [7],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 8,
+    "fields": {
+      "name": "Nelson Isaias",
+      "last_name": "Duarte Valvez",
+      "birth_date": "1996-01-07",
+      "email": "nelsonduarte@prueba.com.py",
+      "document_number": "5440128",
+      "tax_identification_number": "",
+      "address": "Ing. Martin Caballero 1354 esq. Sacramento",
+      "phone_number": "0992448752",
+      "doctor_specializations": [8],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 9,
+    "fields": {
+      "name": "Oscar",
+      "last_name": "Benitez Amarilla",
+      "birth_date": "1998-02-14",
+      "email": "oscarbenitez@prueba.com.py",
+      "document_number": "4183189",
+      "tax_identification_number": "4183189-4",
+      "address": "Avda. Stma. Trinidad 2073 ",
+      "phone_number": "0996367816",
+      "doctor_specializations": [9],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 10,
+    "fields": {
+      "name": "Rubén",
+      "last_name": "Fleitas",
+      "birth_date": "1979-07-09",
+      "email": "rubenfleitas@prueba.com.py",
+      "document_number": "2508666",
+      "tax_identification_number": "",
+      "address": "Kuarahy 948",
+      "phone_number": "0971559367",
+      "doctor_specializations": [10],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.medicalstudytype",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "name": "IRIBAS",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudytype",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "name": "IRM",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.TechnicianSpecialization",
+    "pk": 1,
+    "fields": {
+      "name": "Radiología",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.TechnicianSpecialization",
+    "pk": 2,
+    "fields": {
+      "name": "Ecografía",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.TechnicianSpecialization",
+    "pk": 3,
+    "fields": {
+      "name": "Resonancia",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.TechnicianSpecialization",
+    "pk": 4,
+    "fields": {
+      "name": "Hematología Cromática",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.TechnicianSpecialization",
+    "pk": 5,
+    "fields": {
+      "name": "Tomografía",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 1,
+    "fields": {
+      "name": "Enzo",
+      "last_name": "Caballero",
+      "birth_date": "1986-03-11",
+      "email": "enzo.caballero@prueba.com.py",
+      "document_number": "5201390",
+      "tag_color": "#0536FF",
+      "tax_identification_number": "5201390-4",
+      "address": "",
+      "phone_number": "",
+      "doctor_specializations": [6],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 2,
+    "fields": {
+      "name": "Fabrizio",
+      "last_name": "Ruiz",
+      "birth_date": "1990-08-14",
+      "email": "fabrizzio.ruiz@prueba.com.py",
+      "document_number": "4983440",
+      "tax_identification_number": "4983440-3",
+      "address": "",
+      "phone_number": "",
+      "doctor_specializations": [3],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 3,
+    "fields": {
+      "name": "Cinthya",
+      "last_name": "Alburquerque",
+      "birth_date": "1985-02-10",
+      "email": "cinthy.albuquerque@prueba.com.py",
+      "document_number": "3530100",
+      "tax_identification_number": "3530100-1",
+      "address": "",
+      "phone_number": "",
+      "doctor_specializations": [5],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 4,
+    "fields": {
+      "name": "Andrea",
+      "last_name": "Ramirez",
+      "birth_date": "1993-10-22",
+      "email": "andrea.ramirez@prueba.com.py",
+      "document_number": "3526683",
+      "tax_identification_number": "3526683-2",
+      "address": "",
+      "phone_number": "",
+      "doctor_specializations": [10],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Doctor",
+    "pk": 5,
+    "fields": {
+      "name": "María Inés",
+      "last_name": "Sanabria",
+      "birth_date": "1980-05-04",
+      "email": "maria.sanabria@prueba.com.py",
+      "document_number": "4989284",
+      "tax_identification_number": "4989284-4",
+      "address": "",
+      "phone_number": "",
+      "doctor_specializations": [4],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 1,
+    "fields": {
+      "name": "Adriana",
+      "last_name": "Paredes",
+      "birth_date": "1980-10-20",
+      "email": "adriana.paredes@prueba.com.py",
+      "document_number": "2125684",
+      "tax_identification_number": "2125684-3",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [1],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 2,
+    "fields": {
+      "name": "Camila",
+      "last_name": "Resck",
+      "birth_date": "1980-07-24",
+      "email": "camila.resck@prueba.com.py",
+      "document_number": "2312554",
+      "tax_identification_number": "2312554-5",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [2],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 3,
+    "fields": {
+      "name": "Daniel",
+      "last_name": "Cano",
+      "birth_date": "1995-09-01",
+      "email": "daniel.cano@prueba.com.py",
+      "document_number": "3599664",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [3],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 4,
+    "fields": {
+      "name": "Elias",
+      "last_name": "Diaz",
+      "birth_date": "1987-11-08",
+      "email": "elias.diaz@prueba.com.py",
+      "document_number": "3711877",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [4],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 5,
+    "fields": {
+      "name": "Francisco",
+      "last_name": "Benegas",
+      "birth_date": "2000-04-27",
+      "email": "francisco.benegas@prueba.com.py",
+      "document_number": "4607182",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [5],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 1,
+    "fields": {
+      "name": "Franco Luis",
+      "last_name": "Albertini Alonso",
+      "birth_date": "1986-08-20",
+      "email": "francoalbertini@gmail.com",
+      "document_number": "3497322",
+      "tax_identification_number": "3497322-2",
+      "address": "Sgto. 1ro Manuel Benitez 1590 e/ Kuarahy y Prof. Dr. Francisco Fernandez",
+      "phone_number": "+595986210344",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 2,
+    "fields": {
+      "name": "Fernando Ariel",
+      "last_name": "Liuzzi Encina",
+      "birth_date": "1987-02-17",
+      "email": "Fernando.liuzzi.encina@gmail.com",
+      "document_number": "2356837",
+      "tax_identification_number": "2356837",
+      "address": "Avda. Molas Lopez n° 1438 c/ Veteranos de la guerra del 70",
+      "phone_number": "+595981327645",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 3,
+    "fields": {
+      "name": "Guillermo Alejandro",
+      "last_name": "Modica Doldán",
+      "birth_date": "1988-02-18",
+      "email": "gmodicadoldan@gmail.com",
+      "document_number": "3798377",
+      "tax_identification_number": "3798377-6",
+      "address": "Tacuary 920 casi tte fariña",
+      "phone_number": "+595971277193",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 4,
+    "fields": {
+      "name": "Álvaro Maria",
+      "last_name": "Cubilla Sarubbi",
+      "birth_date": "1987-12-09",
+      "email": "cubilla.alvaro@gmail.com",
+      "document_number": "4414606",
+      "tax_identification_number": "4414606-0",
+      "address": "Austria 1843 c/ Viena",
+      "phone_number": "+595986102557",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 5,
+    "fields": {
+      "name": "Jesús",
+      "last_name": "Valdez",
+      "birth_date": "1988-11-24",
+      "email": "jesus.valdez@gmail.com",
+      "document_number": "5992683",
+      "tax_identification_number": "5992683-3",
+      "address": "4 de julio 235",
+      "phone_number": "0992567891",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 6,
+    "fields": {
+      "name": "Joel",
+      "last_name": "Espínola",
+      "birth_date": "1985-07-19",
+      "email": "joel.espinola@gmail.com",
+      "document_number": "3895775",
+      "tax_identification_number": "3895775-7",
+      "address": "Rca. de Siria 953",
+      "phone_number": "0971227864",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 7,
+    "fields": {
+      "name": "Daniel ",
+      "last_name": "Otazú",
+      "birth_date": "1994-08-15",
+      "email": "daniel.otazu@gmail.com",
+      "document_number": "1946416",
+      "tax_identification_number": "1946416-0",
+      "address": "Aviadores del Chaco 947",
+      "phone_number": "0981154678",
+      "insurance_plan_id": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 8,
+    "fields": {
+      "name": "Ivanir",
+      "last_name": "Castioni",
+      "birth_date": "1986-05-14",
+      "email": "ivanir.castioni@gmail.com",
+      "document_number": "4060434",
+      "tax_identification_number": "4060434-3",
+      "address": "Medicos del chaco 794",
+      "phone_number": "0981549763",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 9,
+    "fields": {
+      "name": "Gustavo",
+      "last_name": "Cardozo",
+      "birth_date": "1987-12-09",
+      "email": "gustavo.cardozo@gmail.com",
+      "document_number": "5481592",
+      "tax_identification_number": "5481592-5",
+      "address": "6 de Enero 438",
+      "phone_number": "0972497358",
+      "insurance_plan_id": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Patient",
+    "pk": 10,
+    "fields": {
+      "name": "Gabriela",
+      "last_name": "Aquino",
+      "birth_date": "1999-07-12",
+      "email": "gabriela.aquino@gmail.com",
+      "document_number": "7111506",
+      "tax_identification_number": "7111506-2",
+      "address": "Mcal. Estigarriba 781",
+      "phone_number": "0982222657",
+      "insurance_plan_id": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "name": "Radiografo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "name": "Tomografo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "name": "Resonador Magnético Nuclear",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecógrafo",
+      "equipment_type_code": "ECO1",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "name": "Mamógrafo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecógrafo 1",
+      "type": 4,
+      "tag_color": "#5B88FF",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecógrafo 2",
+      "type": 4,
+      "tag_color": "#FFF00E",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "name": "Resonador magnético 1",
+      "type": 3,
+      "tag_color": "#A407FF",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "name": "Resonador magnético 2",
+      "type": 3,
+      "tag_color": "#FF7BFE",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "name": "Tomógrafo 1",
+      "type": 2,
+      "tag_color": "#FF0000",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "name": "Tomógrafo 2",
+      "type": 2,
+      "tag_color": "#41FF67",
+      "created_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipment",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "name": "Radiografo 1",
+      "type": 1,
+      "tag_color": "#FFD1E0",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "name": "Tomografía Craneal",
+      "type": 2,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecografía Fetal",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 4,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "name": "Mamografía",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 5,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecografía Partes Blandas",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 4,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "name": "Radiografía Torácica",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "name": "Resonancia Craneal",
+      "type": 2,
+      "duration_in_minutes": 30,
+      "equipment_type_used": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "medical_study": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 2,
+      "medical_study": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 10,
+      "medical_study": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 9,
+      "medical_study": 6,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 6,
+      "medical_study": 4,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "medical_study": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:48:54.165Z",
+      "updated_at": "2021-02-22T14:48:54.166Z",
+      "insurance_plan": 1,
+      "medical_study": 1,
+      "price": 1000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:12.993Z",
+      "updated_at": "2021-02-22T14:49:12.993Z",
+      "insurance_plan": 1,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:25.741Z",
+      "updated_at": "2021-02-22T14:49:25.741Z",
+      "insurance_plan": 1,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:41.189Z",
+      "updated_at": "2021-02-22T14:49:41.189Z",
+      "insurance_plan": 1,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:02.331Z",
+      "updated_at": "2021-02-22T14:50:02.331Z",
+      "insurance_plan": 1,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:16.815Z",
+      "updated_at": "2021-02-22T14:50:16.815Z",
+      "insurance_plan": 1,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:42.779Z",
+      "updated_at": "2021-02-22T14:50:42.779Z",
+      "insurance_plan": 2,
+      "medical_study": 1,
+      "price": 10000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:23.816Z",
+      "updated_at": "2021-02-22T14:51:23.816Z",
+      "insurance_plan": 2,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:40.413Z",
+      "updated_at": "2021-02-22T14:51:40.413Z",
+      "insurance_plan": 2,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:58.299Z",
+      "updated_at": "2021-02-22T14:51:58.299Z",
+      "insurance_plan": 2,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:52:27.705Z",
+      "updated_at": "2021-02-22T14:52:27.705Z",
+      "insurance_plan": 2,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:52:45.716Z",
+      "updated_at": "2021-02-22T14:52:45.716Z",
+      "insurance_plan": 2,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:02.870Z",
+      "updated_at": "2021-02-22T14:53:02.870Z",
+      "insurance_plan": 3,
+      "medical_study": 1,
+      "price": 1000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:19.698Z",
+      "updated_at": "2021-02-22T14:53:19.698Z",
+      "insurance_plan": 3,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:41.119Z",
+      "updated_at": "2021-02-22T14:53:41.119Z",
+      "insurance_plan": 3,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:01.862Z",
+      "updated_at": "2021-02-22T14:54:01.863Z",
+      "insurance_plan": 3,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:17.151Z",
+      "updated_at": "2021-02-22T14:54:17.151Z",
+      "insurance_plan": 3,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:33.826Z",
+      "updated_at": "2021-02-22T14:54:33.827Z",
+      "insurance_plan": 3,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.treatingdoctor",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T22:50:55.152Z",
+      "updated_at": "2021-03-17T22:50:55.152Z",
+      "name": "Augusto",
+      "last_name": "Benitez",
+      "birth_date": "1987-06-20",
+      "email": "augusto@algo.com.py",
+      "document_number": "3564791",
+      "tax_identification_number": null,
+      "address": null,
+      "phone_number": null,
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1,
+      "doctor_specializations": [
+        4
+      ]
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:06:29.869Z",
+      "updated_at": "2021-03-17T16:06:29.869Z",
+      "medical_study": 1,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:06:43.044Z",
+      "updated_at": "2021-03-17T16:06:43.044Z",
+      "medical_study": 2,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:07:05.167Z",
+      "updated_at": "2021-03-17T16:07:05.167Z",
+      "medical_study": 3,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:12:42.451Z",
+      "updated_at": "2021-03-17T16:12:42.452Z",
+      "medical_study": 4,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:13:19.378Z",
+      "updated_at": "2021-03-17T16:13:19.378Z",
+      "medical_study": 5,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:13:46.563Z",
+      "updated_at": "2021-03-17T16:13:46.563Z",
+      "medical_study": 6,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:14:33.757Z",
+      "updated_at": "2021-03-17T23:04:14.354Z",
+      "medical_study": 1,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T16:15:04.924Z",
+      "updated_at": "2021-03-17T16:15:04.924Z",
+      "medical_study": 2,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:08:58.760Z",
+      "updated_at": "2021-03-17T23:08:58.760Z",
+      "medical_study": 3,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:13:10.475Z",
+      "updated_at": "2021-03-17T23:13:10.475Z",
+      "medical_study": 4,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:13:22.529Z",
+      "updated_at": "2021-03-17T23:13:22.529Z",
+      "medical_study": 5,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:14:42.033Z",
+      "updated_at": "2021-03-17T23:14:42.033Z",
+      "medical_study": 6,
+      "insurance_plan": 3,
+      "coverage_percentage": 50.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:02.313Z",
+      "updated_at": "2021-03-17T23:15:02.313Z",
+      "medical_study": 1,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:17.357Z",
+      "updated_at": "2021-03-17T23:15:17.357Z",
+      "medical_study": 2,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:27.439Z",
+      "updated_at": "2021-03-17T23:15:27.439Z",
+      "medical_study": 3,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:38.727Z",
+      "updated_at": "2021-03-17T23:15:38.727Z",
+      "medical_study": 4,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:15:47.369Z",
+      "updated_at": "2021-03-17T23:15:47.369Z",
+      "medical_study": 5,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalstudyinsuranceagreement",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:03.954Z",
+      "updated_at": "2021-03-17T23:16:03.954Z",
+      "medical_study": 6,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T22:55:08.488Z",
+      "updated_at": "2021-03-17T22:55:08.488Z",
+      "medical_supply": 1,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T22:55:41.375Z",
+      "updated_at": "2021-03-17T22:55:41.376Z",
+      "medical_supply": 2,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:11.718Z",
+      "updated_at": "2021-03-17T23:05:11.718Z",
+      "medical_supply": 3,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:34.793Z",
+      "updated_at": "2021-03-17T23:05:34.793Z",
+      "medical_supply": 4,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:44.824Z",
+      "updated_at": "2021-03-17T23:05:44.824Z",
+      "medical_supply": 5,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:57.538Z",
+      "updated_at": "2021-03-17T23:05:57.538Z",
+      "medical_supply": 6,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:33.633Z",
+      "updated_at": "2021-03-17T23:16:33.634Z",
+      "medical_supply": 1,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:42.344Z",
+      "updated_at": "2021-03-17T23:16:42.344Z",
+      "medical_supply": 2,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:52.017Z",
+      "updated_at": "2021-03-17T23:16:52.017Z",
+      "medical_supply": 3,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:00.352Z",
+      "updated_at": "2021-03-17T23:17:00.352Z",
+      "medical_supply": 4,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:10.873Z",
+      "updated_at": "2021-03-17T23:17:10.873Z",
+      "medical_supply": 5,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:20.312Z",
+      "updated_at": "2021-03-17T23:17:20.312Z",
+      "medical_supply": 6,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:34.254Z",
+      "updated_at": "2021-03-17T23:17:34.254Z",
+      "medical_supply": 1,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:44.241Z",
+      "updated_at": "2021-03-17T23:17:44.242Z",
+      "medical_supply": 2,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:04.540Z",
+      "updated_at": "2021-03-17T23:18:04.541Z",
+      "medical_supply": 3,
+      "insurance_plan": 3,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:20.925Z",
+      "updated_at": "2021-03-17T23:18:20.925Z",
+      "medical_supply": 4,
+      "insurance_plan": 3,
+      "coverage_percentage": 50.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:45.388Z",
+      "updated_at": "2021-03-17T23:18:45.389Z",
+      "medical_supply": 5,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:56.185Z",
+      "updated_at": "2021-03-17T23:18:56.185Z",
+      "medical_supply": 6,
+      "insurance_plan": 3,
+      "coverage_percentage": 60.0
+    }
+  }
+]

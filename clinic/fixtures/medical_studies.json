@@ -1,0 +1,92 @@
+[
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:23:49.589Z",
+      "name": "Tomografía Craneal",
+      "type": 2,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 1
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:23:55.980Z",
+      "name": "Ecografía Fetal",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 3
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:24:03.071Z",
+      "name": "Mamografía",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 5
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:24:10.569Z",
+      "name": "Ecografía Partes Blandas",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 3
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:24:17.775Z",
+      "name": "Radiografía Torácica",
+      "type": 1,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 2
+    }
+  },
+  {
+    "model": "clinic.medicalstudy",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-01-01T13:00:00Z",
+      "updated_at": "2021-04-14T19:24:26.081Z",
+      "name": "Resonancia Craneal",
+      "type": 2,
+      "duration_in_minutes": 30,
+      "price": 1000000.0,
+      "currency": 1,
+      "sector": 4
+    }
+  }
+]

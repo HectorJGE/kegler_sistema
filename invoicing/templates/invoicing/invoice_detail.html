@@ -1,0 +1,267 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load humanize %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'invoice_list' %}">Facturas</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalles de factura ID: {{ invoice.id }} numero: {{ invoice.invoice_number }}</h6>
+        </div>
+        <div class="card-body">
+            <div id="invoice">
+                <div class="toolbar hidden-print">
+                    {#                    <div class="text-end">#}
+                    {#                        <a href="{% url 'invoice_update' invoice_header.pk %}">#}
+                    {#                            <button type="button" class="btn btn-dark"><i class="fas fa-pen"></i>#}
+                    {#                                Actualizar#}
+                    {#                            </button>#}
+                    {#                        </a>#}
+                    {#                        <a href="{% url 'invoice_delete' invoice_header.pk %}">#}
+                    {#                            <button type="button" class="btn btn-dark"><i class="fas fa-trash"></i>#}
+                    {#                                Eliminar#}
+                    {#                            </button>#}
+                    {#                        </a>#}
+                    {#                        <a href="{% url 'invoice-print' invoice_header.pk %}">#}
+                    {#                        <button type="button" class="btn btn-dark">#}
+                    {#                            <i class="fa fa-print"></i>#}
+                    {#                            Print#}
+                    {#                        </button>#}
+                    {#                        </a>#}
+                    {#                        <button type="button" class="btn btn-danger"><i class="fas fa-file-export"></i> Export as PDF#}
+                    {#                        </button>#}
+                    {#                    </div>#}
+                    <hr>
+                </div>
+                <div class="invoice overflow-auto">
+                    <div style="min-width: 600px" class="container">
+                        <header>
+                            <div class="grid-header d-flex p-2 bd-highlight">
+                                <div class="p-2 w-75 bd-highlight">
+                                    <div class="d-flex align-items-center">
+                                        {#                                        <div class="flex-shrink-0">#}
+                                        {#                                            <img src="{% static "img/logo-icon.png" %}" width="240px" alt="no logo">#}
+                                        {#                                        </div>#}
+                                        <div class="d-flex-grow-1 ms-3">
+                                            <h1>{{ invoice.company.company_name }}</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="d-flex w-75 flex-column bd-highlight mb-3">
+                                        <div class="p-2 bd-highlight text-end">
+                                            <b>RUC {{ invoice.company.company_tax_id }}</b>
+                                        </div>
+                                        <div class="p-2 bd-highlight text-end">
+                                            Timbrado Nro. {{ invoice.invoice_stamp.number }}
+                                        </div>
+                                        <div class="d-flex flex-row bd-highlight mb-3 text-end">
+                                            <div class="p-2 bd-highlight">
+                                                Desde: {{ invoice.invoice_stamp.startDate|date:'d/m/Y' }}
+                                            </div>
+                                            <div class="p-2 bd-highlight">
+                                                Valido hasta: {{ invoice.invoice_stamp.endDate|date:'d/m/Y' }}
+                                            </div>
+                                        </div>
+                                        <div class="p-2 bd-highlight text-end">
+                                            <b>FACTURA</b>
+                                        </div>
+                                        <div class="p-2 bd-highlight text-end">
+                                            <a>{{ invoice.invoice_number }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </header>
+                        <main>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="date"><b>Fecha de emision: </b>{{ invoice.invoice_date|date:'d/m/Y' }}</div>
+                                        <div class="to"><b>Nombre o Razon Social de Cliente: </b>{{ invoice.client_name }} </div>
+                                        <div class="email"><b>Direccion: </b>{{ invoice.client_email|default_if_none:" - " }}</div>
+                                        <div class="address"><b>Direccion: </b>{{ invoice.client_address|default_if_none:" - " }}</div>
+                                        <div class="phone_number"><b>Teléfono: </b>{{ invoice.client_phone_number|default_if_none:" - " }}</div>
+                                        <div class="ruc">
+                                            <b>R.U.C: </b>{{ invoice.client_tax_identification_number }}
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="payment-term">
+                                            <b>Condicion de venta: </b>{{ invoice.payment_term }}
+                                        </div>
+                                        <!--
+                                        <div class="remition-number">Remision Nro:</div>
+                                        <div class="liquidation-number">Liquidacion Nro:</div>
+                                        -->
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div style="margin-top: 20px; margin-bottom: 30px;">
+                                <table class="table table-bordered table-hover" id="id_table_detail_sheets" style="text-align: center">
+                                    <thead>
+                                    <tr>
+                                        <th>Cantidad</th>
+                                        <th>Descripcion</th>
+                                        <th>Precio Unitario</th>
+                                        <th>Exentas</th>
+                                        <th>IVA 5%</th>
+                                        <th>IVA 10%</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody style="text-align: end">
+                                    {% if invoice.invoice_details.all %}
+                                        {% for detail in invoice.invoice_details.all %}
+                                            <tr>
+                                                <td>{{ detail.quantity }}</td>
+                                                <td>{{ detail.description }}</td>
+                                                <td>{{ detail.unit_price|floatformat:"0"|intcomma }}</td>
+                                                <td>{{ detail.exempt|floatformat:"0"|intcomma }}</td>
+                                                <td>{{ detail.tax_5|floatformat:"0"|intcomma }}</td>
+                                                <td>{{ detail.tax_10|floatformat:"0"|intcomma }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {#                                    <div class="container">#}
+                            {#                                        <div class=" d-flex flex-row bd-highlight mb-3">#}
+                            {#                                            <div class="p-2 bd-highlight col">Cantidad</div>#}
+                            {#                                            <div class="p-2 bd-highlight col">Descripcion</div>#}
+                            {#                                            <div class="p-2 bd-highlight col">Precio Unitario</div>#}
+                            {#                                            <div class="p-2 bd-highlight col">Exentas</div>#}
+                            {#                                            <div class="p-2 bd-highlight col">IVA 5%</div>#}
+                            {#                                            <div class="p-2 bd-highlight col">IVA 10%</div>#}
+                            {#                                        </div>#}
+                            {#                                    </div>#}
+                            {#                                </div>#}
+                            <div class="grid-header d-flex p-2 bd-highlight">
+                                <div class="p-2 w-75 bd-highlight col ">
+                                    <div class="text-start">Total a pagar</div>
+                                    <div class="row">
+                                        <div class="col text-end"> Cantidad en Guaranies</div>
+                                        <div class="col text-end">{{ invoice.invoice_total_letters }}</div>
+                                    </div>
+                                </div>
+                                <div class="p-2 w-75 bd-highlight col">
+                                    <div class="col"></div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col text-end">SUBTOTAL</div>
+                                            <div class="col text-end">{{ invoice.subtotal|floatformat:"0"|intcomma }}</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col w-25 text-end">&nbsp;</div>
+                                            <div class="col text-end">{{ invoice.invoice_total|floatformat:"0"|intcomma }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="d-flex flex-row bd-highlight mb-3">
+                                    <div class="p-2 bd-highlight">LIQUIDACION DEL IVA
+                                        5% {{ invoice.total_tax5|floatformat:"0"|intcomma }}</div>
+                                    <div class="p-2 w-25 bd-highlight text-end">10% {{ invoice.total_tax10|floatformat:"0"|intcomma }} </div>
+                                    <div class="p-2 w-25 bd-highlight text-end">TOTAL IVA {{ invoice.total_tax|floatformat:"0"|intcomma }}</div>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+                    <div></div>
+                    {% if invoice.credit_notes.all.first is not None %}
+                        <h3>Notas de Crédito</h3>
+                        <div style="margin-top: 20px; margin-bottom: 30px;">
+                            <table class="table table-bordered table-hover" id="id_table_detail_sheets" style="text-align: center">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nro</th>
+                                    <th>Total Nota de credito</th>
+
+                                </tr>
+                                </thead>
+                                <tbody style="text-align: end">
+                                    {% for credit_note_header in invoice.credit_notes.all %}
+                                        <tr>
+                                            <td>{{ credit_note_header.id }}</td>
+                                            <td>
+                                                <a href="{% url 'credit_note_detail' credit_note_header.id %}">
+                                                    {{ credit_note_header.credit_note_number }}
+                                                </a>
+                                            </td>
+                                            <td>{{ credit_note_header.credit_note_total|floatformat:"0"|intcomma }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                {% endif %}
+                </div>
+            </div>
+            {% if invoice.invoice_cdc is None %}
+                <a href="{% url 'invoice_update' invoice.id %}" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </span>
+                    <span class="text">Editar Factura</span>
+                </a>
+                <!--
+                <a href="{% url 'invoice.print' invoice.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+                      <span class="icon text-white-50">
+                        <i class="fas fa-print"></i>
+                      </span>
+                    <span class="text">Imprimir Factura</span>
+                </a>
+                -->
+                {%  if invoice.credit_notes.all.first is None %}
+                    <a href="{% url 'invoice_delete' invoice.id %}" class="btn btn-danger btn-icon-split">
+                                                <span class="icon text-white-50">
+                                                    <i class="fas fa-trash"></i>
+                                                </span>
+                        <span class="text">Eliminar Factura</span>
+                    </a>
+                {% endif %}
+
+            {% endif %}
+
+            {% if invoice.credit_notes.all.first is None %}
+                <a href="{% url 'credit_note.create_from_invoice' invoice.id %}" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                          <i class="fas fa-file-invoice"></i>
+                        </span>
+                        <span class="text">Crear Nota de crédito</span>
+                </a>
+            {% endif %}
+            <a href="{% url 'invoice_list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+                <span class="text">Volver al Listado</span>
+            </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,68 @@
+[
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "medical_study": 2,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 2,
+      "medical_study": 3,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 10,
+      "medical_study": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 9,
+      "medical_study": 6,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 6,
+      "medical_study": 4,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.doctormedicalstudy",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "doctor": 1,
+      "medical_study": 1,
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  }
+]

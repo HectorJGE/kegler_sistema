@@ -1,0 +1,710 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 17:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: consultation/apps.py:7 consultation/models.py:473 consultation/models.py:505
+#: consultation/models.py:641
+msgid "Consultation"
+msgstr "Consulta"
+
+#: consultation/forms.py:26 consultation/forms.py:723 consultation/forms.py:848
+msgid "Male"
+msgstr "Masculino"
+
+#: consultation/forms.py:27 consultation/forms.py:724 consultation/forms.py:849
+msgid "Female"
+msgstr "Femenino"
+
+#: consultation/forms.py:33 consultation/forms.py:435
+#: consultation/models.py:236
+msgid "Medical Study Ammount"
+msgstr "Monto Estudio Médico"
+
+#: consultation/forms.py:36 consultation/forms.py:438
+#: consultation/models.py:251
+msgid "Medical Supplies Ammount"
+msgstr "Monto Insúmos Médicos"
+
+#: consultation/forms.py:39 consultation/forms.py:441 consultation/forms.py:928
+#: consultation/models.py:271
+msgid "Total Amount"
+msgstr "Monto Total"
+
+#: consultation/forms.py:42 consultation/forms.py:444
+msgid "Medical Study Amount to Pay Insurance"
+msgstr "Monto a Pagar de Estudio Médico por el Seguro"
+
+#: consultation/forms.py:45 consultation/forms.py:447
+msgid "Medical Study Amount to Pay Patient"
+msgstr "Monto a Pagar de Estudio Médico por el Paciente"
+
+#: consultation/forms.py:48 consultation/forms.py:450
+msgid "Medical Supplies Amount to Pay Insurance"
+msgstr "Monto a Pagar de Insúmos Médicos por el Seguro"
+
+#: consultation/forms.py:51 consultation/forms.py:453
+msgid "Medical Supplies Amount to Pay Patient"
+msgstr "Monto a Pagar de Insúmos Médicos por el Paciente"
+
+#: consultation/forms.py:54 consultation/forms.py:456
+msgid "Total Amount to Pay Insurance"
+msgstr "Monto Total a Pagar del Seguro"
+
+#: consultation/forms.py:57 consultation/forms.py:459
+msgid "Total Amount to Pay Patient"
+msgstr "Monto Total a Pagar del Paciente"
+
+#: consultation/forms.py:60 consultation/forms.py:462
+#: consultation/models.py:266
+msgid "Discount"
+msgstr "Descuento"
+
+#: consultation/forms.py:63 consultation/forms.py:465
+msgid "Total Amount to Pay Patient with discount"
+msgstr "Monto Total a Pagar del Paciente con descuento"
+
+#: consultation/forms.py:67 consultation/forms.py:408 consultation/forms.py:422
+#: consultation/forms.py:727 consultation/forms.py:852
+#: consultation/forms.py:1025 consultation/forms.py:1134
+#: consultation/forms.py:1257 consultation/forms.py:1358
+#: consultation/forms.py:1466 consultation/forms.py:1554
+#: consultation/forms.py:1651 consultation/models.py:97
+#: consultation/models.py:153 consultation/models.py:366
+#: consultation/models.py:423 consultation/views.py:132
+msgid "Patient"
+msgstr "Paciente"
+
+#: consultation/forms.py:81 consultation/forms.py:741 consultation/forms.py:862
+msgid "New Patient"
+msgstr "Paciente Nuevo"
+
+#: consultation/forms.py:85 consultation/forms.py:745 consultation/forms.py:866
+msgid "Patient Name"
+msgstr "Nombre"
+
+#: consultation/forms.py:89 consultation/forms.py:749 consultation/forms.py:870
+msgid "Patient Last Name"
+msgstr "Apellido"
+
+#: consultation/forms.py:93 consultation/forms.py:152 consultation/forms.py:753
+#: consultation/forms.py:874
+msgid "Sex"
+msgstr "Sexo"
+
+#: consultation/forms.py:98
+msgid "Patient Document Number"
+msgstr "Nro. de Documento"
+
+#: consultation/forms.py:103 consultation/forms.py:788
+#: consultation/forms.py:910
+msgid "Birth Date"
+msgstr "Fecha de Nacimiento"
+
+#: consultation/forms.py:108 consultation/forms.py:793
+#: consultation/forms.py:915
+msgid "Weight"
+msgstr "Peso(kg)"
+
+#: consultation/forms.py:112 consultation/forms.py:797
+#: consultation/forms.py:919
+msgid "City"
+msgstr "Ciudad"
+
+#: consultation/forms.py:117 consultation/forms.py:776
+#: consultation/forms.py:897
+msgid "Address"
+msgstr "Dirección"
+
+#: consultation/forms.py:120 consultation/forms.py:314
+#: consultation/forms.py:468 consultation/forms.py:634
+#: consultation/models.py:170 consultation/models.py:565
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#: consultation/forms.py:121 consultation/forms.py:315
+#: consultation/forms.py:469 consultation/forms.py:635
+#: consultation/forms.py:979 consultation/models.py:171
+#: consultation/models.py:566
+msgid "Amount"
+msgstr "Monto"
+
+#: consultation/forms.py:124 consultation/forms.py:472
+#: consultation/models.py:174
+msgid "Study Cover Type"
+msgstr "Tipo de Cobertura del Estudio"
+
+#: consultation/forms.py:130 consultation/forms.py:478
+#: consultation/forms.py:647 consultation/models.py:180
+#: consultation/models.py:575
+msgid "Insurance Agreement Coverage Percent"
+msgstr "Porcentaje de Cobertura del Seguro "
+
+#: consultation/forms.py:135 consultation/forms.py:323
+#: consultation/forms.py:483 consultation/forms.py:643
+#: consultation/models.py:184 consultation/models.py:579
+msgid "Insurance Agreement Coverage Amount"
+msgstr "Monto de Cobertura del Seguro "
+
+#: consultation/forms.py:140
+msgid "New Treating Doctor"
+msgstr "Nuevo Doctor Tratante"
+
+#: consultation/forms.py:144
+msgid "Treating Doctor Name"
+msgstr "Nombres"
+
+#: consultation/forms.py:148
+msgid "Treating Doctor Last Name"
+msgstr "Apellidos"
+
+#: consultation/forms.py:158 consultation/forms.py:488
+#: consultation/models.py:336
+msgid "Amount Paid"
+msgstr "Monto Pagado por el Paciente"
+
+#: consultation/forms.py:163 consultation/forms.py:493
+#: consultation/forms.py:940 consultation/models.py:122
+#: consultation/models.py:341
+msgid "Patient Balance"
+msgstr "Saldo del Paciente"
+
+#: consultation/forms.py:299 consultation/forms.py:614
+#: consultation/models.py:551
+msgid "Quantity"
+msgstr "Cantidad"
+
+#: consultation/forms.py:302 consultation/forms.py:618
+#: consultation/models.py:555
+msgid "Price"
+msgstr "Precio"
+
+#: consultation/forms.py:305 consultation/forms.py:622
+#: consultation/models.py:560
+msgid "Total"
+msgstr "Costo Total"
+
+#: consultation/forms.py:308 consultation/forms.py:626
+msgid "Amount To Pay Insurance"
+msgstr "Monto a Pagar del Seguro"
+
+#: consultation/forms.py:311 consultation/forms.py:630
+msgid "Amount To Pay Patient"
+msgstr "Monto a Pagar del Paciente"
+
+#: consultation/forms.py:318 consultation/forms.py:638
+#: consultation/models.py:569
+msgid "Cover Type"
+msgstr "Tipo de Cobertura"
+
+#: consultation/forms.py:377 consultation/models.py:516
+#: consultation/models.py:652
+msgid "File"
+msgstr "Archivo"
+
+#: consultation/forms.py:651 consultation/models.py:546
+msgid "Medical Supply"
+msgstr "Insumo Médico"
+
+#: consultation/forms.py:758 consultation/forms.py:879
+msgid "Document Number"
+msgstr "Nro. de Documento"
+
+#: consultation/forms.py:763 consultation/forms.py:884
+msgid "Tax Identification Number"
+msgstr "Nro de Identificación Impositiva(RUC)"
+
+#: consultation/forms.py:767 consultation/forms.py:888
+#, fuzzy
+#| msgid "Tax Identification Number"
+msgid "Tax Identification Name"
+msgstr "Nro de Identificación Impositiva(RUC)"
+
+#: consultation/forms.py:771 consultation/forms.py:892
+msgid "Phone Number"
+msgstr "Número de Teléfono"
+
+#: consultation/forms.py:779 consultation/forms.py:900
+msgid "Email"
+msgstr "Email"
+
+#: consultation/forms.py:783 consultation/forms.py:904
+#, fuzzy
+#| msgid "Patient Last Name"
+msgid "Patient Is Taxpayer"
+msgstr "Apellido"
+
+#: consultation/forms.py:802 consultation/forms.py:924
+msgid "Insurance Plan"
+msgstr "Plan de Seguro del Paciente"
+
+#: consultation/forms.py:931 consultation/models.py:276
+msgid "Total Amount to pay Insurance"
+msgstr "Monto Total a Pagar del Seguro"
+
+#: consultation/forms.py:934 consultation/models.py:281
+msgid "Total Amount to pay Patient"
+msgstr "Monto Total a Pagar del Paciente"
+
+#: consultation/forms.py:937
+msgid "Total Amount paid by Patient"
+msgstr "Monto Total Pagado por el Paciente"
+
+#: consultation/forms.py:1022 consultation/models.py:201
+#: consultation/models.py:452
+msgid "Technician"
+msgstr "Técnico"
+
+#: consultation/forms.py:1245 consultation/forms.py:1656
+#: consultation/models.py:361
+msgid "Report Title"
+msgstr "Título del Informe"
+
+#: consultation/forms.py:1249 consultation/forms.py:1462
+#: consultation/forms.py:1550 consultation/forms.py:1661
+msgid "Template"
+msgstr "Plantilla"
+
+#: consultation/forms.py:1253 consultation/forms.py:1666
+#: consultation/models.py:382
+msgid "Add Digital Signature"
+msgstr "Agregar Firma Digital"
+
+#: consultation/forms.py:1642 consultation/models.py:147
+#: consultation/models.py:440
+msgid "Consultation Date"
+msgstr "Fecha Hora de Estudio"
+
+#: consultation/forms.py:1646 consultation/forms.py:1731
+#: consultation/models.py:195 consultation/models.py:372
+#: consultation/models.py:429 consultation/models.py:708
+msgid "Doctor"
+msgstr "Doctor"
+
+#: consultation/forms.py:1669 consultation/models.py:387
+msgid "Report"
+msgstr "Informe"
+
+#: consultation/management/commands/delete_empty_consultation_entry_sheets.py:12
+msgid "Command to delete empty consultation entry sheets."
+msgstr "Comando para borrar fichas de entrada vacías"
+
+#: consultation/management/commands/delete_empty_consultation_entry_sheets.py:15
+msgid "Starting the process to delete empty consultation entry sheets."
+msgstr "Empezando el proceso para borrar fichas de entrada vacías"
+
+#: consultation/management/commands/delete_empty_consultation_entry_sheets.py:22
+msgid "Consultation entry sheet deleted:"
+msgstr "Ficha de Entrada borrada:"
+
+#: consultation/management/commands/delete_empty_consultation_entry_sheets.py:25
+msgid " empty consultation entry sheets deleted!"
+msgstr " fichas de Entrada vacías borradas!"
+
+#: consultation/models.py:46
+msgid "Filed"
+msgstr "Fichado"
+
+#: consultation/models.py:47
+msgid "Performed"
+msgstr "Realizado"
+
+#: consultation/models.py:48
+msgid "Assigned"
+msgstr "Asignado"
+
+#: consultation/models.py:50
+msgid "Recorded"
+msgstr "Grabado"
+
+#: consultation/models.py:51
+msgid "Copied"
+msgstr "Copiado"
+
+#: consultation/models.py:52
+msgid "Finished"
+msgstr "Finalizado"
+
+#: consultation/models.py:54
+msgid "Reported"
+msgstr "Informado"
+
+#: consultation/models.py:55
+msgid "Prepared"
+msgstr "Preparado"
+
+#: consultation/models.py:56
+msgid "Delivered"
+msgstr "Entregado"
+
+#: consultation/models.py:58 consultation/models.py:488
+#: consultation/models.py:621
+msgid "Name"
+msgstr "Nombre"
+
+#: consultation/models.py:60
+msgid "State code"
+msgstr "Código de estado"
+
+#: consultation/models.py:66 consultation/models.py:298
+#: consultation/models.py:677
+msgid "Consultation State"
+msgstr "Estado de Consulta"
+
+#: consultation/models.py:67
+msgid "Consultation States"
+msgstr "Estados de Consulta"
+
+#: consultation/models.py:79
+msgid "Consultation Entry Sheet Date"
+msgstr "Fecha de Ficha de Entrada de Consulta"
+
+#: consultation/models.py:85 consultation/views.py:130
+msgid "Invoice"
+msgstr "Factura"
+
+#: consultation/models.py:91 consultation/views.py:131
+msgid "Insurance Invoice"
+msgstr "Factura Seguro"
+
+#: consultation/models.py:102
+msgid "Total amount"
+msgstr "Monto Total"
+
+#: consultation/models.py:107
+msgid "Total amount to pay insurance"
+msgstr "Monto Total a Pagar del Seguro"
+
+#: consultation/models.py:112
+msgid "Total amount to pay patient"
+msgstr "Monto Total a Pagar del Paciente"
+
+#: consultation/models.py:117
+msgid "Total amount Paid by Patient"
+msgstr "Monto Total Pagado por el Paciente"
+
+#: consultation/models.py:128 consultation/models.py:292
+#: consultation/models.py:592
+msgid "Currency"
+msgstr "Moneda"
+
+#: consultation/models.py:134 consultation/models.py:326
+msgid "Consultation Entry Sheet"
+msgstr "Ficha de Entrada de Consulta"
+
+#: consultation/models.py:135
+msgid "Consultation Entry Sheets"
+msgstr "Fichas de Entrada de Consultas"
+
+#: consultation/models.py:159
+msgid "Patient Insurance Plan"
+msgstr "Plan de Seguro del Paciente"
+
+#: consultation/models.py:165 consultation/models.py:446
+#: consultation/models.py:714
+msgid "Medical Study"
+msgstr "Estudio Médico"
+
+#: consultation/models.py:189
+msgid "Medical Equipment Used"
+msgstr "Equipo Médico Utilizado"
+
+#: consultation/models.py:207
+msgid "Payment Method"
+msgstr "Método de Pago"
+
+#: consultation/models.py:213
+msgid "Payment Reference"
+msgstr "Nro. de Referencia de Pago"
+
+#: consultation/models.py:218 consultation/models.py:435
+msgid "Treating Doctor"
+msgstr "Doctor Tratante"
+
+#: consultation/models.py:224 consultation/views.py:1610
+#: consultation/views.py:1689
+msgid "Reporting Doctor"
+msgstr "Médico Informante"
+
+#: consultation/models.py:230
+msgid "Appointment"
+msgstr "Turno"
+
+#: consultation/models.py:241
+msgid "Medical Study Ammount to pay (Insurance)"
+msgstr "Monto a Pagar de Estudio Médico por el Seguro"
+
+#: consultation/models.py:246
+msgid "Medical Study Ammount to pay (Patient)"
+msgstr "Monto a Pagar de Estudio Médico por el Paciente"
+
+#: consultation/models.py:256
+msgid "Medical Supplies Ammount to pay (Insurance)"
+msgstr "Monto a Pagar de Insúmos Médicos por el Seguro"
+
+#: consultation/models.py:261
+msgid "Medical Supplies Ammount to pay (Patient)"
+msgstr "Monto a Pagar de Insúmos Médicos por el Paciente"
+
+#: consultation/models.py:286
+msgid "Total Amount to pay Patient with discount"
+msgstr "Monto Total a Pagar del Paciente con descuento"
+
+#: consultation/models.py:303
+msgid "Received by (Name - and Document Number)"
+msgstr "Recibido por (Nombre - CI)"
+
+#: consultation/models.py:308
+msgid "Contact Number"
+msgstr "Número de Contacto"
+
+#: consultation/models.py:313
+msgid "Contact Email"
+msgstr "Email de contacto"
+
+#: consultation/models.py:317 consultation/views.py:1772
+msgid "Internal Results Delivery Date"
+msgstr "Fecha para Entrega de Resultados (Interna)"
+
+#: consultation/models.py:321 consultation/views.py:1773
+#: consultation/views.py:1865
+msgid "Patient Results Delivery Date"
+msgstr "Fecha para Entrega de Resultados (Paciente)"
+
+#: consultation/models.py:332
+msgid "Observations"
+msgstr "Observaciones"
+
+#: consultation/models.py:347 consultation/models.py:417
+#: consultation/models.py:540 consultation/models.py:671
+msgid "Consultation Sheet"
+msgstr "Ficha de Estudio"
+
+#: consultation/models.py:348
+msgid "Consultation Sheets"
+msgstr "Fichas de Estudios"
+
+#: consultation/models.py:377
+msgid "Report Date"
+msgstr "Fecha de Informe"
+
+#: consultation/models.py:391
+msgid "Audio Report"
+msgstr "Audio de informe"
+
+#: consultation/models.py:397
+msgid "Mark as Finished"
+msgstr "Marcar como finalizado"
+
+#: consultation/models.py:402 consultation/models.py:467
+msgid "Consultation Report"
+msgstr "Informe de Consulta"
+
+#: consultation/models.py:403
+msgid "Consultations Reports"
+msgstr "Informes de consultas"
+
+#: consultation/models.py:458
+msgid "Medical Equipment"
+msgstr "Equipo Médico"
+
+#: consultation/models.py:463
+msgid "Notes"
+msgstr "Notas"
+
+#: consultation/models.py:474
+msgid "Consultations"
+msgstr "Consultas"
+
+#: consultation/models.py:491
+msgid "Consultation Sheet Document Type"
+msgstr "Tipo de documento de Ficha de Consulta"
+
+#: consultation/models.py:492
+msgid "Consultation Sheet Document Types"
+msgstr "Tipos de documentos de Fichas de Consultas"
+
+#: consultation/models.py:511
+msgid "Document Type"
+msgstr "Tipo de Documento"
+
+#: consultation/models.py:522
+msgid "Consultation Sheet Document"
+msgstr "Documento de Ficha de Consulta"
+
+#: consultation/models.py:523
+msgid "Consultation Sheet Documents"
+msgstr "Documentos de Fichas de Consultas"
+
+#: consultation/models.py:583
+msgid "Ammount to Pay Insurance"
+msgstr "Monto a Pagar del Seguro"
+
+#: consultation/models.py:587
+msgid "Ammount to Pay Patient"
+msgstr "Monto a Pagar del Paciente"
+
+#: consultation/models.py:598
+msgid "Medical Supply Used"
+msgstr "Insumo Médico Usado"
+
+#: consultation/models.py:599
+msgid "Medical Supplies Used"
+msgstr "Insumos Médicos Usados"
+
+#: consultation/models.py:616
+msgid "Image"
+msgstr "Imagen"
+
+#: consultation/models.py:617
+msgid "Sound"
+msgstr "Sonido"
+
+#: consultation/models.py:618
+msgid "Video"
+msgstr "Video"
+
+#: consultation/models.py:619
+msgid "Text"
+msgstr "Texto"
+
+#: consultation/models.py:622
+msgid "Extension"
+msgstr "Extensión"
+
+#: consultation/models.py:623
+msgid "Types"
+msgstr "Tipo"
+
+#: consultation/models.py:626
+msgid "Consultation File Type"
+msgstr "Tipo de Archivo de Consulta"
+
+#: consultation/models.py:627
+msgid "Consultation File Types"
+msgstr "Tipos de Archivos de Consulta"
+
+#: consultation/models.py:638
+msgid "File Name"
+msgstr "Nombre de Archivo"
+
+#: consultation/models.py:647
+msgid "File type"
+msgstr "Tipo de Archivo"
+
+#: consultation/models.py:658
+msgid "Consultation File"
+msgstr "Archivo de Estudio"
+
+#: consultation/models.py:659
+msgid "Consultation Text Files"
+msgstr "Archivos de Texto de Estudio"
+
+#: consultation/models.py:683
+msgid "User"
+msgstr "Usuario"
+
+#: consultation/models.py:688
+msgid "State log datetime"
+msgstr "Fecha y hora del registro de estado"
+
+#: consultation/models.py:694
+msgid "Consultation State User Log"
+msgstr "Registro de Estado de Consulta por Usuario"
+
+#: consultation/models.py:695
+msgid "Consultations States User Logs"
+msgstr "Registros de Estados de Consultas por Usuarios"
+
+#: consultation/models.py:717
+msgid "Template Text"
+msgstr "Texto plantilla"
+
+#: consultation/models.py:721
+msgid "Digital Signature"
+msgstr "Firma Digital"
+
+#: consultation/models.py:727
+msgid "Doctor Report Template"
+msgstr "Plantilla de informe de doctor"
+
+#: consultation/models.py:728
+msgid "Doctors Reports Templates"
+msgstr "Plantillas de Informes de doctores"
+
+#: consultation/views.py:55 consultation/views.py:127
+#: consultation/views.py:3472
+msgid "Actions"
+msgstr "Acciones"
+
+#: consultation/views.py:56 consultation/views.py:128
+#: consultation/views.py:1611 consultation/views.py:1690
+#: consultation/views.py:1770 consultation/views.py:1862
+#: consultation/views.py:1933 consultation/views.py:2003
+#: consultation/views.py:2398 consultation/views.py:2573
+#: consultation/views.py:2725 consultation/views.py:2902
+#: consultation/views.py:3083 consultation/views.py:3473
+msgid "Date Time"
+msgstr "Fecha Hora"
+
+#: consultation/views.py:57 consultation/views.py:1612
+#: consultation/views.py:1691 consultation/views.py:1771
+#: consultation/views.py:1863 consultation/views.py:1934
+#: consultation/views.py:3474
+msgid "Insurance"
+msgstr "Seguro"
+
+#: consultation/views.py:129 consultation/views.py:2903
+#: consultation/views.py:3084
+msgid "Studies"
+msgstr "Estudios"
+
+#: consultation/views.py:324 consultation/views.py:990
+#: consultation/views.py:1569 consultation/views.py:1665
+#: consultation/views.py:1747 consultation/views.py:1837
+#: consultation/views.py:1910 consultation/views.py:1980
+#: consultation/views.py:2053 consultation/views.py:2091
+#: consultation/views.py:2163 consultation/views.py:2270
+#: consultation/views.py:2449 consultation/views.py:2479
+#: consultation/views.py:2545 consultation/views.py:2627
+#: consultation/views.py:2663 consultation/views.py:2775
+#: consultation/views.py:2814 consultation/views.py:2974
+#: consultation/views.py:3011 consultation/views.py:3048
+#: consultation/views.py:3155 consultation/views.py:3185
+#: consultation/views.py:3274 consultation/views.py:3302
+#: consultation/views.py:3549
+msgid ""
+"Your User or User Group, don't have the necessary permissions to access this "
+"view"
+msgstr ""
+"Su Usuario, o grupo al cual pertenece, no tiene permiso para acceder a esta "
+"vista"
+
+#: consultation/views.py:1769
+msgid "Received By"
+msgstr "Recibido por"
+
+#: consultation/views.py:1932 consultation/views.py:2397
+#: consultation/views.py:2572 consultation/views.py:2724
+#: consultation/views.py:2901 consultation/views.py:3082
+msgid "Action"
+msgstr "Acción"
+
+#: consultation/views.py:2002
+msgid "Select / Action"
+msgstr "Seleccionar / Acción"

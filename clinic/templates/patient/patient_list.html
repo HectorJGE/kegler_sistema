@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Pacientes
+  </h1>
+  <!--<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank"
+                                                               href="https://datatables.net">official DataTables
+      documentation</a>.</p>-->
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTables Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Pacientes <a href="{% url 'patient.create' %}" class="btn btn-info btn-circle">
+        <i class="fas fa-plus"></i></a>
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr style="text-align: center;">
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Nro. Doc.</th>
+              <th>RUC</th>
+              <th>Sexo</th>
+              <th>Peso</th>
+              <th>Teléfono</th>
+              <th>Email</th>
+              <th>Fecha Nac.</th>
+              <th>Ciudad</th>
+              <th>Dirección</th>
+              <th>Plan de Seguro</th>
+              <th style="width:5%; text-align: center;"  data-orderable="false" class="no-column-search">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for patient in patients %}
+
+              <tr style="text-align: center;">
+                <td>{{ patient.id }}</td>
+                <td>{{ patient.name }}</td>
+                <td>{{ patient.last_name }}</td>
+                <td>{{ patient.document_number }}</td>
+                <td>{{ patient.tax_identification_number|default_if_none:"---" }}</td>
+                <td>{{ patient.get_sex_display }}</td>
+                <td>{{ patient.weight }}</td>
+                <td>{{ patient.phone_number }}</td>
+                <td>{{ patient.email|default_if_none:"---" }}</td>
+                <td>
+                  {%  if patient.birth_date %}
+                    <span style="display:none;">{{ patient.birth_date|date:"U"}}</span>
+                    {{ patient.birth_date|date:"d/m/Y" }}
+                  {% else %}
+                    ---
+                  {% endif %}
+                </td>
+                <td>{{ patient.get_city_display|default_if_none:"---" }}</td>
+                <td>{{ patient.address|default_if_none:"---" }}</td>
+                <td>{{ patient.insurance_plan|default_if_none:"Sin Seguro" }}</td>
+                <td style="white-space: nowrap;">
+                  <a href="{% url 'patient.detail'  patient.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a href="{% url 'patient.update'  patient.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <!--
+                  <a href="#" class="btn btn-danger btn-circle" data-target="#confirmDeleteModal">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  -->
+                </td>
+              </tr>
+            {% empty %}
+              <tr style="text-align: center;">
+                <td colspan="11">Sin Registros</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+    $(function (){
+        /* se inicializa el datatables */
+        $('#dataTable').DataTable(
+            /* Archivo de traducción */
+            {
+                language: {
+                    url: "{% url 'datatables_translation' %}",
+                },
+                columnDefs: [
+                    { type: "numeric-comma", targets: [0, 6] },
+                ]
+
+            }
+        );
+    });
+
+  </script>
+
+
+{% endblock %}

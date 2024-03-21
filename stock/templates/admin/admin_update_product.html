@@ -1,0 +1,18 @@
+{% extends 'admin/change_form.html' %}
+{% load static %}
+{% block submit_buttons_bottom %}
+  {{ block.super }}
+  <div class="submit-row">
+    <a style="
+      background: #79aec8;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      color: #fff;
+      cursor: pointer;
+      "
+       href="{% url 'admin:stock_stockmovement_add' %}"
+       target="_blank"
+    >Ajustar Stock</a>
+  </div>
+{% endblock %}

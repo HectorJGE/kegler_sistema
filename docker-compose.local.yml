@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:12.3-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "15432:5432"
+    env_file:
+      - ./.env.local
+
+  sifen:
+    image: registry.gitlab.com/bellbird1/bellbird/sifen:latest
+    restart: always
+    command: npm run start
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.local
+    volumes:
+      - sifen_data:/src/certificados_clientes/
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.local
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - media_volume:/code/media/
+      - static_volume:/code/staticfiles/
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./.env.local
+    depends_on:
+      - db
+      - sifen
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+  sifen_data:

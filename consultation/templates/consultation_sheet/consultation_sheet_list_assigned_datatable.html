@@ -1,0 +1,130 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        Fichas de Estudios
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                Listado de Estudios Realizados Asignados
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                {{ datatable }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+        /* url para asignar médico informante a ficha de estudio */
+        var assign_reporting_doctor_to_consultation_sheet_url = '{% url 'consultation_sheet.assign_reporting_doctor' 9999 8888 %}';
+
+        /* Document ready */
+        $(function () {
+
+            $('#sidebarToggle').trigger('click');
+
+            /* se inicializa el datatables */
+            datatableview.initialize($('.datatable'),{
+                    /* Archivo de traducción */
+                    language: {
+                        url: "{% url 'datatables_translation' %}",
+                    },
+                    columnDefs: [
+                        { type: "numeric-comma", targets: [1] },
+                    ],
+                }
+
+            );
+
+            $('.datatable').on( 'draw.dt', function () {
+                console.log("se dibujó la tabla");
+                setTimeout(function(){
+                    setupSelect();
+                }, 300);
+            } );
+
+            setTimeout(function(){
+                setupSelect();
+            }, 300);
+        });
+
+        function setupSelect(){
+            /* Se inicializan todos los selects como chosen */
+            $('select').chosen();
+            /* Al elegir un doctor */
+            $('.reporting-doctor-select').change(function(){
+                var select = $(this);
+                if (select.val() !== ''){
+                    Swal.fire({
+                        title: 'Está seguro que quiere Asignar este doctor como médico informante?',
+                        showDenyButton: true,
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: `Si`,
+                        denyButtonText: `No`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            var reporting_doctor_id = select.val();
+                            var consultation_sheet_id = select.data('consultation-sheet-id');
+                            var url = assign_reporting_doctor_to_consultation_sheet_url.replace('9999', consultation_sheet_id);
+                            url = url.replace('8888', reporting_doctor_id);
+                            console.log(url);
+
+                            /* Hacer llamada ajax para asignar el doctor */
+                            $.ajax({
+                                type: 'GET',
+                                url: url,
+                                success: function (data, textStatus, jqXHR) {
+                                    window.location.reload();
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                    /* Alerta de Error */
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error...',
+                                        text: 'Error al tratar de asignar el médico informante a la ficha de estudio " + consultation_sheet_id',
+                                        footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                                    });
+                                }
+                            });
+                            Swal.fire('Médico Informante asignado', '', 'success')
+                        } else if (result.isDenied) {
+                            select.val("");
+                            //Swal.fire('Changes are not saved', '', 'info')
+                        }
+                    })
+                }
+            });
+        }
+
+    </script>
+
+
+{% endblock %}

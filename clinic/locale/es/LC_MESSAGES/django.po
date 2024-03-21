@@ -1,0 +1,312 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-09-14 17:53-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: clinic/apps.py:7
+msgid "Clinic"
+msgstr "Clínica"
+
+#: clinic/forms.py:11 clinic/models.py:30
+msgid "Phone Number"
+msgstr "Número telefónico"
+
+#: clinic/forms.py:15
+msgid "Weight"
+msgstr "Peso(Kg)"
+
+#: clinic/forms.py:19
+msgid "Birth Date"
+msgstr "Fecha de Nacimiento"
+
+#: clinic/forms.py:24 clinic/views.py:33
+msgid "City"
+msgstr "Ciudad"
+
+#: clinic/forms.py:29
+msgid "address"
+msgstr "Direcciones"
+
+#: clinic/management/commands/create_missing_medical_studies_fees.py:11
+msgid "Command to create missing medical studies fees."
+msgstr "Comando para crear aranceles de estudios faltantes"
+
+#: clinic/management/commands/create_missing_medical_studies_fees.py:14
+msgid "Starting the creation of missing medical studies fees."
+msgstr "Comenzando la creación de aranceles de estudios faltantes"
+
+#: clinic/management/commands/create_missing_medical_studies_fees.py:32
+msgid "Medical Study fee created:"
+msgstr "Arancel de estudio creado"
+
+#: clinic/management/commands/create_missing_medical_studies_fees.py:36
+msgid " new medical studies were succesfully created!"
+msgstr " nuevo(s) estudio(s) medico(s) fue(ron) creado(s) exitosamente!"
+
+#: clinic/management/commands/create_missing_medical_supplies_fees.py:10
+msgid "Command to create missing medical supplies fees"
+msgstr "Comando para crear aranceles de Insumos faltantes"
+
+#: clinic/management/commands/create_missing_medical_supplies_fees.py:13
+msgid "Starting the creation of missing medical supplies fees."
+msgstr "Comenzando la creación de aranceles de insumos faltantes."
+
+#: clinic/management/commands/create_missing_medical_supplies_fees.py:31
+msgid "Medical Supply fee created:"
+msgstr "Arancel de Insumo Médico creado:"
+
+#: clinic/management/commands/create_missing_medical_supplies_fees.py:35
+msgid " new medical supplies fees were succesfully created!"
+msgstr " nuevo(s) aranceles de insumos faltantes fueron creados exitosamente"
+
+#: clinic/models.py:20 clinic/models.py:46 clinic/models.py:95
+#: clinic/models.py:110 clinic/models.py:183 clinic/models.py:224
+#: clinic/models.py:240 clinic/models.py:263 clinic/models.py:318
+msgid "Name"
+msgstr "Nombre"
+
+#: clinic/models.py:22
+msgid "Tax Identification Number"
+msgstr "RUC"
+
+#: clinic/models.py:26
+msgid "Email"
+msgstr "Email"
+
+#: clinic/models.py:28
+msgid "Address"
+msgstr "Direcciones"
+
+#: clinic/models.py:37 clinic/views.py:31
+msgid "Insurance"
+msgstr "Seguro"
+
+#: clinic/models.py:38
+msgid "Insurances"
+msgstr "Seguros"
+
+#: clinic/models.py:51
+msgid "Insurance Company"
+msgstr "Compañía de Seguros"
+
+#: clinic/models.py:60 clinic/models.py:71 clinic/models.py:376
+#: clinic/models.py:414 clinic/models.py:464 clinic/models.py:508
+msgid "Insurance Plan"
+msgstr "Plan de Seguro"
+
+#: clinic/models.py:61
+msgid "Insurance Plans"
+msgstr "Planes de seguros"
+
+#: clinic/models.py:78
+msgid "Patient"
+msgstr "Paciente"
+
+#: clinic/models.py:79
+msgid "Patients"
+msgstr "Pacientes"
+
+#: clinic/models.py:98
+msgid "Doctor Specialization"
+msgstr "Especializacion de Doctor"
+
+#: clinic/models.py:99
+msgid "Doctors Specializations"
+msgstr "Especializaciones de Doctores"
+
+#: clinic/models.py:111
+msgid "Sector Code"
+msgstr "Código de sector"
+
+#: clinic/models.py:114 clinic/models.py:294 clinic/models.py:328
+msgid "Sector"
+msgstr "Sector"
+
+#: clinic/models.py:115 clinic/models.py:135 clinic/models.py:206
+msgid "Sectors"
+msgstr "Sectores"
+
+#: clinic/models.py:128
+msgid "Specialization"
+msgstr "Especialización"
+
+#: clinic/models.py:141
+msgid "User"
+msgstr "Usuario"
+
+#: clinic/models.py:146
+msgid "Digital Signature"
+msgstr "Firma Digital"
+
+#: clinic/models.py:151 clinic/models.py:350
+msgid "Doctor"
+msgstr "Doctor"
+
+#: clinic/models.py:152
+msgid "Doctors"
+msgstr "Doctores"
+
+#: clinic/models.py:165 clinic/models.py:200
+msgid "Specializations"
+msgstr "Especializaciones"
+
+#: clinic/models.py:171
+msgid "Treating Doctor"
+msgstr "Doctor Tratante"
+
+#: clinic/models.py:172
+msgid "Treating Doctors"
+msgstr "Doctores Tratantes"
+
+#: clinic/models.py:186 clinic/models.py:187
+msgid "Technician Specialization"
+msgstr "Especializaciones de Técnicos"
+
+#: clinic/models.py:212
+msgid "Technician"
+msgstr "Técnico"
+
+#: clinic/models.py:213
+msgid "Technicians"
+msgstr "Técnicos"
+
+#: clinic/models.py:227 clinic/models.py:268
+msgid "Medical Study Type"
+msgstr "Empresa que Realiza el Estudio"
+
+#: clinic/models.py:228
+msgid "Medical Studies Types "
+msgstr "Empresas que realizan el Estudio"
+
+#: clinic/models.py:245
+msgid "Equipment Type Code"
+msgstr "Código de Tipo de Equipo"
+
+#: clinic/models.py:251
+msgid "Medical Equipment Type"
+msgstr "Tipo de Equipo Médico"
+
+#: clinic/models.py:252
+msgid "Medical Equipment Types"
+msgstr "Tipos de Equipos Médicos"
+
+#: clinic/models.py:272
+msgid "Time Duration in minutes"
+msgstr "Tiempo de duración en minutos"
+
+#: clinic/models.py:284 clinic/models.py:387 clinic/models.py:519
+msgid "Price"
+msgstr "Precio"
+
+#: clinic/models.py:289 clinic/models.py:392 clinic/models.py:433
+#: clinic/models.py:483 clinic/models.py:524
+msgid "Currency"
+msgstr "Moneda"
+
+#: clinic/models.py:301 clinic/models.py:356 clinic/models.py:382
+#: clinic/models.py:408
+msgid "Medical Study"
+msgstr "Estudio Médico"
+
+#: clinic/models.py:302
+msgid "Medical Studies"
+msgstr "Estudios Médicos"
+
+#: clinic/models.py:335
+msgid "Medical Equipment"
+msgstr "Equipo Médico"
+
+#: clinic/models.py:336
+msgid "Medical Equipments"
+msgstr "Equipos Médicos"
+
+#: clinic/models.py:361
+msgid "Doctor Medical Study"
+msgstr "Estudio Médico que realiza el Doctor"
+
+#: clinic/models.py:362
+msgid "Doctor Medical Studies"
+msgstr "Estudios Médicos que realiza el Doctor"
+
+#: clinic/models.py:397
+msgid "Insurance Plan Medical Study Fee"
+msgstr "Arancel de Estudio por seguro"
+
+#: clinic/models.py:398
+msgid "Insurance Plan Medical Study Fees"
+msgstr "Aranceles de Estudios por seguros"
+
+#: clinic/models.py:419 clinic/models.py:469
+msgid "Percentage"
+msgstr "Porcentaje"
+
+#: clinic/models.py:420 clinic/models.py:470
+msgid "Amount"
+msgstr "Monto"
+
+#: clinic/models.py:422 clinic/models.py:472
+msgid "Cover Types"
+msgstr "Tipo de Covertura"
+
+#: clinic/models.py:424 clinic/models.py:474
+msgid "Coverage Percentage"
+msgstr "Porcentaje de Cobertura"
+
+#: clinic/models.py:428 clinic/models.py:478
+msgid "Coverage Amount"
+msgstr "Monto de Cobertura"
+
+#: clinic/models.py:440
+msgid "Medical Study Insurance Agreement"
+msgstr "Convenio de Estudio Médico por Seguro"
+
+#: clinic/models.py:441
+msgid "Medical Studys Insurances Agreements"
+msgstr "Convenios de Estudios Médicos por Seguros"
+
+#: clinic/models.py:458 clinic/models.py:514
+msgid "Medical Supply"
+msgstr "Insumo Médico"
+
+#: clinic/models.py:490
+msgid "Medical Supply Insurance Agreement"
+msgstr "Convenio de Insumo Médico por Seguro"
+
+#: clinic/models.py:491
+msgid "Medical Supplies Insurances Agreements"
+msgstr "Convenios de Insumos Médicos por Seguros"
+
+#: clinic/models.py:529
+msgid "Insurance Plan Medical Supply Fee"
+msgstr "Arancel de Insumo por seguro"
+
+#: clinic/models.py:530
+msgid "Insurance Plan Medical Supplies Fees"
+msgstr "Aranceles de Insumos por seguros"
+
+#: clinic/views.py:29
+msgid "Actions"
+msgstr "Acciones"
+
+#: clinic/views.py:30
+msgid "Birth date"
+msgstr "Fecha de Nacimiento"
+
+#: clinic/views.py:32
+msgid "Sex"
+msgstr "Sexo"

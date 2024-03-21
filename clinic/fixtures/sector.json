@@ -1,0 +1,57 @@
+[
+  {
+    "model": "clinic.sector",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:15:09.708Z",
+      "updated_at": "2021-04-14T19:15:09.708Z",
+      "name": "Tomografía",
+      "sector_code": "TOMO"
+    }
+  },
+  {
+    "model": "clinic.sector",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:15:31.311Z",
+      "updated_at": "2021-04-14T19:15:31.311Z",
+      "name": "Radiografía",
+      "sector_code": "RADI"
+    }
+  },
+  {
+    "model": "clinic.sector",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:16:01.068Z",
+      "updated_at": "2021-04-14T19:16:01.068Z",
+      "name": "Ecografía",
+      "sector_code": "ECO"
+    }
+  },
+  {
+    "model": "clinic.sector",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:16:19.745Z",
+      "updated_at": "2021-04-14T19:16:19.745Z",
+      "name": "Resonancia",
+      "sector_code": "RESO"
+    }
+  },
+  {
+    "model": "clinic.sector",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-04-14T19:17:37.075Z",
+      "updated_at": "2021-04-14T19:17:37.075Z",
+      "name": "Mamografía",
+      "sector_code": "MAMO"
+    }
+  }
+]

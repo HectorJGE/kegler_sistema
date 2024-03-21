@@ -1,0 +1,14 @@
+default:
+  image: docker:latest
+  before_script:
+    - docker login -u gitlab+deploy-token-3600476 -p JPXYBuhPVVpizGHHwuxV registry.gitlab.com/v2/bellbird1/iribas/sistema
+
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  script:
+    - docker compose -f docker-compose.prod.yml up -d

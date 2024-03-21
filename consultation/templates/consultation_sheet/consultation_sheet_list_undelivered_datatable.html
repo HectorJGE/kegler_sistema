@@ -1,0 +1,128 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Fichas de Estudios
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Estudios Realizados Sin Entregar
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        {{ datatable }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      /* url para marcar como entregada la ficha de estudio */
+      var mark_as_delivered_url = '{% url 'consultation_sheet.mark_as_delivered' 9999 %}';
+
+      /* Document ready */
+      $(function () {
+        $('#sidebarToggle').trigger('click');
+
+        /* se inicializa el datatables */
+        datatableview.initialize($('.datatable'),{
+              /* Archivo de traducción */
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      { type: "numeric-comma", targets: [1] },
+                  ],
+              }
+          );
+
+        $('.datatable').on( 'draw.dt', function () {
+          console.log("se dibujó la tabla");
+          setTimeout(function(){
+            setupMarkAsDelivered();
+          }, 300);
+        } );
+
+        setTimeout(function(){
+          setupMarkAsDelivered();
+        }, 300);
+      });
+
+
+      function setupMarkAsDelivered(){
+        $('.to-upper-case').keyup(function (){
+          $(this).val( $(this).val().toUpperCase() );
+        });
+
+        /* Al hacer click en el botón de marcar como entgregado */
+        $('.mark-as-delivered-button').on('click', function () {
+          Swal.fire({
+            title: 'Está seguro que quiere marcar este estudio como entregado?',
+            showDenyButton: true,
+            showCancelButton: true,
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: `Si`,
+            denyButtonText: `No`,
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+              var button = $(this);
+              var consultation_sheet_id = button.data('consultation-sheet-id');
+              var received_by = $("#id_received_by_" + consultation_sheet_id).val();
+              var url = mark_as_delivered_url.replace('9999', consultation_sheet_id);
+              console.log(url);
+
+              /* Hacer llamada ajax para marcar  */
+              $.ajax({
+                type: 'GET',
+                url: url,
+                data: {'received_by': received_by},
+                success: function (data, textStatus, jqXHR) {
+                  window.location.reload();
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                  /* Alerta de Error */
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Error...',
+                    text: 'Error al tratar de marcar como entregado, los resultados de la ficha de estudio ' + consultation_sheet_id,
+                    footer: '<p>Favor póngase en contacto con el administrador del sistema.</p>'
+                  });
+                }
+              });
+              Swal.fire('Estudio Entregado!', '', 'success')
+            } else if (result.isDenied) {
+
+            }
+          })
+
+        });
+      }
+
+  </script>
+
+
+{% endblock %}

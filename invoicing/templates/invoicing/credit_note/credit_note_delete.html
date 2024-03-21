@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    <a href="{% url 'credit_note_list' %}">Notas de Crédito</a>
+  </h1>
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Eliminar Nota de Crédito</h6>
+    </div>
+    <div class="card-body">
+      <p>Está Seguro que quiere eliminar esta Nota de Crédito? </p>
+      <span><b>{{ credit_note.credit_note_number }} {{ credit_note.credit_note_date }} - {{ credit_note.client_tax_identification_number }} - {{ credit_note.client_name }}</b></span>
+      <br><br>
+      <form method="post" enctype="multipart/form-data" action="{% url 'credit_note_delete' credit_note.id %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-sm btn-primary shadow-sm" value="Confirmar">
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'credit_note_list' %}">Volver a Lista de Notas de Crédito</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

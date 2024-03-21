@@ -1,0 +1,345 @@
+{% extends "layout.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        Reportes
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <!-- DataTables Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Reporte de Facturas
+            </h6>
+            <br>
+            <form action="{% url 'reports.invoice_report_list' %}" method="get" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+                {% csrf_token %}
+                {% for field in filter_form %}
+                    {{ field|as_crispy_field }}
+                    <br>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary" id="id_submit_button">Obtener Reporte</button>
+            </form>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+
+                <table class="table table-bordered" id="dataTable" style="width: 100%; border-spacing: 0">
+                    <thead>
+                    <tr style="text-align: center;">
+                        <th>Numero de Factura</th>
+                        <th>Empresa</th>
+                        <th>Fecha</th>
+                        <th>Cliente</th>
+                        <th>RUC</th>
+                        <th>Condicion de Pago</th>
+                        <th>Exentas</th>
+                        <th>IVA 5%</th>
+                        <th>IVA 10%</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in invoice %}
+                        <tr style="text-align: center;">
+                            <td>
+                                <a href="{% url 'invoice_detail' i.id %}" target="_blank">{{ i.invoice_number }}</a></td>
+                            <td>
+                                {{ i.company.company_name }}
+                            </td>
+                            <td>
+                                {{ i.invoice_date|date:"d/m/Y" }}
+                            </td>
+                            <td>
+                                {{ i.client_name }}
+                            </td>
+                            <td>
+                                {{ i.client_tax_identification_number }}
+                            </td>
+                            <td>
+                                {{ i.payment_term }}
+                            </td>
+                            <td>
+                                {{ i.total_exempt|floatformat:"0" }}
+                            </td>
+                            <td>
+                                {{ i.total_tax5|floatformat:"0" }}
+                            </td>
+                            <td>
+                            {{ i.total_tax10|floatformat:"0" }}
+                            </td>
+                            <td>
+                                {{ i.invoice_total|floatformat:"0" }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    <tfoot style="text-align: right">
+                    <tr>
+                        <th colspan="6"></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+    <!-- Custom styles for this page -->
+    <link type="text/css" href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+    <!-- Page level plugins -->
+    <script type="text/javascript" src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/moment/moment.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'base/js/utils.js' %}"></script>
+    <script type="text/javascript" src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+        $(function () {
+            /* Chosen */
+            $('select').chosen();
+
+            /* Datetime picker */
+            jQuery.datetimepicker.setLocale('es');
+
+            /* Se inicializa el datatables */
+            $('#dataTable').DataTable(
+                /* Archivo de traducción */
+                {
+                    language: {
+                        url: "{% url 'datatables_translation' %}",
+                    },
+                    columnDefs: [
+                      {type: "numeric-comma", targets: [6,7,8,9]},
+                      {
+                          data: "Exentas",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 6
+
+                      },
+                      {
+                          data: "IVA 5%",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 7
+
+                      },
+                      {
+                          data: "IVA 10%",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 8
+
+                      },
+                      {
+                          data: "Total",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 9
+
+                      },
+
+                  ],
+                    "footerCallback": function (row, data, start, end, display) {
+                        var api = this.api(), data;
+
+                        var number_format = $.fn.dataTable.render.number('.', ',', 1, '', '').display;
+
+                        // converting to interger to find total
+                        var intVal = function (i) {
+                            return typeof i === 'string' ?
+                                i.replace(/[\$,]/g, '') * 1 :
+                                typeof i === 'number' ?
+                                    i : 0;
+                        };
+
+                        // computing column Total of the complete result
+                        var exentas = api
+                            .column(6)
+                            .data()
+                            .reduce(function (a, b) {
+                                let sum = parseFloat(a) + parseFloat(b);
+                                return sum
+                            }, 0);
+
+                        var iva5 = api
+                            .column(7)
+                            .data()
+                            .reduce(function (a, b) {
+                                let sum = parseFloat(a) + parseFloat(b);
+                                return sum
+                            }, 0);
+
+                        var iva10 = api
+                            .column(8)
+                            .data()
+                            .reduce(function (a, b) {
+                                let sum = parseFloat(a) + parseFloat(b);
+                                return sum
+                            }, 0);
+
+                        var total = api
+                            .column(9)
+                            .data()
+                            .reduce(function (a, b) {
+                                let sum = parseFloat(a) + parseFloat(b);
+                                return sum
+                            }, 0);
+
+
+                        // Update footer by showing the total with the reference of the column index
+                        $(api.column(0).footer()).html('Totales:');
+                        $(api.column(6).footer()).html(number_format(exentas));
+                        $(api.column(7).footer()).html(number_format(iva5));
+                        $(api.column(8).footer()).html(number_format(iva10));
+                        $(api.column(9).footer()).html(number_format(total));
+                    },
+
+                }
+            );
+
+            /* Se inicializan los datetime picker de los filtros */
+            /* Si el campo de fecha no está vacío */
+            $('#id_date_time_start').mask("00/00/0000");
+            $('#id_date_time_end').mask("00/00/0000");
+
+            $('#id_date_time_start').click(function () {
+                $(this).select();
+            });
+            $('#id_date_time_end').click(function () {
+                $(this).select();
+            });
+
+            if ($("#id_date_time_start").val() !== '') {
+                var str_fecha = $("#id_date_time_start").val();
+                str_fecha = str_fecha.substring(0, 16);
+                $("#id_date_time_start").val(str_fecha);
+                var fecha_inicio = $("#id_date_time_start").val();
+
+                str_fecha = $("#id_date_time_end").val();
+                str_fecha = str_fecha.substring(0, 16);
+                $("#id_date_time_end").val(str_fecha);
+                var fecha_fin = $("#id_date_time_end").val();
+
+                var fecha_inicio_date = moment(fecha_inicio, 'DD/MM/YYYY').toDate();
+                var fecha_fin_date = moment(fecha_fin, 'DD/MM/YYYY').toDate();
+
+                /* Datetimepicker */
+                var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: false,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y',
+                    inline: false,
+                    step: 15,
+                    defaultDate: fecha_inicio_date
+                });
+
+                var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: false,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y',
+                    inline: false,
+                    step: 15,
+                    defaultDate: fecha_fin_date
+                });
+
+
+                /* Si el campo de fecha está vacío */
+            } else {
+                /* Datetimepicker */
+                var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: false,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y',
+                    inline: false,
+                });
+
+
+                var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                    i18n: {
+                        es: {
+                            months: [
+                                'Enero', 'Febrero', 'Marzo', 'Abril',
+                                'Mayo', 'Junio', 'Julio', 'Agosto',
+                                'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                            ],
+                            dayOfWeek: [
+                                "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                            ]
+                        }
+                    },
+                    datepicker: true,
+                    timepicker: false,
+                    lang: 'es',
+                    locale: 'es',
+                    format: 'd/m/Y',
+                    inline: false,
+                });
+
+            }
+
+        });
+
+    </script>
+
+
+{% endblock %}

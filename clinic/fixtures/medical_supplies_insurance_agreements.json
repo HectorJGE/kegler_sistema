@@ -1,0 +1,218 @@
+[
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T22:55:08.488Z",
+      "updated_at": "2021-03-17T22:55:08.488Z",
+      "medical_supply": 1,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T22:55:41.375Z",
+      "updated_at": "2021-03-17T22:55:41.376Z",
+      "medical_supply": 2,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:11.718Z",
+      "updated_at": "2021-03-17T23:05:11.718Z",
+      "medical_supply": 3,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:34.793Z",
+      "updated_at": "2021-03-17T23:05:34.793Z",
+      "medical_supply": 4,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:44.824Z",
+      "updated_at": "2021-03-17T23:05:44.824Z",
+      "medical_supply": 5,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:05:57.538Z",
+      "updated_at": "2021-03-17T23:05:57.538Z",
+      "medical_supply": 6,
+      "insurance_plan": 1,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:33.633Z",
+      "updated_at": "2021-03-17T23:16:33.634Z",
+      "medical_supply": 1,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:42.344Z",
+      "updated_at": "2021-03-17T23:16:42.344Z",
+      "medical_supply": 2,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:16:52.017Z",
+      "updated_at": "2021-03-17T23:16:52.017Z",
+      "medical_supply": 3,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:00.352Z",
+      "updated_at": "2021-03-17T23:17:00.352Z",
+      "medical_supply": 4,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:10.873Z",
+      "updated_at": "2021-03-17T23:17:10.873Z",
+      "medical_supply": 5,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:20.312Z",
+      "updated_at": "2021-03-17T23:17:20.312Z",
+      "medical_supply": 6,
+      "insurance_plan": 2,
+      "coverage_percentage": 80.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:34.254Z",
+      "updated_at": "2021-03-17T23:17:34.254Z",
+      "medical_supply": 1,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:17:44.241Z",
+      "updated_at": "2021-03-17T23:17:44.242Z",
+      "medical_supply": 2,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:04.540Z",
+      "updated_at": "2021-03-17T23:18:04.541Z",
+      "medical_supply": 3,
+      "insurance_plan": 3,
+      "coverage_percentage": 100.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:20.925Z",
+      "updated_at": "2021-03-17T23:18:20.925Z",
+      "medical_supply": 4,
+      "insurance_plan": 3,
+      "coverage_percentage": 50.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:45.388Z",
+      "updated_at": "2021-03-17T23:18:45.389Z",
+      "medical_supply": 5,
+      "insurance_plan": 3,
+      "coverage_percentage": 70.0
+    }
+  },
+  {
+    "model": "clinic.medicalsupplyinsuranceagreement",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-03-17T23:18:56.185Z",
+      "updated_at": "2021-03-17T23:18:56.185Z",
+      "medical_supply": 6,
+      "insurance_plan": 3,
+      "coverage_percentage": 60.0
+    }
+  }
+]

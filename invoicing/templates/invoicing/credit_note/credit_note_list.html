@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Notas de Crédito
+  </h1>
+  <!--<p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
+    For more information about DataTables, please visit the <a target="_blank"
+                                                               href="https://datatables.net">official DataTables
+      documentation</a>.</p>-->
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTables Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Notas de Crédito <a href="{% url 'credit_note_create' %}" class="btn btn-info btn-circle">
+        <i class="fas fa-plus"></i></a>
+      </h6>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        {{ datatable }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'invoicing/js/datatableview.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+    $(function (){
+        $('#sidebarToggle').trigger('click');
+
+        /* se inicializa el datatables */
+        datatableview.initialize($('.datatable'),
+            /* Archivo de traducción */
+            {
+                language: {
+                    url: "{% url 'datatables_translation' %}",
+                },
+
+                columnDefs: [
+                    { type: "numeric-comma", targets: [9] },
+                    {
+                        render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                        targets: 9
+                    },
+                ],
+            }
+        );
+    });
+
+  </script>
+
+
+{% endblock %}

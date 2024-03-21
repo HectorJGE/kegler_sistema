@@ -1,0 +1,102 @@
+[
+  {
+    "model": "clinic.Technician",
+    "pk": 1,
+    "fields": {
+      "name": "Adriana",
+      "last_name": "Paredes",
+      "birth_date": "1980-10-20",
+      "email": "adriana.paredes@prueba.com.py",
+      "document_number": "2125684",
+      "tax_identification_number": "2125684-3",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [1],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 2,
+    "fields": {
+      "name": "Camila",
+      "last_name": "Resck",
+      "birth_date": "1980-07-24",
+      "email": "camila.resck@prueba.com.py",
+      "document_number": "2312554",
+      "tax_identification_number": "2312554-5",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [2],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 3,
+    "fields": {
+      "name": "Daniel",
+      "last_name": "Cano",
+      "birth_date": "1995-09-01",
+      "email": "daniel.cano@prueba.com.py",
+      "document_number": "3599664",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [3],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 4,
+    "fields": {
+      "name": "Elias",
+      "last_name": "Diaz",
+      "birth_date": "1987-11-08",
+      "email": "elias.diaz@prueba.com.py",
+      "document_number": "3711877",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [4],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  },
+  {
+    "model": "clinic.Technician",
+    "pk": 5,
+    "fields": {
+      "name": "Francisco",
+      "last_name": "Benegas",
+      "birth_date": "2000-04-27",
+      "email": "francisco.benegas@prueba.com.py",
+      "document_number": "4607182",
+      "tax_identification_number": "",
+      "address": "",
+      "phone_number": "",
+      "technician_specializations": [5],
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00",
+      "weight": 75.0,
+      "sex": 1,
+      "city": 1
+    }
+  }
+]

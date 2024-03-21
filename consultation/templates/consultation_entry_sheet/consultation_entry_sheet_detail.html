@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+{% load static %}
+{% load humanize %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+        <a href="{% url 'consultation_entry_sheet.list' %}">Fichas de Entradas</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalle de Ficha de Entrada ID: {{ consultation_entry_sheet.id }}</h6>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover" style="width: 60%;">
+                <thead></thead>
+                <tbody style="text-align: center">
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Fecha Hora</strong>
+                    </td>
+                    <td><b>{{ consultation_entry_sheet.consultation_entry_sheet_date|date:"l d/m/Y H:i" }}</b></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Paciente</strong>
+                    </td>
+                    <td>
+                        <a href="{% url 'patient.detail' consultation_entry_sheet.patient.id %}">
+                            {{ consultation_entry_sheet.patient }}
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Monto Total</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ consultation_entry_sheet.total_amount|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Total a pagar Seguro</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ consultation_entry_sheet.total_amount_to_pay_insurance|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Total a pagar Paciente</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ consultation_entry_sheet.total_amount_to_pay_patient|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Total pagado Paciente</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ consultation_entry_sheet.total_amount_paid_by_patient|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Salado Paciente</strong>
+                    </td>
+                    <td style="text-align: right">
+                        {{ consultation_entry_sheet.patient_balance|intcomma }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <strong class="text-primary">Moneda</strong>
+                    </td>
+                    <td>
+                        {{ consultation_entry_sheet.currency }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- Estudios -->
+            <div>
+                <h4>Estudios </h4>
+                <table class="table table-bordered table-hover" id="id_table_appointments" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Fecha/Hora</th>
+                        <th>Estudio</th>
+                        <th>Equipo</th>
+                        <th>Doctor</th>
+                        <th>Turno</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for consultation_sheet in consultation_entry_sheet.consultation_sheets.all %}
+                        <tr>
+                            <td>
+                                {{ consultation_sheet.id }}
+                            </td>
+                            <td>{{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}</td>
+                            <td>{{ consultation_sheet.medical_study }}</td>
+                            <td>{{ consultation_sheet.medical_equipment|default_if_none:"-----" }}</td>
+                            <td>{{ consultation_sheet.doctor|default_if_none:"-----" }}</td>
+                            <td>
+                                {% if consultation_sheet.appointment %}
+                                    <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                                        Ver Turno ID: {{ consultation_sheet.appointment.id }}
+                                    </a>
+                                {% else %}
+                                    ---
+                                {% endif %}
+                            </td>
+                            <td><b>{{ consultation_sheet.consultation_state }}</b></td>
+                            <td>
+                                <a href="{% url 'consultation_sheet.detail' consultation_sheet.id %}" class="btn btn-info btn-circle">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                {% if consultation_entry_sheet.invoice == None and consultation_entry_sheet.insurance_invoice == None %}
+                                    <a href="{% url 'consultation_sheet.update' consultation_sheet.id %}" class="btn btn-info btn-circle">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'consultation_sheet.print' consultation_sheet.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-print"></i>
+                  </span>
+                                    <span class="text">Imprimir Ficha de Estudio</span>
+                                </a>
+
+                                <a href="{% url 'consultation_sheet.print_tag' consultation_sheet.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa fa-print"></i>
+                  </span>
+                                    <span class="text">Imprimir etiqueta</span>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" style="text-align: center">No se Encontraron Fichas de Estudios de este paciente en esta Ficha</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if consultation_entry_sheet.invoice == None and consultation_entry_sheet.insurance_invoice == None %}
+                <a href="{% url 'consultation_entry_sheet.update' consultation_entry_sheet.id %}" class="btn btn-primary btn-icon-split">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </span>
+                    <span class="text">Editar</span>
+                </a>
+            {% endif %}
+            <!--
+          <a href="{% url 'consultation_sheet.delete' consultation_entry_sheet.id %}" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+            <span class="text">Eliminar Ficha de Entrada</span>
+          </a>
+      -->
+            <a href="{% url 'consultation_entry_sheet.list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+                <span class="text">Volver al Listado</span>
+            </a>
+
+            {% if consultation_entry_sheet.invoice %}
+                <a href="{% url 'invoice_detail' consultation_entry_sheet.invoice.pk %}" target="_blank" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-file-invoice"></i>
+                    </span>
+                    <span class="text">Ver Factura</span>
+                </a>
+            {% else %}
+                {% if consultation_entry_sheet.total_amount_paid_by_patient > 0 %}
+                <a href="{% url 'invoice.create.consultationsheet' consultation_entry_sheet.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+                    <span class="icon text-white-50">
+                      <i class="fas fa-file-invoice"></i>
+                    </span>
+                    <span class="text">Facturar de Ficha de Entrada</span>
+                </a>
+                {% endif %}
+            {% endif %}
+            <a href="{% url 'consultation_entry_sheet.print' consultation_entry_sheet.id %}" target="_blank" class="btn btn-primary btn-icon-split">
+        <span class="icon text-white-50">
+          <i class="fas fa-print"></i>
+        </span>
+                <span class="text">Imprimir Ficha de Entrada</span>
+            </a>
+            {% if perms.consultation.delete_consultationentrysheet %}
+                {% if consultation_entry_sheet.invoice == None and consultation_entry_sheet.insurance_invoice == None %}
+                    <a href="{% url 'consultation_entry_sheet.delete' consultation_entry_sheet.id %}" class="btn btn-danger btn-icon-split">
+                                              <span class="icon text-white-50">
+                                                  <i class="fas fa-trash"></i>
+                                              </span>
+                        <span class="text">Eliminar Ficha de Entrada</span>
+                    </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+{% block extra_css %}
+    <link href="{% static 'build/vendor/fancybox/jquery.fancybox.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="{% static 'build/vendor/fancybox/jquery.fancybox.min.js' %}"></script>
+    <!-- Page Custom Scripts -->
+    <script type="text/javascript">
+        $(function () {
+            $('#sidebarToggle').trigger('click');
+            $('[data-fancybox="gallery"]').fancybox({
+                // Options will go here
+            });
+        });
+
+    </script>
+{% endblock %}

@@ -1,0 +1,269 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block heading %}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 text-gray-800">
+      <a href="{% url 'patient.list' %}">Pacientes</a>
+    </h1>
+
+{% endblock %}
+{% block content %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Detalles de paciente ID: {{ patient.id }}</h6>
+        </div>
+        <div class="card-body">
+          <h2 class="text-2xl font-semibold">{{ patient.name }} {{ patient.last_name }}</h2>
+          <p><strong class="text-primary">Sexo: </strong> {{ patient.get_sex_display }}</p>
+          <p><strong class="text-primary">Peso: </strong> {{ patient.weight }} Kg</p>
+          <p><strong class="text-primary">N&deg; de Documento: </strong> {{ patient.document_number }}</p>
+          <p><strong class="text-primary">RUC: </strong> {{ patient.tax_identification_number|default_if_none:"---" }}</p>
+          <p><strong class="text-primary">Razón Social: </strong> {{ patient.tax_identification_name|default_if_none:"---" }}</p>
+          <p><strong class="text-primary">Email: </strong> {{ patient.email|default_if_none:"---" }}</p>
+          <p><strong class="text-primary">Fecha Nac.: </strong> {{ patient.birth_date }} ({{ patient.calculate_age }})</p>
+          <p><strong class="text-primary">Tel&eacute;fono: </strong> {{ patient.phone_number }}</p>
+          <p><strong class="text-primary">Ciudad: </strong> {{ patient.get_city_display|default_if_none:"---" }}</p>
+          <p><strong class="text-primary">Direcci&oacute;n: </strong> {{ patient.address|default_if_none:"---" }}</p>
+          <p><strong class="text-primary">Plan de Seguro: </strong> {{ patient.insurance_plan|default_if_none:"Sin Seguro" }}</p>
+
+          <!-- Turnos -->
+          {% if appointments %}
+            <div style="margin-top: 20px; margin-bottom: 30px;">
+              <h4 style="text-align: center">Turnos Pendientes, Perdidos, o Cancelados </h4>
+              <table class="table table-bordered table-hover" id="id_table_appointments" style="text-align: center">
+                <thead>
+                <th><strong class="text-primary">ID</strong></th>
+                <th><strong class="text-primary">Inicio</strong></th>
+                <th><strong class="text-primary">Fin</strong></th>
+                <th><strong class="text-primary">Seguro</strong></th>
+                <th><strong class="text-primary">Estudio</strong></th>
+                <th><strong class="text-primary">Doctor</strong></th>
+                <th><strong class="text-primary">Equipo</strong></th>
+                <th><strong class="text-primary">Estado</strong></th>
+                <!--<th style="width:5%; text-align: center;"  data-orderable="false" class="no-column-search">Acciones</th>-->
+                </thead>
+                <tbody>
+                {% for appointment in appointments %}
+                  <tr>
+                    <td>
+                      {{ appointment.id }}
+                    </td>
+                    <!-- appointment_date_start -->
+                    <td>
+                      <div class="col-md-12">
+                        <span style="display:none;">{{ appointment.appointment_date_start|date:"U"}}</span>
+                        <a target="_blank" href="{% url 'appointment.detail' appointment.id %}">{{ appointment.appointment_date_start|date:"l d/m/Y H:i" }}</a>
+                      </div>
+                    </td>
+                    <!-- appointment_date_end -->
+                    <td>
+                      <div class="col-md-12">
+                        <span style="display:none;">{{ appointment.appointment_date_end|date:"U"}}</span>
+                        {{ appointment.appointment_date_end|date:"l d/m/Y H:i" }}
+                      </div>
+                    </td>
+                    <!-- insurance_plan -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ appointment.insurance_plan|default_if_none:"Sin Seguro" }}
+                      </div>
+                    </td>
+                    <!-- medical_study -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ appointment.medical_study }}
+                      </div>
+                    </td>
+                    <!-- doctor -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ appointment.doctor|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- medical_equipment -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ appointment.medical_equipment|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- appointment_state -->
+                    <td>
+                      <div class="col-md-12">
+                        {{ appointment.appointment_state }}
+                      </div>
+                    </td>
+                    <!--<td></td>-->
+                  </tr>
+                {% empty %}
+                  <tr style="text-align: center">
+                    <td colspan="9">Sin Turnos</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% endif %}
+
+          {% if patient.consultation_sheets.all %}
+            <!-- Fichas de Estudios -->
+            <div style="margin-top: 20px; margin-bottom: 30px;">
+              <h4 style="text-align: center">Fichas de Estudios</h4>
+              <table class="table table-bordered table-hover" id="id_table_consultation_sheets" style="text-align: center">
+                <thead>
+                <th><strong class="text-primary">ID</strong></th>
+                <th><strong class="text-primary">Fecha de Consulta</strong></th>
+                <th><strong class="text-primary">Seguro</strong></th>
+                <th><strong class="text-primary">Estudio</strong></th>
+                <th><strong class="text-primary">Doctor</strong></th>
+                <th><strong class="text-primary">Equipo</strong></th>
+                <th><strong class="text-primary">Doctor Tratante</strong></th>
+                <th><strong class="text-primary">Doctor Informante</strong></th>
+                <th><strong class="text-primary">Turno</strong></th>
+                <th><strong class="text-primary">Estado</strong></th>
+                <!--<th style="width:5%; text-align: center;"  data-orderable="false" class="no-column-search">Acciones</th>-->
+                </thead>
+                <tbody>
+                {% for consultation_sheet in patient.consultation_sheets.all %}
+                  <tr>
+                    <td>{{ consultation_sheet.id }}</td>
+                    <!-- consultation_date -->
+                    <td>
+                      <div class="col-md-12">
+                        <span style="display:none;">{{ consultation_sheet.consultation_date|date:"U"}}</span>
+                        <a target="_blank" href="{% url 'consultation_sheet.detail' consultation_sheet.id %}">{{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}</a>
+                      </div>
+                    </td>
+                    <!-- patient_insurance_plan -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ consultation_sheet.patient_insurance_plan|default_if_none:"Sin Seguro" }}
+                      </div>
+                    </td>
+                    <!-- medical_study -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ consultation_sheet.medical_study }}
+                      </div>
+                    </td>
+                    <!-- doctor -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ consultation_sheet.doctor|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- medical_equipment -->
+                    <td>
+                      <div class="col-md-12" style="text-align: center">
+                        {{ consultation_sheet.medical_equipment|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- treating_doctor -->
+                    <td>
+                      <div class="col-md-12">
+                        {{ consultation_sheet.treating_doctor|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- reporting_doctor -->
+                    <td>
+                      <div class="col-md-12">
+                        {{ consultation_sheet.reporting_doctor|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!-- appointment -->
+                    <td>
+                      <div class="col-md-12">
+                        {% if consultation_sheet.appointment %}
+                          <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                            Turno ID:{{ consultation_sheet.appointment.id }}<br> (Ver)
+                          </a>
+                        {% else %}
+                          ---
+                        {% endif %}
+                      </div>
+                    </td>
+                    <!-- consultation_state -->
+                    <td>
+                      <div class="col-md-12">
+                        {{ consultation_sheet.consultation_state|default_if_none:"---" }}
+                      </div>
+                    </td>
+                    <!--<td></td>-->
+                  </tr>
+                {% empty %}
+                  <tr style="text-align: center">
+                    <td colspan="9">Sin Fichas de Estudios</td>
+                  </tr>
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+        {% endif %}
+
+          <a href="{% url 'patient.update' patient.id %}" class="btn btn-primary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+            <span class="text">Editar</span>
+          </a>
+          <!--
+          <a href="{% url 'patient.delete' patient.id %}" class="btn btn-danger btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-trash"></i>
+                                        </span>
+            <span class="text">Eliminar Paciente</span>
+          </a>
+          -->
+          <a href="{% url 'patient.list' %}" class="btn btn-light btn-icon-split">
+            <span class="icon text-gray-600">
+                <i class="fas fa-arrow-right"></i>
+            </span>
+            <span class="text">Volver al Listado</span>
+          </a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      $(function () {
+          /* Se inicializan los datatables */
+          $('#id_table_consultation_sheets').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      { type: "numeric-comma", targets: [0] },
+                  ],
+              }
+          );
+          $('#id_table_appointments').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      { type: "numeric-comma", targets: [0] },
+                  ],
+              }
+          );
+      });
+  </script>
+
+
+{% endblock %}

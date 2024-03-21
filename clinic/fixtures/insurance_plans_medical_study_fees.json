@@ -1,0 +1,236 @@
+[
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:48:54.165Z",
+      "updated_at": "2021-02-22T14:48:54.166Z",
+      "insurance_plan": 1,
+      "medical_study": 1,
+      "price": 1000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:12.993Z",
+      "updated_at": "2021-02-22T14:49:12.993Z",
+      "insurance_plan": 1,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:25.741Z",
+      "updated_at": "2021-02-22T14:49:25.741Z",
+      "insurance_plan": 1,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:49:41.189Z",
+      "updated_at": "2021-02-22T14:49:41.189Z",
+      "insurance_plan": 1,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:02.331Z",
+      "updated_at": "2021-02-22T14:50:02.331Z",
+      "insurance_plan": 1,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 6,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:16.815Z",
+      "updated_at": "2021-02-22T14:50:16.815Z",
+      "insurance_plan": 1,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 7,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:50:42.779Z",
+      "updated_at": "2021-02-22T14:50:42.779Z",
+      "insurance_plan": 2,
+      "medical_study": 1,
+      "price": 10000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 8,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:23.816Z",
+      "updated_at": "2021-02-22T14:51:23.816Z",
+      "insurance_plan": 2,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 9,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:40.413Z",
+      "updated_at": "2021-02-22T14:51:40.413Z",
+      "insurance_plan": 2,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 10,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:51:58.299Z",
+      "updated_at": "2021-02-22T14:51:58.299Z",
+      "insurance_plan": 2,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 11,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:52:27.705Z",
+      "updated_at": "2021-02-22T14:52:27.705Z",
+      "insurance_plan": 2,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 12,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:52:45.716Z",
+      "updated_at": "2021-02-22T14:52:45.716Z",
+      "insurance_plan": 2,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 13,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:02.870Z",
+      "updated_at": "2021-02-22T14:53:02.870Z",
+      "insurance_plan": 3,
+      "medical_study": 1,
+      "price": 1000000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 14,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:19.698Z",
+      "updated_at": "2021-02-22T14:53:19.698Z",
+      "insurance_plan": 3,
+      "medical_study": 2,
+      "price": 500000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 15,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:53:41.119Z",
+      "updated_at": "2021-02-22T14:53:41.119Z",
+      "insurance_plan": 3,
+      "medical_study": 3,
+      "price": 700000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 16,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:01.862Z",
+      "updated_at": "2021-02-22T14:54:01.863Z",
+      "insurance_plan": 3,
+      "medical_study": 4,
+      "price": 400000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 17,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:17.151Z",
+      "updated_at": "2021-02-22T14:54:17.151Z",
+      "insurance_plan": 3,
+      "medical_study": 5,
+      "price": 300000.0,
+      "currency": 1
+    }
+  },
+  {
+    "model": "clinic.insuranceplanmedicalstudyfee",
+    "pk": 18,
+    "fields": {
+      "deleted_at": null,
+      "created_at": "2021-02-22T14:54:33.826Z",
+      "updated_at": "2021-02-22T14:54:33.827Z",
+      "insurance_plan": 3,
+      "medical_study": 6,
+      "price": 1500000.0,
+      "currency": 1
+    }
+  }
+]

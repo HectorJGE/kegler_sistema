@@ -1,0 +1,55 @@
+[
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 1,
+    "fields": {
+      "deleted_at": null,
+      "name": "Radiografo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 2,
+    "fields": {
+      "deleted_at": null,
+      "name": "Tomografo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 3,
+    "fields": {
+      "deleted_at": null,
+      "name": "Resonador Magnético Nuclear",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 4,
+    "fields": {
+      "deleted_at": null,
+      "name": "Ecógrafo",
+      "equipment_type_code": "ECO1",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  },
+  {
+    "model": "clinic.medicalequipmenttype",
+    "pk": 5,
+    "fields": {
+      "deleted_at": null,
+      "name": "Mamógrafo",
+      "equipment_type_code": "",
+      "created_at": "2021-01-01 10:00:00",
+      "updated_at": "2021-01-01 10:00:00"
+    }
+  }
+]

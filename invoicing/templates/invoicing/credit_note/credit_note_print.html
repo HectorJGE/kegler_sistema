@@ -1,0 +1,494 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SISTEMA IRIBAS</title>
+
+    <!-- Custom fonts for this template-->
+
+
+    <!-- Custom styles for this template-->
+
+    {% block extra_css %}
+        <link rel="stylesheet" href="{% static 'invoicing/css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paper-css/0.4.1/paper.css">
+    {% endblock %}
+
+</head>
+<body class="legal">
+
+<!-- Wrapper -->
+<section id="wrapper" style=" display: flex; flex-direction: column; align-items: stretch; height: 100%; " class="sheet padding-10mm">
+    <div id="invoice">
+        <!--- Header -->
+    <div class ="topspace">&nbsp;</div>
+    <div id="header" style="
+    display: flex;
+">
+        <div class="" style="flex: auto;">
+               <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        {% if credit_note.credit_note_date %}
+                            {{ credit_note.credit_note_date|date:'d/m/Y' }}
+                        {% else %}
+                            ____/____/____
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        {{ credit_note.client_name }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        {{ credit_note.client_tax_identification_number }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    {% if credit_note.payment_term == "CREDITO" %}
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X</td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X
+                        </td>
+                    {% endif %}
+
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="space">&nbsp</div>
+    <!-- End Header -->
+    <!-- Details -->
+    <div class="details-table">
+        {% if details %}
+            {% for detail in details %}
+                <div class="details">
+                    <div class="detail quantity">{{ detail.quantity }}</div>
+                    <div class="detail description">{{ detail.description }}</div>
+                    <div class="detail unit_price">{{ detail.unit_price|floatformat:"0"|intcomma }}</div>
+                    <div class="detail exempt">{{ detail.exempt|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_5">{{ detail.tax_5|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_10">{{ detail.tax_10|floatformat:"0"|intcomma }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+    <!-- End Details -->
+    <!-- Subtotal and Taxes -->
+    <div class="subtotal-taxes">
+        <div class="container">
+            <div class="coldata subtotal">{{ credit_note.subtotal|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata blankspace">&nbsp;</div>
+            <div class="coldata total-letter">{{ credit_note.credit_note_total_letters }}</div>
+            <div class="coldata subtotal">{{ credit_note.credit_note_total|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata tax-5">{{ credit_note.total_tax5|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-10">{{ credit_note.total_tax10|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-total">{{ credit_note.total_tax|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+    </div>
+    <div class="blank">&nbsp;</div>
+    </div>
+    <div id="invoice">
+        <!--- Header -->
+    <div class="middlespace"></div>
+    <div class="bigspace"></div>
+    <div id="header" style="
+    display: flex;
+">
+        <div class="" style="flex: auto;">
+               <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        {% if credit_note.credit_note_date %}
+                            {{ credit_note.credit_note_date|date:'d/m/Y' }}
+                        {% else %}
+                            ____/____/____
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        {{ credit_note.client_name }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        {{ credit_note.client_tax_identification_number }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    {% if credit_note.payment_term == "CREDITO" %}
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X</td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X
+                        </td>
+                    {% endif %}
+
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="space">&nbsp</div>
+    <div class="blank"></div>
+    <!-- End Header -->
+    <!-- Details -->
+    <div class="details-table">
+        {% if details %}
+            {% for detail in details %}
+                <div class="details">
+                    <div class="detail quantity">{{ detail.quantity }}</div>
+                    <div class="detail description">{{ detail.description }}</div>
+                    <div class="detail unit_price">{{ detail.unit_price|floatformat:"0"|intcomma }}</div>
+                    <div class="detail exempt">{{ detail.exempt|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_5">{{ detail.tax_5|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_10">{{ detail.tax_10|floatformat:"0"|intcomma }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+    <!-- End Details -->
+    <!-- Subtotal and Taxes -->
+    <div class="subtotal-taxes">
+        <div class="container">
+            <div class="coldata subtotal">{{ credit_note.subtotal|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata blankspace">&nbsp;</div>
+            <div class="coldata total-letter">{{ credit_note.credit_note_total_letters }}</div>
+            <div class="coldata subtotal">{{ credit_note.credit_note_total|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata tax-5">{{ credit_note.total_tax5|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-10">{{ credit_note.total_tax10|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-total">{{ credit_note.total_tax|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+    </div>
+    <div class="bigspace"></div>
+    </div>
+    <div id="invoice">
+        <!--- Header -->
+    <div class="endspace"></div>
+    <div></div>
+    <div id="header" style="
+    display: flex;
+">
+        <div class="" style="flex: auto;">
+               <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        {% if credit_note.credit_note_date %}
+                            {{ credit_note.credit_note_date|date:'d/m/Y' }}
+                        {% else %}
+                            ____/____/____
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        {{ credit_note.client_name }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        &nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        {{ credit_note.client_tax_identification_number }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-4" style="
+    flex: 1;
+">
+            <table>
+                <tbody>
+                <tr>
+                    <td>&nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;
+                        &nbsp;&nbsp;&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    {% if credit_note.payment_term == "CREDITO" %}
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        </td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X</td>
+                    {% else %}
+                        <td>&nbsp;</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            X
+                        </td>
+                    {% endif %}
+
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="space">&nbsp</div>
+    <!-- End Header -->
+    <!-- Details -->
+    <div class="details-table">
+        {% if details %}
+            {% for detail in details %}
+                <div class="details">
+                    <div class="detail quantity">{{ detail.quantity }}</div>
+                    <div class="detail description">{{ detail.description }}</div>
+                    <div class="detail unit_price">{{ detail.unit_price|floatformat:"0"|intcomma }}</div>
+                    <div class="detail exempt">{{ detail.exempt|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_5">{{ detail.tax_5|floatformat:"0"|intcomma }}</div>
+                    <div class="detail tax_10">{{ detail.tax_10|floatformat:"0"|intcomma }}</div>
+                </div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+    </div>
+    <!-- End Details -->
+    <!-- Subtotal and Taxes -->
+    <div class="subtotal-taxes">
+        <div class="container">
+            <div class="coldata subtotal">{{ credit_note.subtotal|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata blankspace">&nbsp;</div>
+            <div class="coldata total-letter">{{ credit_note.credit_note_total_letters }}</div>
+            <div class="coldata subtotal">{{ credit_note.credit_note_total|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+        <div class="container">
+            <div class="coldata tax-5">{{ credit_note.total_tax5|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-10">{{ credit_note.total_tax10|floatformat:"0"|intcomma }} Gs.</div>
+            <div class="coldata tax-total">{{ credit_note.total_tax|floatformat:"0"|intcomma }} Gs.</div>
+        </div>
+    </div>
+    <div class="bigspace"></div>
+    </div>
+</section>
+<!-- End Wrapper -->
+
+</body>
+</html>
+<script type="text/javascript">
+    window.print();
+</script>

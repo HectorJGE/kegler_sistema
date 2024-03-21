@@ -1,0 +1,198 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>FACTURA {{ invoice_header.invoice_number }}</title>
+
+  <!-- Custom styles for this template-->
+  <style>
+      * {
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          font-size: 13px;
+          font-family: Arial !important;
+      }
+
+      @page {
+          size: A4;
+          margin: 0;
+      }
+
+      @media print {
+
+          html,
+          body {
+
+          }
+
+          th {
+              background-color: lightgrey !important;
+              print-color-adjust: exact;
+          }
+
+          .page {
+              margin: 0;
+              border: initial;
+              border-radius: initial;
+              width: initial;
+              min-height: initial;
+              box-shadow: initial;
+              background: initial;
+              page-break-after: avoid;
+          }
+      }
+  </style>
+
+</head>
+
+<body style="height: 99vh; display: flex; flex-direction: column;">
+<header style="display: flex; flex-direction: row; border: 1px solid black; padding: 1vh">
+  <div style="flex: 1">
+    <img src="{{ invoice_header.company.sifen_logo }}" alt="Logo" height="100"
+         style="padding-top: 10px; padding-bottom: 10px;">
+  </div>
+  <div style="flex: 1"></div>
+  <div style="flex: 1;">
+    <span>RUC: {{ invoice_header.company.sifen_ruc }}</span><br>
+    <span>Timbrado Nro: {{ invoice_header.company.sifen_stamp_number }}</span><br>
+    <span>Fecha de Vigencia: {{ invoice_header.company.sifen_stamp_date|date:'d/m/Y' }}</span><br>
+    <span><b>Factura Electrónica</b></span><br>
+    <span>Nro: {{ invoice_header.invoice_number }}</span><br>
+  </div>
+  <div id="datos_empresa_div" style="flex: 1">
+    <span> {{ invoice_header.company }}</span><br>
+    <span> {{ invoice_header.company.sifen_establishment_direction }}</span><br>
+    <span> {{ invoice_header.company.sifen_establishment_department_description }}</span><br>
+    <span> {{ invoice_header.company.sifen_establishment_city_description }}</span><br>
+    <span> {{ invoice_header.company.sifen_establishment_phone }}</span><br>
+    <span> {{ invoice_header.company.sifen_establishment_email }}</span><br>
+  </div>
+</header>
+
+<header style="display: flex; flex-direction: row; border: 1px solid black; margin-top: 1vh; padding: 1vh">
+  <div style="flex: 1; ">
+    <span><b>Fecha y Hora de Emisión:</b> {{ invoice_header.invoice_date|date:'d/m/Y' }}</span><br>
+    <span><b>Condición Venta:</b> {{ invoice_header.get_payment_term_display }}</span><br>
+    <span><b>Moneda:</b> {{ invoice_header.currency }}</span><br>
+    <span><b>Tipo Cambio:</b> -- </span><br>
+    <span><b>Tipo Operación:</b> Prestación de servicios </span><br>
+  </div>
+  <div style="flex: 1; ">
+    <span><b>RUC:</b> {{ invoice_header.customer.customer_tax_id_number }}</span><br>
+    <span><b>Razón Social:</b> {{ invoice_header.customer.customer_name }}</span><br>
+    <span><b>Dirección:</b> {{ invoice_header.customer.customer_address }}</span><br>
+    <span><b>Telefono:</b> {{ invoice_header.customer.customer_phone_number }}</span><br>
+    <span><b>Código Cliente:</b> {{ invoice_header.customer.id }}</span><br>
+  </div>
+</header>
+<!-- Wrapper -->
+<section style="flex: auto; display: flex; flex-direction: column; margin-top: 1vh">
+  <table border="1px solid black"
+         style="border: #0a0a0a solid 1px; border-collapse: collapse; flex: 1;" width="100%">
+    <thead>
+    <tr>
+      <th style="font-weight: normal" width="8%" rowspan="2">Código</th>
+      <th style="font-weight: normal" width="40%" rowspan="2">Descripción</th>
+      <th style="font-weight: normal" width="6%" rowspan="2">Cant</th>
+      <th style="font-weight: normal" width="8%" rowspan="2">Precio<br>Unitario</th>
+      <th style="font-weight: normal" width="8%" rowspan="2">Desc.</th>
+      <th style="font-weight: normal" width="30%" colspan="3" scope="colgroup">Valor de venta</th>
+    </tr>
+    <tr>
+      <th style="font-weight: normal" width="10%" scope="col">Exentas</th>
+      <th style="font-weight: normal" width="10%" scope="col">5%</th>
+      <th style="font-weight: normal" width="10%" scope="col">10%</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for invoice_detail in invoice_header.invoice_details.all %}
+      <tr>
+        <!-- codigo agregar luego -->
+        <td style=" text-align: center; vertical-align: top;">
+        </td>
+        <td style="padding-left: 10px; vertical-align: top;">{{ invoice_detail.description }} {{ invoice_detail.description }}</td>
+        <td style="text-align: center; vertical-align: top;">{{ invoice_detail.quantity }}</td>
+        <td style="text-align: center; vertical-align: top;">{{ invoice_detail.unit_price|floatformat:"0"|intcomma }}</td>
+        <!-- descuento agregar luego -->
+        <td style="text-align: center; vertical-align: top;">0</td>
+        <td style="text-align: center; vertical-align: top;">{{ invoice_detail.exempt|floatformat:"0"|intcomma }}</td>
+        <td style="text-align: center; vertical-align: top;">{{ invoice_detail.tax_5|floatformat:"0"|intcomma }}</td>
+        <td style="text-align: center; vertical-align: top;">{{ invoice_detail.tax_10|floatformat:"0"|intcomma }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <div style="border: 1px solid black; border-top: 0px">
+    <table style="border-collapse: collapse;" width="100%">
+      <tfoot>
+      <tr>
+        <td width="68%">SUB-TOTAL</td>
+        <td width="8%" style="text-align: right;"></td>
+        <td width="8%" style="text-align: right;"></td>
+        <td width="8%" style="text-align: right;"></td>
+        <td width="8%" style="text-align: right;">{{ invoice_header.subtotal|floatformat:"0"|intcomma }}</td>
+      </tr>
+      </tfoot>
+    </table>
+    <table style=" border-collapse: collapse;" width="100%">
+      <tfoot>
+      <tr>
+        <th style="text-align: left; font-weight: normal">TOTAL DE LA OPERACIÓN</th>
+        <th colspan="8"
+            style="text-align: right; font-weight: normal">{{ invoice_header.invoice_total|floatformat:"0"|intcomma }}</th>
+      </tr>
+      <tr>
+        <th style="text-align: left; font-weight: normal">TOTAL LETRAS</th>
+        <th colspan="8"
+            style="text-align: right; font-weight: normal">{{ invoice_header.invoice_total_letters }}</th>
+      </tr>
+      <tr>
+        <th style="text-align: left; font-weight: normal">LIQUIDACIÓN IVA</th>
+        <th colspan="8">
+          <div class="gap_container" style="height: 100%;width: 100%;display: flex;">
+            <div style="width: 25%; font-weight: normal">
+              (5%): {{ invoice_header.total_tax5|floatformat:"0"|intcomma }}</div>
+            <div style="width: 25%; font-weight: normal">
+              (10%): {{ invoice_header.total_tax10|floatformat:"0"|intcomma }}</div>
+            <div style="width: 25%; font-weight: normal">TOTAL
+              IVA: {{ invoice_header.total_tax|floatformat:"0"|intcomma }}</div>
+          </div>
+        </th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</section>
+
+<footer style="display: flex; flex-direction: row; border: 1px solid black; margin-top: 1vh">
+    {% if invoice_header.invoice_cdc == None %}
+        <div id="datos_qr" style="flex: auto; padding-left: 10px;">
+            <p>FACTURA PRELIMINAR. LA FACTURA FINAL SERÁ ENVIADA A SU CORREO ELECTRÓNICO: {{ invoice_header.customer.customer_email }}</p>
+        </div>
+    {% else %}
+        <div style="max-width: 90px;max-height: 90px;width: 90px;height: 90px;margin: 20px;outline: 1px solid black;"></div>
+        <div id="datos_qr" style="flex: auto; padding-left: 10px;">
+            <p>Consulte la validez de esta Factura electrónica con el número de CDC en:</p>
+            <p style="font-weight: bold;">CDC: {{ invoice.header.invoice_cdc }}</p>
+            <p>ESTE DOCUMENTO ES UNA REPRESENTACIÓN GRÁFICA DE UN DOCUMENTO ELECTRÓNICO Y SERÁ ENVIADO A SU CORREO: {{ invoice_header.customer.customer_email }}
+              <br>Si su documento electrónico presenta algún error puede solicitar la modificación
+              dentro de las 72 horas siguientes en la emisión de este comprobante.</p>
+
+      </div>
+    {% endif %}
+
+</footer>
+<!-- End Wrapper -->
+
+</body>
+
+</html>
+<script type="text/javascript">
+    window.print();
+</script>

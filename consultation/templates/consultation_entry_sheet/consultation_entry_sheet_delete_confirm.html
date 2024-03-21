@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    <a href="{% url 'consultation_entry_sheet.list' %}">Fichas de Entradas</a>
+  </h1>
+{% endblock %}
+{% block content %}
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Eliminar Ficha de Entrada</h6>
+    </div>
+    <div class="card-body">
+      <p>Está Seguro que quiere eliminar esta ficha de Entrada? </p>
+      <span><b>{{ consultation_entry_sheet.patient }} - {{ consultation_entry_sheet.consultation_entry_date }}</b></span>
+      <br><br>
+      <form method="post" enctype="multipart/form-data" action="{% url 'consultation_entry_sheet.delete' consultation_entry_sheet.id %}">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger shadow-sm" value="Confirmar">
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_entry_sheet.detail' consultation_entry_sheet.id %}">Volver a Vista de Detalles</a>
+        <a class="btn btn-sm btn-light shadow-sm" href="{% url 'consultation_entry_sheet.update' consultation_entry_sheet.id %}">Volver a Vista de Edición</a>
+      </form>
+    </div>
+  </div>
+{% endblock %}

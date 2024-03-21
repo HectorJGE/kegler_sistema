@@ -1,0 +1,211 @@
+{% load static %}
+{% load utils %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>SISTEMA IRIBAS</title>
+
+  <!-- Custom fonts for this template-->
+
+
+  <!-- Custom styles for this template-->
+
+  {% block extra_css %}
+    <style>
+        .flex-container {
+            display: flex;
+            background-color: DodgerBlue;
+            flex-direction: column;
+            text-align: center;
+            height: 100vh;
+        }
+
+        .flex-container > div {
+            background-color: #f1f1f1;
+            margin: 10px;
+            padding: 20px;
+            font-size: 30px;
+            flex: 1;
+        }
+    </style>
+  {% endblock %}
+
+</head>
+<body style="margin: 0">
+
+<!-- Wrapper -->
+<div class="flex-container">
+  <div>
+    <label for="selected_device">Impresora Elegida:</label>
+    <select id="selected_device" onchange=onDeviceSelected(this);>
+    </select>
+    <br/><br/>
+    <label for="copies">Nro de Copias:</label>
+    <input type="number" id="copies" placeholder="Cantidad de copias" value="1">
+    <input type="button" value="Imprimir" onclick="print();"><br/><br/>
+    {{ consultation_sheet.medical_study }}
+    <br/><br/>
+    <input type="button" value="Cerrar Ventana de Impresión de Etiqueta" onclick="window.close();">
+  </div>
+  <div>
+    {{ consultation_sheet.patient.name|stripaccents }} {{ consultation_sheet.patient.last_name|stripaccents }}<br>
+    {{ consultation_sheet.patient.document_number|intcomma }}
+  </div>
+  <div>
+    {{ consultation_sheet.consultation_date|date:"d/m/Y" }}
+  </div>
+
+</div>
+<!-- End Wrapper -->
+</body>
+</html>
+<script type="text/javascript" src="{% static 'consultation/js/zebra_print/BrowserPrint-3.0.216.min.js' %}"></script>
+<script type="text/javascript">
+    /* Name */
+    var name_x = "{{ user_print_tag_configuration.name_x }}".replace(",", ".");
+    var name_y = "{{ user_print_tag_configuration.name_y }}".replace(",", ".");
+
+    /* Last Name */
+    var last_name_x = "{{ user_print_tag_configuration.last_name_x }}".replace(",", ".");
+    var last_name_y = "{{ user_print_tag_configuration.last_name_y }}".replace(",", ".");
+
+    /* Date */
+    var date_x = "{{ user_print_tag_configuration.date_x }}".replace(",", ".");
+    var date_y = "{{ user_print_tag_configuration.date_y }}".replace(",", ".");
+
+</script>
+<script type="text/javascript">
+    var selected_device;
+    var devices = [];
+
+    function setup() {
+        //Get the default device from the application as a first step. Discovery takes longer to complete.
+        BrowserPrint.getDefaultDevice("printer", function (device) {
+
+            //Add device to list of devices and to html select element
+            selected_device = device;
+            devices.push(device);
+
+            var html_select = document.getElementById("selected_device");
+            var option = document.createElement("option");
+            option.text = device.name;
+            html_select.add(option);
+
+            //Discover any other devices available to the application
+            BrowserPrint.getLocalDevices(function (device_list) {
+                for (var i = 0; i < device_list.length; i++) {
+                    //Add device to list of devices and to html select element
+                    var device = device_list[i];
+                    if (!selected_device || device.uid != selected_device.uid) {
+                        devices.push(device);
+                        var option = document.createElement("option");
+                        option.text = device.name;
+                        option.value = device.uid;
+                        html_select.add(option);
+                    }
+                }
+
+            }, function () {
+                alert("Error getting local devices")
+            }, "printer");
+
+        }, function (error) {
+            alert(error);
+        })
+    }
+
+    function getConfig() {
+        BrowserPrint.getApplicationConfiguration(function (config) {
+            alert(JSON.stringify(config))
+        }, function (error) {
+            alert(JSON.stringify(new BrowserPrint.ApplicationConfiguration()));
+        })
+    }
+
+    function writeToSelectedPrinter(dataToWrite) {
+        selected_device.send(dataToWrite, undefined, errorCallback);
+    }
+
+    var readCallback = function (readData) {
+        if (readData === undefined || readData === null || readData === "") {
+            alert("No Response from Device");
+        } else {
+            alert(readData);
+        }
+
+    }
+    var errorCallback = function (errorMessage) {
+        alert("Error: " + errorMessage);
+    }
+
+    function readFromSelectedPrinter() {
+
+        selected_device.read(readCallback, errorCallback);
+
+    }
+
+    function getDeviceCallback(deviceList) {
+        alert("Devices: \n" + JSON.stringify(deviceList, null, 4))
+    }
+
+    function sendImage(imageUrl) {
+        url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+        url = url + "/" + imageUrl;
+        selected_device.convertAndSendFile(url, undefined, errorCallback)
+    }
+
+    function sendFile(fileUrl) {
+        url = window.location.href.substring(0, window.location.href.lastIndexOf("/"));
+        url = url + "/" + fileUrl;
+        selected_device.sendFile(url, undefined, errorCallback)
+    }
+
+    function onDeviceSelected(selected) {
+        for (var i = 0; i < devices.length; ++i) {
+            if (selected.value == devices[i].uid) {
+                selected_device = devices[i];
+                return;
+            }
+        }
+    }
+
+    window.onload = setup;
+</script>
+<script src="{% static 'build/vendor/jquery/jquery.min.js' %}"></script>
+<script type="text/javascript">
+    function print() {
+        alert('Imprimiendo Etiquetas!');
+        var copies =  $("#copies");
+        var number_of_copies;
+        if (copies.val() === "0" || copies.val() === ""){
+            number_of_copies = 1
+        } else {
+            number_of_copies = copies.val()
+        }
+        var zpl_data_to_print = "" +
+            "^XA" +
+            "^FX Main section" +
+            "^CFA,30" +
+            "^CI28" +
+            "^FH^FO"+ name_x + "," + name_y + "^FD{{ consultation_sheet.patient.name|stripaccents }} ^FS" +
+            "^FH^FO"+ last_name_x + "," + last_name_y + "^FD{{ consultation_sheet.patient.last_name|stripaccents }}^FS" +
+            //"^FH^FO150,110^FD{{ consultation_sheet.patient.document_number|intcomma }}^FS" +
+            "^FH^FO"+ date_x + "," + date_y + "^FD{{ consultation_sheet.consultation_date|date:"d/m/Y" }}^FS" +
+            "^PQ"+number_of_copies+
+            "^XZ";
+        console.log(zpl_data_to_print);
+        for (let i = 0; i < number_of_copies; i++) {
+            selected_device.send(zpl_data_to_print, undefined, errorCallback);
+        }
+
+    }
+</script>

@@ -1,0 +1,58 @@
+# pull official base image
+FROM python:3.8.3-alpine
+
+# set work directory
+WORKDIR /code
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Install linux dependencies
+RUN apk update && \
+    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/community >> /etc/apk/repositories && \
+    echo @3.10 http://nl.alpinelinux.org/alpine/v3.10/main >> /etc/apk/repositories && \
+    apk add --no-cache \
+    chromium@3.10=~73.0.3683.103 \
+    postgresql-dev \
+    gcc \
+    python3-dev \
+    musl-dev \
+    gettext \
+    jpeg-dev \
+    zlib-dev \
+    libjpeg \
+    tzdata \
+    chromium \
+    chromium-chromedriver \
+    npm \
+    vim
+
+# timezone configuration
+RUN echo "America/Asuncion" > /etc/timezone
+
+# cron jobs 664
+COPY crontab /etc/cron.d/iribas-crontab
+RUN chmod 0664 /etc/cron.d/iribas-crontab &&\
+    crontab /etc/cron.d/iribas-crontab
+
+# install dependencies
+RUN pip install --upgrade pip
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+
+# copy project
+COPY . /code/
+
+RUN ["chmod", "+x", "/code/midnight_scheduled_commands.sh"]
+RUN ["chmod", "+x", "/code/invoice_pdf_command.sh"]
+RUN ["chmod", "+x", "/code/invoice_dte_command.sh"]
+RUN ["chmod", "+x", "/code/invoice_html_command.sh"]
+RUN ["chmod", "+x", "/code/invoice_consult_sifen_batches_command.sh"]
+
+# run entrypoint.sh
+RUN ["chmod", "+x", "/code/entrypoint-local.sh"]
+
+RUN ["chmod", "+x", "/code/manage.py"]
+
+ENTRYPOINT ["/code/entrypoint-local.sh"]

@@ -1,0 +1,475 @@
+{% extends "layout.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Reportes
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTables Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Reporte Total Consolidado
+      </h6>
+      <br>
+      <form action="{% url 'reports.consultation_sheet_total_report_list' %}" method="get" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100">
+        {% csrf_token %}
+        {% for field in filter_form %}
+          {{ field|as_crispy_field }}
+          <br>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary" id="id_submit_button">Obtener Reporte</button>
+      </form>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+
+        <table class="table table-bordered" id="dataTable" style="width: 100%; border-spacing: 0">
+          <thead>
+          <tr style="text-align: center;">
+            <!-- 0 --><th>ID Ficha de Estudio</th>
+            <!-- 1 --><th>Fecha Hora</th>
+            <!-- 2 --><th>Paciente</th>
+            <!-- 3 --><th>Seguro</th>
+            <!-- 4 --><th>Estudio</th>
+            <!-- 5 --><th>Empresa</th>
+            <!-- 6 --><th>Sector</th>
+            <!-- 7 --><th>Equipo</th>
+            <!-- 8 --><th>Doctor</th>
+            <!-- 9 --><th>Doctor Informante</th>
+            <!-- 10 --><th>Doctor Tratante</th>
+            <!-- 11 --><th>Método de Pago</th>
+            <!-- 12 --><th>Arancel de Estudio</th>
+            <!-- 13 --><th>Total a pagar Estudio Seguro</th>
+            <!-- 14 --><th>Total a pagar Estudio Paciente</th>
+            <!-- 15 --><th>Total Insumos</th>
+            <!-- 16 --><th>Total a pagar Insumos Seguro</th>
+            <!-- 17 --><th>Total a Pagar Insumos Paciente</th>
+            <!-- 18 --><th>Total a pagar Paciente</th>
+            <!-- 19 --><th>Descuento</th>
+            <!-- 20 --><th>Total a pagar Paciente con Descuento</th>
+            <!-- 21 --><th>Total a pagar Seguro</th>
+            <!-- 22 --><th>Factura a Cliente Nro.</th>
+            <!-- 23 --><th>Factura a Seguro Nro.</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for cs in consultation_sheets %}
+
+            <tr style="text-align: center;">
+              <!-- 0 --><td>{{ cs.id }}</td>
+              <!-- 1 --><td>
+                <span style="display:none;">{{ cs.consultation_date|date:"U" }}</span>
+                {{ cs.consultation_date|date:"D d/m/Y H:i" }}
+              </td>
+              <!-- 2 --><td>
+                <a href="{% url 'patient.detail' cs.patient.id %}" target="_blank">
+                  {{ cs.patient }}
+                </a>
+              </td>
+              <!-- 3 --><td>
+                {{ cs.patient_insurance_plan }}
+              </td>
+              <!-- 4 --><td>
+                <a href="{% url 'consultation_sheet.detail' cs.id %}" target="_blank">
+                  {{ cs.medical_study }}
+                </a>
+              </td>
+              <!-- 5 --><td>{{ cs.medical_study.type }}</td>
+              <!-- 6 --><td>{{ cs.medical_study.sector }}</td>
+              <!-- 7 --><td>{{ cs.medical_equipment|default_if_none:"---" }}</td>
+              <!-- 8 --><td>{{ cs.doctor|default_if_none:"---" }}</td>
+              <!-- 9 --><td>{{ cs.reporting_doctor|default_if_none:"---" }}</td>
+              <!-- 10 --><td>{{ cs.treating_doctor|default_if_none:"---" }}</td>
+              <!-- 11 --><td>{{ cs.payment_method|default_if_none:"----" }}</td>
+              <!-- 12 --><td style="text-align: right">{{ cs.medical_study_ammount }}</td>
+              <!-- 13 --><td style="text-align: right">{{ cs.medical_study_ammount_to_pay_insurance }}</td>
+              <!-- 14 --><td style="text-align: right">{{ cs.medical_study_ammount_to_pay_patient }}</td>
+              <!-- 15 --><td style="text-align: right">{{ cs.medical_supplies_ammount }}</td>
+              <!-- 16 --><td style="text-align: right">{{ cs.medical_supplies_ammount_to_pay_insurance }}</td>
+              <!-- 17 --><td style="text-align: right">{{ cs.medical_supplies_ammount_to_pay_patient }}</td>
+              <!-- 18 --><td style="text-align: right">{{ cs.total_ammount_to_pay_patient }}</td>
+              <!-- 19 --><td style="text-align: right">{{ cs.discount }}</td>
+              <!-- 20 --><td style="text-align: right">{{ cs.total_ammount_to_pay_patient_with_discount }}</td>
+              <!-- 21 --><td style="text-align: right">{{ cs.total_ammount_to_pay_insurance }}</td>
+              <!-- 22 --><td style="text-align: right">
+                {% if cs.consultation_entry_sheet.invoice is None %}
+                    <b>Sin Factura a Cliente</b>
+                {% else %}
+                    <a href="{% url 'invoice_detail' cs.consultation_entry_sheet.invoice.id %}" target="_blank">
+                        {{ cs.consultation_entry_sheet.invoice }}
+                    </a>
+                {% endif %}
+              </td>
+              <!-- 23 --><td style="text-align: right">
+                    {% if cs.consultation_entry_sheet.insurance_invoice is None %}
+                        <b>Sin Factura a Seguro</b>
+                    {% else %}
+                        <a href="{% url 'invoice_detail' cs.consultation_entry_sheet.insurance_invoice.id %}" target="_blank">
+                            {{ cs.consultation_entry_sheet.insurance_invoice }}
+                        </a>
+                    {% endif %}
+              </td>
+
+            </tr>
+          {% endfor %}
+          </tbody>
+          <tfoot style="text-align: right">
+          <!-- 11 --><th colspan="12"></th>
+          <!-- 12 --><th></th>
+          <!-- 13 --><th></th>
+          <!-- 14 --><th></th>
+          <!-- 15 --><th></th>
+          <!-- 16 --><th></th>
+          <!-- 17 --><th></th>
+          <!-- 18 --><th></th>
+          <!-- 19 --><th></th>
+          <!-- 20 --><th></th>
+          <!-- 21 --><th></th>
+          <!-- 22 --><th></th>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link type="text/css" href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script type="text/javascript" src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/moment/moment.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/jquery-datetimepicker/jquery.datetimepicker.full.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'base/js/utils.js' %}"></script>
+  <script type="text/javascript" src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+  <script src="{% static 'build/vendor/jquery-mask-plugin/jquery.mask.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+      $(function () {
+          /* Chosen */
+          $('select').chosen();
+
+          /* Datetime picker */
+          jQuery.datetimepicker.setLocale('es');
+
+          /* Se inicializa el datatables */
+          $('#dataTable').DataTable(
+              /* Archivo de traducción */
+              {
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      {type: "numeric-comma", targets: [0, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]},
+                      {
+                          data: "Arancel de Estudio",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 12
+
+                      },
+                      {
+                          data: "Total a pagar Estudio Seguro",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 13
+
+                      },
+                      {
+                          data: "Total a pagar Estudio Paciente",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 14
+
+                      },
+                      {
+                          data: "Total Insumos",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 15
+
+                      },
+                      {
+                          data: "Total a pagar Insumos Seguro",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 16
+
+                      },
+                      {
+                          data: "Total a pagar Insumos Paciente",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 17
+
+                      },
+                      {
+                          data: "Total a pagar Paciente",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 18
+
+                      },
+                      {
+                          data: "Descuento",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 19
+
+                      },
+                      {
+                          data: "Total a pagar Paciente con Descuento",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 20
+
+                      },
+                      {
+                          data: "Total a pagar Seguro",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 21
+
+                      },
+                  ],
+                  "footerCallback": function (row, data, start, end, display) {
+                      var api = this.api(), data;
+
+                      var number_format = $.fn.dataTable.render.number('.', ',', 1, '', '').display;
+
+                      // converting to interger to find total
+                      var intVal = function (i) {
+                          return typeof i === 'string' ?
+                              i.replace(/[\$,]/g, '') * 1 :
+                              typeof i === 'number' ?
+                                  i : 0;
+                      };
+
+                      // computing column Total of the complete result
+                      var estudio = api
+                          .column(12)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var estudio_a_pagar_seguro = api
+                          .column(13)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var estudio_a_pagar_paciente = api
+                          .column(14)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var materiales = api
+                          .column(15)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var materiales_a_pagar_seguro = api
+                          .column(16)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var materiales_a_pagar_paciente = api
+                          .column(17)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var total_a_pagar_paciente = api
+                          .column(18)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var descuento = api
+                          .column(19)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var total_a_pagar_paciente_con_descuento = api
+                          .column(20)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+                      var total_pagado_seguro = api
+                          .column(21)
+                          .data()
+                          .reduce(function (a, b) {
+                              let sum = parseFloat(a) + parseFloat(b);
+                              return sum
+                          }, 0);
+
+
+                      // Update footer by showing the total with the reference of the column index
+                      $(api.column(0).footer()).html('Totales:');
+                      $(api.column(12).footer()).html(number_format(estudio));
+                      $(api.column(13).footer()).html(number_format(estudio_a_pagar_seguro));
+                      $(api.column(14).footer()).html(number_format(estudio_a_pagar_paciente));
+                      $(api.column(15).footer()).html(number_format(materiales));
+                      $(api.column(16).footer()).html(number_format(materiales_a_pagar_seguro));
+                      $(api.column(17).footer()).html(number_format(materiales_a_pagar_paciente));
+                      $(api.column(18).footer()).html(number_format(total_a_pagar_paciente));
+                      $(api.column(19).footer()).html(number_format(descuento));
+                      $(api.column(20).footer()).html(number_format(total_a_pagar_paciente_con_descuento));
+                      $(api.column(21).footer()).html(number_format(total_pagado_seguro));
+                  },
+
+              }
+          );
+
+          /* Se inicializan los datetime picker de los filtros */
+          /* Si el campo de fecha no está vacío */
+          $('#id_date_time_start').mask("00/00/0000 00:00");
+          $('#id_date_time_end').mask("00/00/0000 00:00");
+
+          $('#id_date_time_start').click(function (){
+              $(this).select();
+          });
+          $('#id_date_time_end').click(function (){
+              $(this).select();
+          });
+
+          if ($("#id_date_time_start").val() !== '') {
+              var str_fecha = $("#id_date_time_start").val();
+              str_fecha = str_fecha.substring(0, 16);
+              $("#id_date_time_start").val(str_fecha);
+              var fecha_inicio = $("#id_date_time_start").val();
+
+              str_fecha = $("#id_date_time_end").val();
+              str_fecha = str_fecha.substring(0, 16);
+              $("#id_date_time_end").val(str_fecha);
+              var fecha_fin = $("#id_date_time_end").val();
+
+              var fecha_inicio_date = moment(fecha_inicio, 'DD/MM/YYYY HH:mm').toDate();
+              var fecha_fin_date = moment(fecha_fin, 'DD/MM/YYYY HH:mm').toDate();
+
+              /* Datetimepicker */
+              var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: fecha_inicio_date
+              });
+
+              var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: fecha_fin_date
+              });
+
+
+              /* Si el campo de fecha está vacío */
+          } else {
+              /* Datetimepicker */
+              var datetimepicker_start = $("#id_date_time_start").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: new Date()
+              });
+
+
+              var datetimepicker_end = $("#id_date_time_end").datetimepicker({
+                  i18n: {
+                      es: {
+                          months: [
+                              'Enero', 'Febrero', 'Marzo', 'Abril',
+                              'Mayo', 'Junio', 'Julio', 'Agosto',
+                              'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+                          ],
+                          dayOfWeek: [
+                              "Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa",
+                          ]
+                      }
+                  },
+                  lang: 'es',
+                  locale: 'es',
+                  format: 'd/m/Y H:i',
+                  inline: false,
+                  step: 15,
+                  defaultDate: new Date()
+              });
+
+          }
+
+      });
+
+  </script>
+
+
+{% endblock %}

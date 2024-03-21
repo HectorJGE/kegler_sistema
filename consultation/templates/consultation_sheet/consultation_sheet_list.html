@@ -1,0 +1,204 @@
+{% extends "layout.html" %}
+
+{% load static %}
+{% load humanize %}
+{% block heading %}
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">
+    Fichas de Estudios
+  </h1>
+
+{% endblock %}
+{% block content %}
+
+  <!-- DataTales Example -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Listado de Fichas de Estudios <a href="{% url 'consultation_entry_sheet.create' %}" class="btn btn-info btn-circle">
+        <i class="fas fa-plus"></i></a>
+      </h6>
+    </div>
+    <div class="card-body">
+      <form enctype="multipart/form-data" name="form_consultation_sheets" id="id_form_consultation_sheets" method="get" action="{% url 'consultation_entry_sheet.create' %}">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+            <tr style="text-align: center;">
+              <!--<th style="width:5%; text-align: center;" data-orderable="false" class="no-column-search"></th> -->
+              <th style="width:5%; text-align: center;" data-orderable="false" class="no-column-search">Acciones</th>
+              <th>ID</th>
+              <th>Fecha Hora</th>
+              <th>Paciente</th>
+              <th>Seguro</th>
+              <th>Estudio Médico</th>
+              <th>Doctor</th>
+              <th>Total a Pagar Seguro</th>
+              <th>Total a Pagar Paciente</th>
+              <th>Método de Pago</th>
+              <th>Nro. de Referencia de Pago</th>
+              <th>Doctor Tratante</th>
+              <th>Doctor Informante</th>
+              <th>Turno</th>
+              <th>Ficha de Entrada</th>
+              <th>Fecha para Entrega de Resultados (Interna)</th>
+              <th>Fecha para Entrega de Resultados (Paciente)</th>
+              <th>Estado</th>
+
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for consultation_sheet in consultation_sheets %}
+
+              <tr style="text-align: center;">
+                <td style="white-space: nowrap;">
+                  <a href="{% url 'consultation_sheet.detail'  consultation_sheet.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                  <a href="{% url 'consultation_sheet.update'  consultation_sheet.id %}" class="btn btn-info btn-circle">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                </td>
+                <!--
+                <td style="white-space: nowrap;">
+                  <input type="checkbox" name="consultation_sheet_ids" value="{{ consultation_sheet.id }}"
+                      {% if consultation_sheet.consultation_entry_sheet %}
+                         disabled
+                      {% endif %}
+                  >
+                </td>
+                -->
+                <td>
+                  {{ consultation_sheet.id }}
+                </td>
+                <td>
+                  <span style="display:none;">{{ consultation_sheet.consultation_date|date:"U" }}</span>
+                  {{ consultation_sheet.consultation_date|date:"l d/m/Y H:i" }}
+                </td>
+                <td>
+                  <a href="{% url 'patient.detail' consultation_sheet.patient.id %}">
+                    {{ consultation_sheet.patient }}
+                  </a>
+                </td>
+                <td>{{ consultation_sheet.patient_insurance_plan|default_if_none:"---" }}</td>
+                <td>{{ consultation_sheet.medical_study }}</td>
+                <td>{{ consultation_sheet.doctor|default_if_none:"---" }}</td>
+                <td style="text-align: right">{{ consultation_sheet.total_ammount_to_pay_insurance }}</td>
+                <td style="text-align: right">{{ consultation_sheet.total_ammount_to_pay_patient }}</td>
+                <td>{{ consultation_sheet.payment_method|default_if_none:"---" }}</td>
+                <td>{{ consultation_sheet.payment_reference|default_if_none:"---" }}</td>
+                <td>{{ consultation_sheet.treating_doctor|default_if_none:"---" }}</td>
+                <td>{{ consultation_sheet.reporting_doctor|default_if_none:"---" }}</td>
+                <td>
+                  {% if consultation_sheet.appointment %}
+                    <a href="{% url 'appointment.detail' consultation_sheet.appointment.id %}">
+                      Turno ID:{{ consultation_sheet.appointment.id }}<br> (Ver)
+                    </a>
+                  {% else %}
+                    ---
+                  {% endif %}
+                </td>
+                <td>
+                  {% if consultation_sheet.consultation_entry_sheet %}
+                    <a href="{% url 'consultation_entry_sheet.detail' consultation_sheet.consultation_entry_sheet.id %}">
+                      Ficha de Entrada ID:{{ consultation_sheet.consultation_entry_sheet.id }}<br> (Ver)
+                    </a>
+                  {% else %}
+                    ---
+                  {% endif %}
+                </td>
+                <td>
+                  {% if consultation_sheet.internal_results_delivery_date %}
+                    <span style="display:none;">{{ consultation_sheet.internal_results_delivery_date|date:"U" }}</span>
+                    {{ consultation_sheet.internal_results_delivery_date|date:"d/m/Y H:i" }}
+                  {% else %}
+                    {{ consultation_sheet.internal_results_delivery_date|default_if_none:"---" }}
+                  {% endif %}
+                </td>
+                <td>
+                  {% if consultation_sheet.patient_results_delivery_date %}
+                    <span style="display:none;">{{ consultation_sheet.patient_results_delivery_date|date:"U" }}</span>
+                    {{ consultation_sheet.patient_results_delivery_date|date:"d/m/Y H:i" }}
+                  {% else %}
+                    {{ consultation_sheet.patient_results_delivery_date|default_if_none:"---" }}
+                  {% endif %}
+                </td>
+                <td>{{ consultation_sheet.consultation_state }}</td>
+
+              </tr>
+            {% empty %}
+              <tr style="text-align: center;">
+                <td colspan="16">Sin Registros</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <!--
+        <div>
+          <select name="action" id="id_action">
+            <option value="">Seleccione una ficha y elija la acción a realizar</option>
+            <option value="group_consultation_sheets">Agrupar Fichas de Estudios y Crear Ficha de entrada</option>
+          </select>
+          <input class="btn-primary" type="submit" value="Realizar Acción"/>
+        </div>
+        -->
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block extra_css %}
+  <!-- Custom styles for this page -->
+  <link href="{% static 'build/vendor/chosen-js/chosen.min.css' %}" rel="stylesheet">
+  <link href="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block extra_js %}
+  <!-- Page level plugins -->
+  <script src="{% static 'build/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'build/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+  <script src="{% static 'base/js/datatables/numeric-comma.js' %}"></script>
+  <script src="{% static 'build/vendor/chosen-js/chosen.jquery.min.js' %}"></script>
+
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+
+      $(function () {
+          $('select').chosen();
+
+          $('#sidebarToggle').trigger('click');
+
+          /* Se inicializa el datatables */
+          $('#dataTable').DataTable(
+              /* Archivo de traducción */
+              {
+                  order: [[1, "desc"]],
+                  language: {
+                      url: "{% url 'datatables_translation' %}",
+                  },
+                  columnDefs: [
+                      {type: "numeric-comma", targets: [1, 7, 8]},
+                      {
+                          data: "Total a Pagar Seguro",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 7
+
+                      },
+                      {
+                          data: "Total a Pagar Paciente",
+                          render: $.fn.dataTable.render.number('.', ',', 1, '', ''),
+                          targets: 8
+
+                      },
+                  ],
+
+
+              }
+          );
+      });
+
+  </script>
+
+{% endblock %}
